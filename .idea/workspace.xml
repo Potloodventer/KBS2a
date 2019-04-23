@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cc498e77-49a1-4f05-a2d5-cf791ceff1bf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HMIStatusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HMIStatusGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HoofdschermGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HoofdschermGUI.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,16 +29,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/HoofdschermGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="64" column="30" selection-start-line="64" selection-start-column="30" selection-end-line="64" selection-end-column="30" />
+            <state relative-caret-position="209">
+              <caret line="65" column="30" lean-forward="true" selection-start-line="65" selection-start-column="30" selection-end-line="65" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2153#2154#0" expanded="true" />
-                <element signature="e#2189#2190#0" expanded="true" />
-                <element signature="e#2308#2309#0" expanded="true" />
-                <element signature="e#2343#2344#0" expanded="true" />
-                <element signature="e#2590#2591#0" expanded="true" />
-                <element signature="e#2614#2615#0" expanded="true" />
+                <element signature="e#2497#2498#0" expanded="true" />
+                <element signature="e#2574#2575#0" expanded="true" />
+                <element signature="e#2643#2644#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -49,8 +44,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/HMIStatusGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+            <state relative-caret-position="1482">
+              <caret line="78" column="41" selection-start-line="78" selection-start-column="41" selection-end-line="78" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,8 +84,8 @@
         <option value="$PROJECT_DIR$/src/TekenPanel.java" />
         <option value="$PROJECT_DIR$/src/hoofdSchermGUI.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/HoofdschermGUI.java" />
         <option value="$PROJECT_DIR$/src/HMIStatusGUI.java" />
+        <option value="$PROJECT_DIR$/src/HoofdschermGUI.java" />
       </list>
     </option>
   </component>
@@ -186,7 +181,7 @@
       <option name="presentableId" value="Default" />
       <updated>1555585190876</updated>
       <workItem from="1555585194922" duration="3028000" />
-      <workItem from="1556011993714" duration="7613000" />
+      <workItem from="1556011993714" duration="7922000" />
     </task>
     <task id="LOCAL-00001" summary="Alles samengevoegd">
       <created>1556012951709</created>
@@ -202,15 +197,21 @@
       <option name="project" value="LOCAL" />
       <updated>1556014664025</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="close troubles">
+      <created>1556020108912</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1556020108912</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10641000" />
+    <option name="totallyTimeSpent" value="10950000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25302014" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -221,7 +222,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49932885" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932885" visible="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -249,7 +250,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Alles samengevoegd" />
     <MESSAGE value="naam aangepast van klasse" />
-    <option name="LAST_COMMIT_MESSAGE" value="naam aangepast van klasse" />
+    <MESSAGE value="close troubles" />
+    <option name="LAST_COMMIT_MESSAGE" value="close troubles" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/startGui.java">
@@ -278,24 +280,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/HoofdschermGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="64" column="30" selection-start-line="64" selection-start-column="30" selection-end-line="64" selection-end-column="30" />
+        <state relative-caret-position="209">
+          <caret line="65" column="30" lean-forward="true" selection-start-line="65" selection-start-column="30" selection-end-line="65" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2153#2154#0" expanded="true" />
-            <element signature="e#2189#2190#0" expanded="true" />
-            <element signature="e#2308#2309#0" expanded="true" />
-            <element signature="e#2343#2344#0" expanded="true" />
-            <element signature="e#2590#2591#0" expanded="true" />
-            <element signature="e#2614#2615#0" expanded="true" />
+            <element signature="e#2497#2498#0" expanded="true" />
+            <element signature="e#2574#2575#0" expanded="true" />
+            <element signature="e#2643#2644#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/HMIStatusGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+        <state relative-caret-position="1482">
+          <caret line="78" column="41" selection-start-line="78" selection-start-column="41" selection-end-line="78" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
