@@ -7,7 +7,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
     private int roodAantal = 0, groenAantal = 0, blauwAantal = 0;
 
-    private JButton jbResultaat;
+    private JButton jbHome, jbResultaat;
     private JLabel jlRood, jlGroen, jlBlauw;
 
     private TekenPanel tekenPanel;
@@ -15,17 +15,22 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
     public HMIStatusGUI() {
 
-        hoofdschermGUI = new HoofdschermGUI();
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
-        setSize(hoofdschermGUI.getSchermBreedte(), hoofdschermGUI.getSchermHoogte());
+        setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         //setBackground(Color.DARK_GRAY);
-        setTitle("Visuele Weergave Robots");
+        setTitle("Status robots");
 
-        //Implementeerd het tekenpaneel
-        add(Box.createRigidArea(new Dimension(800, 50)));
         tekenPanel = new TekenPanel(this);
+        jbHome = new JButton("HOME");
+        jbHome.setPreferredSize(new Dimension(100, 30));
+
+        // voeg dit allemaal toe op het tekenpanel
+
+        add(jbHome);
+        add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() /2, 50)));
+        // tekenpanel
+        add(Box.createRigidArea(new Dimension(800, 50)));
         add(tekenPanel);
 
         setVisible(false);
@@ -62,11 +67,16 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         g.drawLine(500,210,700,210);
         //Onder
         g.drawLine(500,290,700,290);
-    }
 
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if (e.getSource() == jbHome) {
+            super.dispose();
+
+            HoofdschermGUI.setOpen(true);
+        }
     }
 }

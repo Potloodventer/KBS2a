@@ -5,7 +5,11 @@ import java.awt.event.ActionListener;
 
 public class HoofdschermGUI extends JFrame implements ActionListener {
 
-    private int schermBreedte = 1000, schermHoogte = 1000;
+    private static int schermBreedte = 900, schermHoogte = 800;
+    private int breedteMidden = schermBreedte / 2;
+    private int hoogteMidden = schermHoogte /15;
+
+    public static boolean open = true;
 
     JButton orderInladenJB;
     JButton robotStatusJB;
@@ -18,8 +22,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     public HoofdschermGUI() {
 
         setLayout(new FlowLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 400);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(schermBreedte /2, schermHoogte /2);
         setTitle("HMI Hoofdscherm");
 
         orderInladenJB = new JButton("Order inladen");
@@ -34,42 +38,49 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         startRobotJB.setPreferredSize(new Dimension(160, 30));
         stopRobotJB.setPreferredSize(new Dimension(160, 30));
 
-        add(Box.createRigidArea(new Dimension(200, 3)));
         orderInladenJB.addActionListener(this);
-        add(orderInladenJB);
-
-        add(Box.createRigidArea(new Dimension(200, 3)));
         robotStatusJB.addActionListener(this);
-        add(robotStatusJB);
-
-        add(Box.createRigidArea(new Dimension(200, 3)));
         alleProductenJB.addActionListener(this);
-        add(alleProductenJB);
-
-        add(Box.createRigidArea(new Dimension(200, 3)));
         startRobotJB.addActionListener(this);
-        add(startRobotJB);
-
-        add(Box.createRigidArea(new Dimension(200, 3)));
         stopRobotJB.addActionListener(this);
+
+        add(Box.createRigidArea(new Dimension(breedteMidden, 15)));  // lege Box voor de indeling
+        add(orderInladenJB);
+        add(Box.createRigidArea(new Dimension(breedteMidden, 30)));
+        add(robotStatusJB);
+        add(Box.createRigidArea(new Dimension(breedteMidden, 30)));
+        add(alleProductenJB);
+        add(Box.createRigidArea(new Dimension(breedteMidden, 30)));
+        add(startRobotJB);
+        add(Box.createRigidArea(new Dimension(breedteMidden, 30)));
         add(stopRobotJB);
 
-        setVisible(true);
+        setVisible(open);
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        open = false;
+
+        this.setVisible(open);
+
         if (e.getSource() == robotStatusJB) {
             hmiStatusGUI = new HMIStatusGUI();
             hmiStatusGUI.setVisible(true);
         }
+//kreng
     }
 
-    public int getSchermBreedte() {
+
+    public static int getSchermBreedte() {
         return schermBreedte;
     }
-    public int getSchermHoogte() {
+    public static int getSchermHoogte() {
         return schermHoogte;
+    }
+
+    public static void setOpen(boolean f) {
+        open = f;
     }
 }
