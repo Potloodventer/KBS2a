@@ -23,6 +23,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
         tekenPanel = new TekenPanel(this);
         jbHome = new JButton("HOME");
+        jbHome.addActionListener(this);
         jbHome.setPreferredSize(new Dimension(100, 30));
 
         // voeg dit allemaal toe op het tekenpanel
@@ -74,9 +75,10 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == jbHome) {
-            super.dispose();
+            this.setVisible(false);
+            new HoofdschermGUI().setVisible(true);
 
-            HoofdschermGUI.setOpen(true);
+
         }
     }
 }

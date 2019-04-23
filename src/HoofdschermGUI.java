@@ -61,11 +61,9 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        open = false;
-
-        this.setVisible(open);
 
         if (e.getSource() == robotStatusJB) {
+            this.setVisible(false);
             hmiStatusGUI = new HMIStatusGUI();
             hmiStatusGUI.setVisible(true);
         }
