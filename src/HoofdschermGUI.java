@@ -69,7 +69,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
             hmiStatusGUI = new HMIStatusGUI();
             hmiStatusGUI.setVisible(true);
         }
-
+//kreng
     }
 
 
