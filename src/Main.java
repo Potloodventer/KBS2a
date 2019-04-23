@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
 
-        hoofdSchermGUI hoofdScherm = new hoofdSchermGUI();
+        HoofdschermGUI hoofdScherm = new HoofdschermGUI();
         HMIStatusGUI hmiStatusGUI = new HMIStatusGUI();
 
     }

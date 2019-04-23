@@ -6,16 +6,20 @@ import java.awt.event.ActionListener;
 public class HMIStatusGUI extends JFrame implements ActionListener {
 
     private int roodAantal = 0, groenAantal = 0, blauwAantal = 0;
-    private int schermBreedte = 1000, schermHoogte = 1000;
+
     private JButton jbResultaat;
     private JLabel jlRood, jlGroen, jlBlauw;
+
     private TekenPanel tekenPanel;
+    private HoofdschermGUI hoofdschermGUI;
 
     public HMIStatusGUI() {
 
+        hoofdschermGUI = new HoofdschermGUI();
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
-        setSize(schermBreedte, schermHoogte);
+        setSize(hoofdschermGUI.getSchermBreedte(), hoofdschermGUI.getSchermHoogte());
         //setBackground(Color.DARK_GRAY);
         setTitle("Visuele Weergave Robots");
 
@@ -24,7 +28,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         tekenPanel = new TekenPanel(this);
         add(tekenPanel);
 
-        setVisible(true);
+        setVisible(false);
     }
 
     public void TekenBlueprint(Graphics g){
@@ -60,20 +64,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         g.drawLine(500,290,700,290);
     }
 
-
-    public int getSchermBreedte() {
-        return schermBreedte;
-    }
-    public void setSchermBreedte(int getal) {
-        schermBreedte = getal;
-    }
-
-    public int getSchermHoogte() {
-        return schermHoogte;
-    }
-    public void setSchermHoogte(int getal) {
-        schermHoogte = getal;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
