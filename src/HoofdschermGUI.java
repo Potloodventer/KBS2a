@@ -6,10 +6,6 @@ import java.awt.event.ActionListener;
 public class HoofdschermGUI extends JFrame implements ActionListener {
 
     private static int schermBreedte = 900, schermHoogte = 800;
-    private int breedteMidden = schermBreedte / 2;
-    private int hoogteMidden = schermHoogte /15;
-
-    public static boolean open = true;
 
     JButton orderInladenJB;
     JButton robotStatusJB;
@@ -18,6 +14,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     JButton stopRobotJB;
 
     HMIStatusGUI hmiStatusGUI;
+    VoorraadGUI voorraadGUI;
 
     public HoofdschermGUI() {
 
@@ -44,30 +41,52 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         startRobotJB.addActionListener(this);
         stopRobotJB.addActionListener(this);
 
-        add(Box.createRigidArea(new Dimension(breedteMidden, 15)));  // lege Box voor de indeling
+        add(Box.createRigidArea(new Dimension(schermBreedte / 2, 35)));  // lege Box voor de indeling
         add(orderInladenJB);
-        add(Box.createRigidArea(new Dimension(breedteMidden, 30)));
+        add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
         add(robotStatusJB);
-        add(Box.createRigidArea(new Dimension(breedteMidden, 30)));
+        add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
         add(alleProductenJB);
-        add(Box.createRigidArea(new Dimension(breedteMidden, 30)));
+        add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
         add(startRobotJB);
-        add(Box.createRigidArea(new Dimension(breedteMidden, 30)));
+        add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
         add(stopRobotJB);
 
-        setVisible(open);
+        setVisible(true);
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if (e.getSource() == orderInladenJB) {
+            // laad de order?
+        }
+
+            // laat de visuele weergave van de robot zien
+            // sluit het homescherm
         if (e.getSource() == robotStatusJB) {
             this.setVisible(false);
             hmiStatusGUI = new HMIStatusGUI();
             hmiStatusGUI.setVisible(true);
         }
-//kreng
+
+            // Laat pagina met alle producten zien
+        if (e.getSource() == alleProductenJB) {
+            this.setVisible(false);
+            voorraadGUI = new VoorraadGUI();
+            voorraadGUI.setVisible(true);
+        }
+
+            // Start de robots
+        if (e.getSource() == startRobotJB) {
+            // start de robots
+        }
+
+            // Stop de robots
+        if (e.getSource() == stopRobotJB) {
+            // stop beide robots
+        }
     }
 
 
@@ -76,9 +95,5 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     }
     public static int getSchermHoogte() {
         return schermHoogte;
-    }
-
-    public static void setOpen(boolean f) {
-        open = f;
     }
 }

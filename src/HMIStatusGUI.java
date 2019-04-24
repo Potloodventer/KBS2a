@@ -11,14 +11,12 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
     private JLabel jlRood, jlGroen, jlBlauw;
 
     private TekenPanel tekenPanel;
-    private HoofdschermGUI hoofdschermGUI;
 
     public HMIStatusGUI() {
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
-        //setBackground(Color.DARK_GRAY);
         setTitle("Status robots");
 
         tekenPanel = new TekenPanel(this);
@@ -26,8 +24,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         jbHome.addActionListener(this);
         jbHome.setPreferredSize(new Dimension(100, 30));
 
-        // voeg dit allemaal toe op het tekenpanel
-
+        // home knop
         add(jbHome);
         add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() /2, 50)));
         // tekenpanel
@@ -36,7 +33,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
         setVisible(false);
     }
-
+        // dit gaat nog weg
     public void TekenBlueprint(Graphics g){
         g.setColor(Color.RED);
         //boven band
@@ -68,17 +65,15 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         g.drawLine(500,210,700,210);
         //Onder
         g.drawLine(500,290,700,290);
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+            // Als op de homeknop gedrukt wordt sluit het scherm en opent het homescherm
         if (e.getSource() == jbHome) {
-            this.setVisible(false);
+            this.dispose();
             new HoofdschermGUI().setVisible(true);
-
-
         }
     }
 }
