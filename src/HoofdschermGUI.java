@@ -19,7 +19,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     public HoofdschermGUI() {
 
         setLayout(new FlowLayout());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(schermBreedte /2, schermHoogte /2);
         setTitle("HMI Hoofdscherm");
 
