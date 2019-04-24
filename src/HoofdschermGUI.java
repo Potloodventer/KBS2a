@@ -15,6 +15,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
     HMIStatusGUI hmiStatusGUI;
     VoorraadGUI voorraadGUI;
+    OrderInladenGUI orderInladenGUI;
 
     public HoofdschermGUI() {
 
@@ -61,6 +62,10 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
         if (e.getSource() == orderInladenJB) {
             // laad de order?
+            this.setVisible(false);
+            orderInladenGUI = new OrderInladenGUI();
+            orderInladenGUI.setVisible(true);
+
         }
 
             // laat de visuele weergave van de robot zien
