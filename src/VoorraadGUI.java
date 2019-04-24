@@ -67,7 +67,7 @@ public class VoorraadGUI extends JFrame implements ActionListener {
 
         // Als op de wijzigknop gedrukt wordt opent het product wijzigen scherm
         if (e.getSource() == jbWijzig) {
-            new ProductWijzigenDialog().setVisible(true);
+            new ProductWijzigenDialog(this).setVisible(true);
         }
 
 
