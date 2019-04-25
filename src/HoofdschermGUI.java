@@ -2,20 +2,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 public class HoofdschermGUI extends JFrame implements ActionListener {
 
     private static int schermBreedte = 1100, schermHoogte = 800;
 
-    JButton orderInladenJB;
-    JButton robotStatusJB;
-    JButton alleProductenJB;
-    JButton startRobotJB;
-    JButton stopRobotJB;
+    private JButton orderInladenJB;
+    private JButton robotStatusJB;
+    private JButton alleProductenJB;
+    private JButton startRobotJB;
+    private JButton stopRobotJB;
 
-    HMIStatusGUI hmiStatusGUI;
-    VoorraadGUI voorraadGUI;
-    OrderInladenGUI orderInladenGUI;
+    private HMIStatusGUI hmiStatusGUI;
+    private VoorraadGUI voorraadGUI;
+    private OrderInladenGUI orderInladenGUI;
+    private DatabaseHelper databaseHelper;
 
     public HoofdschermGUI() {
 
@@ -23,6 +25,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(schermBreedte /2, schermHoogte /2);
         setTitle("HMI Hoofdscherm");
+        databaseHelper = new DatabaseHelper();
+
 
         orderInladenJB = new JButton("Order inladen");
         robotStatusJB = new JButton("Status robots");
@@ -85,12 +89,37 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
             // Start de robots
         if (e.getSource() == startRobotJB) {
-            // start de robots
+            databaseHelper.openConnection();
+            String SQL = "SELECT * FROM temporders";
+            ResultSet rs = databaseHelper.selectQuery(SQL);
+            try{
+                rs.last();
+                int aantalRows = rs.getRow();
+                rs.beforeFirst();
+                if(aantalRows < 1)
+                {
+                    JOptionPane.showMessageDialog(this, "Je moet eerst 1 of meer orders inladen.");
+                    return;
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
+                    // Start de robots
+                    // Stuur aantal blokjes en kleur per order naar robots
+                }
+
+            }catch (Exception x)
+            {
+                x.printStackTrace();
+            }
+
+
         }
 
             // Stop de robots
         if (e.getSource() == stopRobotJB) {
             // stop beide robots
+
+            JOptionPane.showMessageDialog(this, "De robots worden gestopt.");
         }
     }
 

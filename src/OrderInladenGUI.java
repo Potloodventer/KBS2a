@@ -85,9 +85,10 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
         if(e.getSource() == jbInladen)
         {
 
-            int selectedOrder = jTable.getSelectedRow() + 1;
-            int aantalProducten = jTable2.getRowCount();
-            if(selectedOrder == -1 || selectedOrder == 0)
+            int selectedOrder = jTable.getSelectedRow() + 1; // Pak geselecteerde order in jTable en tel er 1 bij op
+            int aantalProducten = jTable2.getRowCount(); // Aantal producten in geselecteerde order
+
+            if(selectedOrder == -1 || selectedOrder == 0) // Als er geen order is geselecteerd
             {
                 JOptionPane.showMessageDialog(this, "Selecteer eerst een order alsjeblieft.");
                 return;
@@ -128,15 +129,17 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
 
     }
 
-    protected void handleSelectionEvent(ListSelectionEvent e) {
+    protected void handleSelectionEvent(ListSelectionEvent e) { // Functie om de producten van de geselecteerde order
+                                                                // te laten zien in de 2de jtable
         if (e.getValueIsAdjusting())
             return;
-        int selectedRow = jTable.getSelectedRow() + 1;
-        System.out.println(selectedRow);
-
+        int selectedRow = jTable.getSelectedRow() + 1; //  Pak geselecteerde orderid
+        // Gebruik order id om producten op te halen uit de database
         String SQL = String.format("SELECT X.StockItemID, X.Description, X.UnitPrice, X.Quantity FROM orders AS Z JOIN orderlines AS X ON Z.OrderID = X.OrderID WHERE X.OrderID = %S", selectedRow);
         ResultSet rs = databaseHelper.selectQuery(SQL);
 
+
+        // Zet de data van de database om in een jtable
         try {
             resultSetToTableModel(rs, jTable2);
         }catch (Exception x){
