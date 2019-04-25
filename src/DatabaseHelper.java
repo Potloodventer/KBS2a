@@ -4,7 +4,7 @@ public class DatabaseHelper {
 
     // Database informatie
 
-    private static final String DB_URL = "jdbc:mysql://localhost/wideworldimporters";
+    private static final String DB_URL = "jdbc:mysql://localhost/wideworldimporters?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "";
 
@@ -16,7 +16,7 @@ public class DatabaseHelper {
     public DatabaseHelper() // Registreer de driver in je java applicatie
     {
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
         }catch (Exception e)
         {
