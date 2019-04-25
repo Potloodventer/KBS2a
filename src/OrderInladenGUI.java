@@ -18,24 +18,40 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
     private JScrollPane jScrollPane;
     private JTable jTable2;
     private JScrollPane jScrollPane2;
+    private JButton jbInladen;
     private int iSelectedIndex = 0;
 
     public OrderInladenGUI() {
+        // Frame opties
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         setTitle("Voorraad");
 
+        // Buttons
         jbHome = new JButton("HOME");
         jbHome.addActionListener(this);
         jbHome.setPreferredSize(new Dimension(100, 30));
 
+        jbInladen = new JButton("INLADEN");
+        jbInladen.addActionListener(this);
+        jbInladen.setPreferredSize(new Dimension(100, 30));
+
         add(jbHome);
+        add(jbInladen);
+
+        add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2 + 170, 20)));
+
+
+        // Database connectie
         databaseHelper = new DatabaseHelper();
         databaseHelper.openConnection();
         ResultSet rs = databaseHelper.selectQuery("SELECT OrderID FROM orders ORDER BY OrderID");
+
+        // Tables
         jTable = new JTable();
         jScrollPane = new JScrollPane(jTable);
+
         jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel selectionModel = jTable.getSelectionModel();
         selectionModel.addListSelectionListener(new ListSelectionListener() {
@@ -56,10 +72,6 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
         add(jScrollPane);
         add(jScrollPane2);
 
-
-
-
-
     }
 
     @Override
@@ -70,7 +82,20 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
             this.dispose();
             new HoofdschermGUI().setVisible(true);
         }
+        if(e.getSource() == jbInladen)
+        {
+
+            int selectedOrder = jTable.getSelectedRow() + 1;
+            int aantalProducten = jTable2.getRowCount();
+            if(selectedOrder == -1 || selectedOrder == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Selecteer eerst een order alsjeblieft.");
+                return;
+            }
+            new OrderInladenDialog(selectedOrder, aantalProducten).setVisible(true);
+        }
     }
+
     protected void resultSetToTableModel(ResultSet rs, JTable table) throws SQLException { // Functie om resultset uit de database makkelijk in een JTable te verwerken
         // Maak nieuw tabel model aan
         DefaultTableModel tableModel = new DefaultTableModel();
@@ -106,15 +131,6 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
     protected void handleSelectionEvent(ListSelectionEvent e) {
         if (e.getValueIsAdjusting())
             return;
-
-        // e.getSource() returns an object like this
-        // javax.swing.DefaultListSelectionModel 1052752867 ={11}
-        // where 11 is the index of selected element when mouse button is released
-
-        String strSource= e.getSource().toString();
-        int start = strSource.indexOf("{")+1,
-                stop  = strSource.length()-1;
-        iSelectedIndex = Integer.parseInt(strSource.substring(start, stop));
         int selectedRow = jTable.getSelectedRow() + 1;
         System.out.println(selectedRow);
 
@@ -126,8 +142,6 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
         }catch (Exception x){
             x.printStackTrace();
         }
-
-
 
 
     }
