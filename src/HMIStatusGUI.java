@@ -1,7 +1,11 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class HMIStatusGUI extends JFrame implements ActionListener {
 
@@ -13,8 +17,9 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
     private JLabel jlRood, jlGroen, jlBlauw;
 
     private TekenPanel tekenPanel;
-
     private Timer timer;
+
+    private BufferedImage blauwdruk = null;
 
     public HMIStatusGUI() {
 
@@ -23,8 +28,17 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         setTitle("Status robots");
 
-        // timer met delay van 1 seconde
-        timer = new Timer(150, this);
+        //Kijken of plaatje bestaat anders wordt er een fout weergegeven
+        try {
+            blauwdruk = ImageIO.read(new File("src/Images/blauwdruk.png"));
+
+        } catch (IOException IOex){
+            System.out.println("Plaatje Niet gevonden");
+        }
+
+
+        // timer met delay van 1 milliseconde
+        timer = new Timer(1, this);
 
         tekenPanel = new TekenPanel(this);
 
@@ -63,9 +77,9 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
     public void beweegPijlen(Graphics g, String kleur){
         // stelt de kleur van de pijlen in
         if (kleur == null) {
+            g.setColor(Color.BLACK);
+        } else if (kleur == "groen") {
             g.setColor(Color.GREEN);
-        } else if (kleur == "blauw") {
-            g.setColor(Color.cyan);
         } else if (kleur == "rood") {
             g.setColor(Color.RED);
         } else if (kleur == "geel") {
@@ -79,29 +93,28 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
         for (int i = 1; i < 7; i++) {
             // aantal blokjes, hun positie en bewegen met stappen van pijlX
-            int x = (90 * i) + pijlX;
+            int x = (120 * i) + pijlX;
 
             // X punten van driehoek toevoegen aan array
-            xpoints[0] = x + 31;
-            xpoints[1] = x + 55;
-            xpoints[2] = x + 31;
-            // Y punten van driehoek toevoegen aan array
-            ypoints[0] = y - 15;
-            ypoints[1] = y + 10;
-            ypoints[2] = y + 35;
+            xpoints[0] = x + 31; // bovenste x punt driehoek
+            xpoints[1] = x + 55; // middelste x punt driehoek
+            xpoints[2] = x + 31; // onderste x punt driehoek
 
-            //print de x en y positie van de blokjes en de i van de loop
-            System.out.println(x * i + " " + y + " " + i);
-            System.out.println(timer);
+            // Y punten van driehoek toevoegen aan array
+            ypoints[0] = y - 15; // bovenste y punt driehoek
+            ypoints[1] = y + 10; // middelste y punt driehoek
+            ypoints[2] = y + 35; // onderste y punt driehoek
 
             // teken pijlbody
             g.fillRect(x, y, 30, 20);
             // teken pijlpunt
             g.fillPolygon(xpoints, ypoints, 3);
 
+            //g.drawImage(blauwdruk, 100, 100, null);
         }
+
         // verplaats de pijlen met een verandering van 20 naar rechts
-        pijlX += 20;
+        pijlX += 5;
     }
 
     @Override
