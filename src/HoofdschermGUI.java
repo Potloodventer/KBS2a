@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class HoofdschermGUI extends JFrame implements ActionListener {
 
-    private static int schermBreedte = 900, schermHoogte = 800;
+    private static int schermBreedte = 1100, schermHoogte = 800;
 
     JButton orderInladenJB;
     JButton robotStatusJB;
