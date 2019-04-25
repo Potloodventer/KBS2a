@@ -3,6 +3,7 @@ public class Main {
 
         HoofdschermGUI hoofdScherm = new HoofdschermGUI();
         HMIStatusGUI hmiStatusGUI = new HMIStatusGUI();
+        new HMIStatusGUI();
 
     }
 }
