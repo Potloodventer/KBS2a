@@ -47,7 +47,7 @@ public class VoorraadGUI extends JFrame implements ActionListener {
         // Gebruik de functie om een resultset in een jtable te plaatsen
 
         try {
-            resultSetToTableModel(rs, jTable);
+            OrderInladenDialogVerwijderen.resultSetToTableModel(rs, jTable);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -73,36 +73,5 @@ public class VoorraadGUI extends JFrame implements ActionListener {
 
     }
 
-    public void resultSetToTableModel(ResultSet rs, JTable table) throws SQLException { // Functie om resultset uit de database makkelijk in een JTable te verwerken
-        // Maak nieuw tabel model aan
-        DefaultTableModel tableModel = new DefaultTableModel();
-
-        // Ontvang metadata van de resultset
-        ResultSetMetaData metaData = rs.getMetaData();
-
-        // Aantal kolommen in resultset
-        int columnCount = metaData.getColumnCount();
-
-        // Pak alle tabelnamen uit metadata en voeg die aan tabel toe
-        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++){
-            tableModel.addColumn(metaData.getColumnLabel(columnIndex));
-        }
-
-        // Maak array de grootte van aantal kolommen
-        Object[] row = new Object[columnCount];
-
-        // Loop door de resultset
-        while (rs.next()){
-            for (int i = 0; i < columnCount; i++){
-                row[i] = rs.getObject(i+1);
-            }
-            // Voeg elke row toe aan de tabel
-            tableModel.addRow(row);
-        }
-
-        // Set de tabel voor de Jtable
-        table.setModel(tableModel);
-
-    }
 
 }
