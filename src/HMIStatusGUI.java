@@ -30,7 +30,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
         //Kijken of plaatje bestaat anders wordt er een fout weergegeven
         try {
-            blauwdruk = ImageIO.read(new File("src/Images/blauwdruk.png"));
+            blauwdruk = ImageIO.read(new File("src/Images/ResisedBlueprint.png"));
 
         } catch (IOException IOex){
             System.out.println("Plaatje Niet gevonden");
@@ -110,7 +110,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             // teken pijlpunt
             g.fillPolygon(xpoints, ypoints, 3);
             //Overzicht van de robot tekenen/plaatsen
-            //g.drawImage(blauwdruk, 100, 100, null);
+            g.drawImage(blauwdruk, 100, 100, null);
         }
 
         // verplaats de pijlen met een verandering van 20 naar rechts
