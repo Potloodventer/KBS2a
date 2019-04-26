@@ -50,7 +50,7 @@ public class OrderInladenDialogVerwijderen extends JDialog implements ActionList
 
         try{
             resultSetToTableModel(rs, jTable);
-        }catch (Exception e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }

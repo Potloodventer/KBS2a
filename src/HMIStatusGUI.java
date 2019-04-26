@@ -174,7 +174,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
         // wanneer op de resultaatknop wordt gedrukt gebeurd dit:
         if (e.getSource() == jbResultaat) {
-            new PakbonGUI(this).setVisible(true);
+            new BPPResultaatGUI(this).setVisible(true);
         }
 
         // Als op de homeknop gedrukt wordt het scherm gesloten en opent het homescherm
