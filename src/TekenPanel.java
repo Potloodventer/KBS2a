@@ -13,14 +13,15 @@ public class TekenPanel extends JPanel {
 
         setLayout(new FlowLayout());
         setPreferredSize(new Dimension(tekenPanelBreedte, tekenPanelHoogte));
-        setBackground(Color.DARK_GRAY);
+        setBackground(Color.white);
         setVisible(true);
     }
 
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        hmiStatusGUI.beweegPijlen(g, null); // null wordt: hmiStatusGUI.getKleur();
+        hmiStatusGUI.drawBlueprint(g);
+        hmiStatusGUI.moveArrows(g, null); // null wordt: hmiStatusGUI.getKleur();
 
     }
 }

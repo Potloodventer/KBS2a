@@ -9,12 +9,15 @@ import java.io.IOException;
 
 public class HMIStatusGUI extends JFrame implements ActionListener {
 
-    private int roodAantal = 0, groenAantal = 0, blauwAantal = 0, pijlX = 0;
+    private int aantalRood = 0, aantalGroen = 0, aantalGeel = 0;
+    private int pijlX = 0;
+    int[] xpoints = new int[3];
+    int[] ypoints = new int[3];
 
     private String kleur; // Hier moet de kleur inkomen die de sensor waarneemt
 
     private JButton jbHome, jbStart, jbStop, jbResultaat;
-    private JLabel jlRood, jlGroen, jlBlauw;
+    private JLabel jlRood, jlGroen, jlBlauw; // niet meer nodig
 
     private TekenPanel tekenPanel;
     private Timer timer;
@@ -51,11 +54,19 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         jbStart = new JButton("START");
         jbStart.addActionListener(this);
         jbStart.setPreferredSize(new Dimension(100, 30));
+        jbStart.setEnabled(true);
 
         //stopknop
         jbStop = new JButton("STOP");
         jbStop.addActionListener(this);
         jbStop.setPreferredSize(new Dimension(100, 30));
+        jbStop.setEnabled(false);
+
+        //resultaatknop
+        jbResultaat = new JButton("RESULTAAT");
+        jbResultaat.addActionListener(this);
+        jbResultaat.setPreferredSize(new Dimension(150, 30));
+        jbResultaat.setEnabled(false);
 
         // voeg dit allemaal toe
         add(Box.createRigidArea(new Dimension(45, 3)));
@@ -64,6 +75,8 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         add(jbStart);
         add(Box.createRigidArea(new Dimension(30, 3)));
         add(jbStop);
+        add(Box.createRigidArea(new Dimension(30, 3)));
+        add(jbResultaat);
         add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() /2, 20)));
         // tekenpanel
         add(Box.createRigidArea(new Dimension(800, 50)));
@@ -72,9 +85,27 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         setVisible(false);
     }
 
+    // getter voor de aantallen (kleur moet rood, geel of groen zijn)
+    public int getAantal(String kleur) {
+        if (kleur.equals("rood")) {
+            return aantalRood;
+        } else if (kleur.equals("groen")) {
+            return aantalGroen;
+        } else if (kleur == "geel") {
+            return aantalGeel;
+        } else {
+            return 404;
+        }
+    }
+
+    public void drawBlueprint(Graphics g) {
+        //Overzicht van de robot tekenen
+        g.drawImage(blauwdruk, 100, ypoints[0] - 70, null);
+    }
+
 
         // teken en beweeg de pijlen op de lopende band
-    public void beweegPijlen(Graphics g, String kleur){
+    public void moveArrows(Graphics g, String kleur){
         // stelt de kleur van de pijlen in
         if (kleur == null) {
             g.setColor(Color.BLACK);
@@ -88,8 +119,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
         int y = (HoofdschermGUI.getSchermHoogte() - 200) / 2;
         // aanmaken arrays voor de X en Y punten van driehoek (pijlpunt)
-        int[] xpoints = new int[3];
-        int[] ypoints = new int[3];
+
 
         for (int i = 1; i < 7; i++) {
             // aantal blokjes, hun positie en bewegen met stappen van pijlX
@@ -109,13 +139,13 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             g.fillRect(x, y, 30, 20);
             // teken pijlpunt
             g.fillPolygon(xpoints, ypoints, 3);
-            //Overzicht van de robot tekenen/plaatsen
-            g.drawImage(blauwdruk, 100, 100, null);
         }
 
         // verplaats de pijlen met een verandering van 20 naar rechts
         pijlX += 5;
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -129,12 +159,22 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
         // wanneer op de startknop wordt gedrukt gebeurd dit:
         if (e.getSource() == jbStart) {
+            jbStart.setEnabled(false);
+            jbStop.setEnabled(true);
             timer.start();
         }
 
         // wanneer op de stopknop wordt gedrukt gebeurd dit:
         if (e.getSource() == jbStop) {
+            jbStart.setEnabled(true);
+            jbStop.setEnabled(false);
+            jbResultaat.setEnabled(true);
             timer.stop();
+        }
+
+        // wanneer op de resultaatknop wordt gedrukt gebeurd dit:
+        if (e.getSource() == jbResultaat) {
+            new PakbonGUI(this).setVisible(true);
         }
 
         // Als op de homeknop gedrukt wordt het scherm gesloten en opent het homescherm
