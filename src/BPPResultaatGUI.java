@@ -6,9 +6,12 @@ import java.awt.event.ActionListener;
 public class BPPResultaatGUI extends JFrame implements ActionListener {
 
     private HMIStatusGUI hmiStatusGUI;
+    TekenPanelBPPResultaat tekenPanelBPPResultaat;
 
     private JLabel jlRood, jlGroen, jlGeel;
     private JButton jbPakbon;
+
+    private int aantalBins = 0; // int om bij te houden wanneer de bins een plek op moeten schuiven
 
     public BPPResultaatGUI(HMIStatusGUI hmiStatusGUI) {
         this.hmiStatusGUI = hmiStatusGUI;
@@ -17,6 +20,8 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         setLayout(new FlowLayout());
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         setTitle("BPP Resultaat");
+
+        tekenPanelBPPResultaat = new TekenPanelBPPResultaat(this);
 
         jbPakbon = new JButton("Pakbon");
         jbPakbon.addActionListener(this);
@@ -36,10 +41,30 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         // hier moeten de bakken komen voor alle groene blokjes ( rechts van jlGroen )
         add(jlGeel); //
 
+        add(tekenPanelBPPResultaat);
+
 
         setVisible(false);
     }
 
+
+    public void drawBins(Graphics g) {
+
+        for (int j = 2; j < 9; j += 2) {
+
+            for (int i = 1; i < 6; i++) {
+                int x1 = 100 * i;
+                int x2 = 100 * i; // als de dozen skeer gaan verderop dit aanpassen
+
+                int y1 = 50 * j;
+                int y2 = 100 * j;
+
+                g.drawLine(x1, y1, x2, y2); // linker lijn
+                g.drawLine(x1, y2, x1 + 80, y2); // onderste lijn
+                g.drawLine(x1 + 80, y1, x1 + 80, y2); // rechter lijn
+            }
+        }
+    }
 
 
     @Override

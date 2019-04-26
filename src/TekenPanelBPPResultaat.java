@@ -1,15 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class TekenPanel extends JPanel {
+public class TekenPanelBPPResultaat extends JPanel {
 
-    private HMIStatusGUI hmiStatusGUI;
     private int tekenPanelBreedte = HoofdschermGUI.getSchermBreedte() - 200;
     private int tekenPanelHoogte = HoofdschermGUI.getSchermHoogte() - 200;
 
-    public TekenPanel(HMIStatusGUI hmiStatusGUI) {
-        this.hmiStatusGUI = hmiStatusGUI;
+    private BPPResultaatGUI bppResultaatGUI;
 
+    public TekenPanelBPPResultaat(BPPResultaatGUI bppResultaatGUI) {
+        this.bppResultaatGUI = bppResultaatGUI;
 
         setLayout(new FlowLayout());
         setPreferredSize(new Dimension(tekenPanelBreedte, tekenPanelHoogte));
@@ -17,11 +17,9 @@ public class TekenPanel extends JPanel {
         setVisible(true);
     }
 
-
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        hmiStatusGUI.drawBlueprint(g);
-        hmiStatusGUI.moveArrows(g, null); // null wordt: hmiStatusGUI.getKleur();
-
+        bppResultaatGUI.drawBins(g);
     }
+
 }

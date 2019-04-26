@@ -17,9 +17,8 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
     private String kleur; // Hier moet de kleur inkomen die de sensor waarneemt
 
     private JButton jbHome, jbStart, jbStop, jbResultaat;
-    private JLabel jlRood, jlGroen, jlBlauw; // niet meer nodig
 
-    private TekenPanel tekenPanel;
+    private TekenPanelHMIStatus tekenPanelHMIStatus;
     private Timer timer;
 
     private BufferedImage blauwdruk = null;
@@ -43,8 +42,9 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         // timer met delay van 1 milliseconde
         timer = new Timer(1, this);
 
-        tekenPanel = new TekenPanel(this);
+        tekenPanelHMIStatus = new TekenPanelHMIStatus(this);
 
+        tekenPanelHMIStatus.add(new JLabel("HALOOOO"));
         //homeknop
         jbHome = new JButton("HOME");
         jbHome.addActionListener(this);
@@ -80,7 +80,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() /2, 20)));
         // tekenpanel
         add(Box.createRigidArea(new Dimension(800, 50)));
-        add(tekenPanel);
+        add(tekenPanelHMIStatus);
 
         setVisible(false);
     }
