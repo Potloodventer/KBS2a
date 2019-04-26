@@ -19,6 +19,7 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
     private JTable jTable2;
     private JScrollPane jScrollPane2;
     private JButton jbInladen;
+    private JButton jbVerwijderen;
     private int iSelectedIndex = 0;
 
     public OrderInladenGUI() {
@@ -37,9 +38,13 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
         jbInladen.addActionListener(this);
         jbInladen.setPreferredSize(new Dimension(100, 30));
 
+        jbVerwijderen = new JButton("INGELADEN ORDERS");
+        jbVerwijderen.addActionListener(this);
+        jbVerwijderen.setPreferredSize(new Dimension(180, 30));
+
         add(jbHome);
         add(jbInladen);
-
+        add(jbVerwijderen);
         add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2 + 170, 20)));
 
 
@@ -60,7 +65,7 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
             }
         });
         try {
-            resultSetToTableModel(rs, jTable);
+            OrderInladenDialogVerwijderen.resultSetToTableModel(rs, jTable);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -71,6 +76,10 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
 
         add(jScrollPane);
         add(jScrollPane2);
+
+
+
+
 
     }
 
@@ -95,39 +104,13 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
             }
             new OrderInladenDialog(selectedOrder, aantalProducten).setVisible(true);
         }
+
+        if(e.getSource() == jbVerwijderen)
+        {
+            new OrderInladenDialogVerwijderen().setVisible(true);
+        }
     }
 
-    protected void resultSetToTableModel(ResultSet rs, JTable table) throws SQLException { // Functie om resultset uit de database makkelijk in een JTable te verwerken
-        // Maak nieuw tabel model aan
-        DefaultTableModel tableModel = new DefaultTableModel();
-
-        // Ontvang metadata van de resultset
-        ResultSetMetaData metaData = rs.getMetaData();
-
-        // Aantal kolommen in resultset
-        int columnCount = metaData.getColumnCount();
-
-        // Pak alle tabelnamen uit metadata en voeg die aan tabel toe
-        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++){
-            tableModel.addColumn(metaData.getColumnLabel(columnIndex));
-        }
-
-        // Maak array de grootte van aantal kolommen
-        Object[] row = new Object[columnCount];
-
-        // Loop door de resultset
-        while (rs.next()){
-            for (int i = 0; i < columnCount; i++){
-                row[i] = rs.getObject(i+1);
-            }
-            // Voeg elke row toe aan de tabel
-            tableModel.addRow(row);
-        }
-
-        // Set de tabel voor de Jtable
-        table.setModel(tableModel);
-
-    }
 
     protected void handleSelectionEvent(ListSelectionEvent e) { // Functie om de producten van de geselecteerde order
                                                                 // te laten zien in de 2de jtable
@@ -141,7 +124,7 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
 
         // Zet de data van de database om in een jtable
         try {
-            resultSetToTableModel(rs, jTable2);
+            OrderInladenDialogVerwijderen.resultSetToTableModel(rs, jTable2);
         }catch (Exception x){
             x.printStackTrace();
         }
