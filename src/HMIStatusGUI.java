@@ -100,7 +100,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
     public void drawBlueprint(Graphics g) {
         //Overzicht van de robot tekenen
-        g.drawImage(blauwdruk, 100, ypoints[0] /*- 70*/, null);
+        g.drawImage(blauwdruk, 100, ypoints[0] - 150, null);
     }
 
 
