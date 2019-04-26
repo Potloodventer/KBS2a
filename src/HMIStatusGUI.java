@@ -109,7 +109,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             g.fillRect(x, y, 30, 20);
             // teken pijlpunt
             g.fillPolygon(xpoints, ypoints, 3);
-
+            //Overzicht van de robot tekenen/plaatsen
             //g.drawImage(blauwdruk, 100, 100, null);
         }
 
