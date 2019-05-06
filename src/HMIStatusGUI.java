@@ -11,6 +11,8 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
     private int aantalRood = 0, aantalGroen = 0, aantalGeel = 0;
     private int pijlX = 0;
+
+    private int upp = 0;
     int[] xpoints = new int[3];
     int[] ypoints = new int[3];
 
@@ -102,6 +104,10 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         add(tekenPanelHMIStatus);
 
         setVisible(false);
+    }
+
+    public int getUpp() {
+        return upp;
     }
 
     // getter voor de aantallen (kleur moet rood, geel of groen zijn)
@@ -248,7 +254,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         }
 
         // verplaats de pijlen met een verandering van 20 naar rechts
-        pijlX += 5;
+        pijlX += 3;
     }
 
     @Override
@@ -274,6 +280,13 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             jbStop.setEnabled(false);
             jbResultaat.setEnabled(true);
             timer.stop();
+
+            // testen van arm(en)
+            if (upp < 3) {
+                upp++;
+            } else {
+                upp = 1;
+            }
         }
 
         // wanneer op de resultaatknop wordt gedrukt gebeurd dit:
