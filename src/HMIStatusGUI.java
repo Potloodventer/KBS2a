@@ -34,7 +34,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         try {
             blauwdruk = ImageIO.read(new File("src/Images/ModelRobot2.jpg"));
 
-        } catch (IOException IOex){
+        } catch (IOException IOex) {
             System.out.println("Plaatje Niet gevonden");
         }
 
@@ -77,7 +77,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         add(jbStop);
         add(Box.createRigidArea(new Dimension(30, 3)));
         add(jbResultaat);
-        add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() /2, 20)));
+        add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 20)));
         // tekenpanel
         add(Box.createRigidArea(new Dimension(800, 50)));
         add(tekenPanelHMIStatus);
@@ -103,9 +103,30 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         g.drawImage(blauwdruk, 100, ypoints[0] - 150, null);
     }
 
+    public void drawServoArm(Graphics g, int nummer1, int nummer2) {
 
-        // teken en beweeg de pijlen op de lopende band
-    public void moveArrows(Graphics g, String kleur){
+        int[] xArm = new int[4];
+        int[] yArm = new int[4];
+        int[] xArm2 = new int[4];
+        int[] yArm2 = new int[4];
+
+        if (nummer1 == 1) {
+            xArm[0] = 100;
+            xArm[1] = 200;
+            xArm[2] = 120;
+            xArm[3] = 220;
+
+            yArm[0] = 100;
+            yArm[1] = 70;
+            yArm[2] = 300;
+            yArm[3] = 270;
+        }
+        g.setColor(Color.PINK);
+        g.drawPolygon(xArm,yArm,4);
+    }
+
+    // teken en beweeg de pijlen op de lopende band
+    public void moveArrows(Graphics g, String kleur) {
         // stelt de kleur van de pijlen in
         if (kleur == null) {
             g.setColor(Color.BLACK);
@@ -119,7 +140,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
         int y = (HoofdschermGUI.getSchermHoogte() - 200) / 2;
         // aanmaken arrays voor de X en Y punten van driehoek (pijlpunt)
-
 
         for (int i = 1; i < 7; i++) {
             // aantal blokjes, hun positie en bewegen met stappen van pijlX
@@ -144,8 +164,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         // verplaats de pijlen met een verandering van 20 naar rechts
         pijlX += 5;
     }
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
