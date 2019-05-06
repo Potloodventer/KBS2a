@@ -154,10 +154,10 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             xArm2[2] = 720;
             xArm2[3] = 710;
 
-            yArm2[0] = ;
-            yArm2[1] = ;
-            yArm2[2] = ;
-            yArm2[3] = ;
+            yArm2[0] = 100 ;
+            yArm2[1] = 100;
+            yArm2[2] = 100;
+            yArm2[3] = 100;
 
         }else if(nummer2 == 3){
             //Stand 3 van arm 2
@@ -166,10 +166,10 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             xArm2[2] = 720;
             xArm2[3] = 710;
 
-            yArm2[0] = ;
-            yArm2[1] = ;
-            yArm2[2] = ;
-            yArm2[3] = ;
+            yArm2[0] = 101;
+            yArm2[1] = 101;
+            yArm2[2] = 103;
+            yArm2[3] = 102;
 
         }else if(nummer2 == 4) {
             //Stand 4 van arm 2
@@ -178,10 +178,10 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             xArm2[2] = 720;
             xArm2[3] = 710;
 
-            yArm2[0] = ;
-            yArm2[1] = ;
-            yArm2[2] = ;
-            yArm2[3] = ;
+            yArm2[0] = 204;
+            yArm2[1] = 205;
+            yArm2[2] = 206;
+            yArm2[3] = 207;
         }
 
         g.setColor(Color.MAGENTA);
