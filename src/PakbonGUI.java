@@ -108,7 +108,7 @@ public class PakbonGUI extends JFrame implements ActionListener {
                 jScrollPane = new JScrollPane(jTable);
 
                 tabbedPane.add("Order " + orderNummers.get(i), jPanel);
-                //COMMIT2
+                //COMMIT3
                 String SQL = String.format("SELECT X.StockItemID, X.Description, X.UnitPrice, X.Quantity FROM orders AS Z JOIN orderlines AS X ON Z.OrderID = X.OrderID WHERE X.OrderID = %S", orderNummers.get(i));
                 ResultSet rs2 = databaseHelper.selectQuery(SQL);
 
