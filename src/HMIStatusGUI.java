@@ -32,7 +32,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
         //Kijken of plaatje bestaat anders wordt er een fout weergegeven
         try {
-            blauwdruk = ImageIO.read(new File("src/Images/ModelRobot2.jpg"));
+            blauwdruk = ImageIO.read(new File("src/Images/ModelRobot_2.0.png"));
 
         } catch (IOException IOex) {
             System.out.println("Plaatje Niet gevonden");
@@ -100,7 +100,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
     public void drawBlueprint(Graphics g) {
         //Overzicht van de robot tekenen
-        g.drawImage(blauwdruk, 100, ypoints[0] - 150, null);
+        g.drawImage(blauwdruk, 50, ypoints[0] - 150, null);
     }
 
     public void drawServoArm(Graphics g, int nummer1, int nummer2) {
@@ -111,18 +111,85 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         int[] yArm2 = new int[4];
 
         if (nummer1 == 1) {
-            xArm[0] = 100;
-            xArm[1] = 200;
-            xArm[2] = 120;
-            xArm[3] = 220;
+            //Stand 1 van arm 1
+            xArm[0] = 440;
+            xArm[1] = 450;
+            xArm[2] = 470;
+            xArm[3] = 460;
 
-            yArm[0] = 100;
-            yArm[1] = 70;
-            yArm[2] = 300;
-            yArm[3] = 270;
+            yArm[0] = 270;
+            yArm[1] = 270;
+            yArm[2] = 360;
+            yArm[3] = 360;
+
+        }else if(nummer1 == 2){
+            //Stand 2 van arm 1
+            xArm[0] = 440;
+            xArm[1] = 450;
+            xArm[2] = 570;
+            xArm[3] = 560;
+
+            yArm[0] = 280;
+            yArm[1] = 270;
+            yArm[2] = 290;
+            yArm[3] = 300;
         }
-        g.setColor(Color.PINK);
-        g.drawPolygon(xArm,yArm,4);
+
+        if(nummer2 == 1){
+            //Stand 1 van arm 2
+            xArm2[0] = 590;
+            xArm2[1] = 600;
+            xArm2[2] = 720;
+            xArm2[3] = 710;
+
+            yArm2[0] = 280;
+            yArm2[1] = 270;
+            yArm2[2] = 350;
+            yArm2[3] = 360;
+
+        }else if(nummer2 == 2){
+            //Stand 2 van arm 2
+            xArm2[0] = 590;
+            xArm2[1] = 600;
+            xArm2[2] = 720;
+            xArm2[3] = 710;
+
+            yArm2[0] = ;
+            yArm2[1] = ;
+            yArm2[2] = ;
+            yArm2[3] = ;
+
+        }else if(nummer2 == 3){
+            //Stand 3 van arm 2
+            xArm2[0] = 590;
+            xArm2[1] = 600;
+            xArm2[2] = 720;
+            xArm2[3] = 710;
+
+            yArm2[0] = ;
+            yArm2[1] = ;
+            yArm2[2] = ;
+            yArm2[3] = ;
+
+        }else if(nummer2 == 4) {
+            //Stand 4 van arm 2
+            xArm2[0] = 590;
+            xArm2[1] = 600;
+            xArm2[2] = 720;
+            xArm2[3] = 710;
+
+            yArm2[0] = ;
+            yArm2[1] = ;
+            yArm2[2] = ;
+            yArm2[3] = ;
+        }
+
+        g.setColor(Color.MAGENTA);
+        g.fillPolygon(xArm,yArm,4);
+        g.setColor(Color.GREEN);
+        g.fillPolygon(xArm2,yArm2,4);
+
+
     }
 
     // teken en beweeg de pijlen op de lopende band
