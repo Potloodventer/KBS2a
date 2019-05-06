@@ -11,12 +11,18 @@ public class PakbonGUI extends JFrame implements ActionListener {
     private DatabaseHelper databaseHelper;
 
     private ArrayList<String> orderNummers;
+    private ArrayList<String> orderKleuren;
 
     private int aantalOrders;
     private JTabbedPane tabbedPane;
     private JTable jTable;
     private JPanel jPanel;
     private JScrollPane jScrollPane;
+
+    private JLabel klantNaam, klantTelefoon, klantPostcode, klantAdres, klantId;
+    private JLabel orderKleur, aantalDozen, doosVolume;
+    private JLabel orderInfo, klantInfo, productInfo;
+
 
     public PakbonGUI() {
 
@@ -25,6 +31,7 @@ public class PakbonGUI extends JFrame implements ActionListener {
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         setTitle("Pakbon");
         orderNummers = new ArrayList<>();
+        orderKleuren = new ArrayList<>();
         tabbedPane = new JTabbedPane();
         databaseHelper = new DatabaseHelper();
         databaseHelper.openConnection();
@@ -38,13 +45,13 @@ public class PakbonGUI extends JFrame implements ActionListener {
             e.printStackTrace();
         }
 
-        ResultSet rs3 = databaseHelper.selectQuery("SELECT orderid FROM temporders"); // Query om alle order ids te pakken van temporders tabel
+        ResultSet rs3 = databaseHelper.selectQuery("SELECT orderid, orderkleur FROM temporders"); // Query om alle order ids te pakken van temporders tabel
         for(int i = 0; i < aantalOrders; i++) // Loop die ervoor zorgt dat alle order ids in een arraylist komen
         {
             try{
                 if(rs3.next()) {
                     orderNummers.add(rs3.getString("orderid"));
-                    System.out.println(orderNummers.get(i));
+                    orderKleuren.add(rs3.getString("orderkleur"));
                 }
                 }catch (Exception e){
                 e.printStackTrace();
@@ -53,28 +60,84 @@ public class PakbonGUI extends JFrame implements ActionListener {
 
         for(int i = 0; i < aantalOrders; i++) // Loop die ervoor zorgt dat er tabs worden toegevoegd aan het panel gelijk aan het aantal orders
         {
+
             try{
+                // Initialiseer alle elementen per order
                 jPanel = new JPanel();
                 jTable = new JTable();
-                jScrollPane = new JScrollPane(jTable);
-                tabbedPane.add("Order " + orderNummers.get(i), jPanel);
 
+                orderInfo = new JLabel("Order info:");
+                productInfo = new JLabel("Product info:");
+                orderKleur = new JLabel("");
+                aantalDozen = new JLabel("Aantal dozen: 0");
+                doosVolume = new JLabel("Volume doos: 10");
+
+                klantNaam = new JLabel("");
+                klantAdres = new JLabel("");
+                klantId = new JLabel("");
+                klantPostcode = new JLabel("");
+                klantTelefoon = new JLabel("");
+                klantInfo = new JLabel("Klant info:");
+
+                jPanel.add(orderInfo);
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+                jPanel.add(orderKleur);
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+                jPanel.add(aantalDozen);
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+                jPanel.add(doosVolume);
+
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+                jPanel.add(klantInfo);
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+                jPanel.add(klantId);
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+                jPanel.add(klantNaam);
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+
+                jPanel.add(klantAdres);
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+                jPanel.add(klantPostcode);
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+
+                jPanel.add(klantTelefoon);
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+
+                jPanel.add(productInfo);
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+                jScrollPane = new JScrollPane(jTable);
+
+                tabbedPane.add("Order " + orderNummers.get(i), jPanel);
+                //COMMITTEST
                 String SQL = String.format("SELECT X.StockItemID, X.Description, X.UnitPrice, X.Quantity FROM orders AS Z JOIN orderlines AS X ON Z.OrderID = X.OrderID WHERE X.OrderID = %S", orderNummers.get(i));
                 ResultSet rs2 = databaseHelper.selectQuery(SQL);
-                try {
-                    OrderInladenDialogVerwijderen.resultSetToTableModel(rs2, jTable);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
+                OrderInladenDialogVerwijderen.resultSetToTableModel(rs2, jTable);
 
                 jPanel.add(jScrollPane);
+
+                String selecteerKlant = String.format("SELECT X.CustomerID, C.CustomerName, C.PostalPostalCode, C.PostalAddressLine2, C.PhoneNumber\n" +
+                        "FROM orders as X join customers as C on x.CustomerID = C.CustomerID\n" +
+                        "WHERE X.OrderID = %S", orderNummers.get(i));
+                ResultSet rs4 = databaseHelper.selectQuery(selecteerKlant);
+
+
+                if(rs4.next()) {
+                    klantId.setText("ID: " + rs4.getString("CustomerID"));
+                    klantNaam.setText("Naam: " + rs4.getString("CustomerName"));
+                    klantAdres.setText("Adres: " + rs4.getString("PostalAddressLine2"));
+                    klantPostcode.setText("Postcode: " + rs4.getString("PostalPostalCode"));
+                    klantTelefoon.setText("Telefoon: " + rs4.getString("PhoneNumber"));
+                }
+                orderKleur.setText("Kleur: " + orderKleuren.get(i));
+
 
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
 
-        tabbedPane.setPreferredSize(new Dimension(1000, 700));
+        tabbedPane.setPreferredSize(new Dimension(500, 700));
         add(tabbedPane);
         setVisible(false);
     }
