@@ -3,6 +3,7 @@ import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -21,7 +22,8 @@ public class PakbonGUI extends JFrame implements ActionListener {
 
     private JLabel klantNaam, klantTelefoon, klantPostcode, klantAdres, klantId;
     private JLabel orderKleur, aantalDozen, doosVolume;
-    private JLabel orderInfo, klantInfo, productInfo;
+    private JLabel orderInfo, klantInfo, productInfo, totaalPrijs;
+    private int totaalunitprice;
 
 
     public PakbonGUI() {
@@ -66,11 +68,14 @@ public class PakbonGUI extends JFrame implements ActionListener {
                 jPanel = new JPanel();
                 jTable = new JTable();
 
+                totaalunitprice = 0;
+
                 orderInfo = new JLabel("Order info:");
                 productInfo = new JLabel("Product info:");
                 orderKleur = new JLabel("");
                 aantalDozen = new JLabel("Aantal dozen: 0");
                 doosVolume = new JLabel("Volume doos: 10");
+                totaalPrijs = new JLabel("");
 
                 klantNaam = new JLabel("");
                 klantAdres = new JLabel("");
@@ -106,28 +111,38 @@ public class PakbonGUI extends JFrame implements ActionListener {
                 jPanel.add(productInfo);
                 jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
                 jScrollPane = new JScrollPane(jTable);
-
+                jScrollPane.setPreferredSize(new Dimension(450, 200));
                 tabbedPane.add("Order " + orderNummers.get(i), jPanel);
                 //COMMIT3
                 String SQL = String.format("SELECT X.StockItemID, X.Description, X.UnitPrice, X.Quantity FROM orders AS Z JOIN orderlines AS X ON Z.OrderID = X.OrderID WHERE X.OrderID = %S", orderNummers.get(i));
                 ResultSet rs2 = databaseHelper.selectQuery(SQL);
-
                 OrderInladenDialogVerwijderen.resultSetToTableModel(rs2, jTable);
 
+
+                int rowcount = jTable.getRowCount();
+                for(int x=0;x<rowcount; x++) {
+                    BigDecimal unitPrice = (BigDecimal) jTable.getValueAt(x, jTable.getColumn("UnitPrice").getModelIndex());
+                    int unitPriceInt = unitPrice.intValueExact();
+                    totaalunitprice += unitPriceInt;
+
+                }
+                totaalPrijs.setText("Totale orderprijs: " + totaalunitprice + "€");
                 jPanel.add(jScrollPane);
+                jPanel.add(totaalPrijs);
 
                 String selecteerKlant = String.format("SELECT X.CustomerID, C.CustomerName, C.PostalPostalCode, C.PostalAddressLine2, C.PhoneNumber\n" +
                         "FROM orders as X join customers as C on x.CustomerID = C.CustomerID\n" +
                         "WHERE X.OrderID = %S", orderNummers.get(i));
                 ResultSet rs4 = databaseHelper.selectQuery(selecteerKlant);
 
-
                 if(rs4.next()) {
+
                     klantId.setText("ID: " + rs4.getString("CustomerID"));
                     klantNaam.setText("Naam: " + rs4.getString("CustomerName"));
                     klantAdres.setText("Adres: " + rs4.getString("PostalAddressLine2"));
                     klantPostcode.setText("Postcode: " + rs4.getString("PostalPostalCode"));
                     klantTelefoon.setText("Telefoon: " + rs4.getString("PhoneNumber"));
+
                 }
                 orderKleur.setText("Kleur: " + orderKleuren.get(i));
 
@@ -137,7 +152,7 @@ public class PakbonGUI extends JFrame implements ActionListener {
             }
         }
 
-        tabbedPane.setPreferredSize(new Dimension(500, 700));
+        tabbedPane.setPreferredSize(new Dimension(500, 600));
         add(tabbedPane);
         setVisible(false);
     }
