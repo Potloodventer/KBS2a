@@ -60,7 +60,7 @@ public class OrderInladenDialogVerwijderen extends JDialog implements ActionList
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        // if lijst is leeg : error, else verwijder de order
 
         if(e.getSource() == jButton)
         {
@@ -76,8 +76,7 @@ public class OrderInladenDialogVerwijderen extends JDialog implements ActionList
                     this.dispose();
                     new OrderInladenDialogVerwijderen().setVisible(true);
                 }
-            }catch (Exception x)
-            {
+            } catch (Exception x) {
                 x.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Je kan niks verwijderen als er niks ingeladen is.");
             }
@@ -114,6 +113,5 @@ public class OrderInladenDialogVerwijderen extends JDialog implements ActionList
 
         // Set de tabel voor de Jtable
         table.setModel(tableModel);
-
     }
 }

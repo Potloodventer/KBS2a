@@ -15,10 +15,10 @@ public class DatabaseHelper {
 
     public DatabaseHelper() // Registreer de driver in je java applicatie
     {
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-        }catch (Exception e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }

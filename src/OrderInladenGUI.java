@@ -66,7 +66,7 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
         });
         try {
             OrderInladenDialogVerwijderen.resultSetToTableModel(rs, jTable);
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }
         setVisible(false);
@@ -125,11 +125,8 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
         // Zet de data van de database om in een jtable
         try {
             OrderInladenDialogVerwijderen.resultSetToTableModel(rs, jTable2);
-        }catch (Exception x){
+        } catch (Exception x) {
             x.printStackTrace();
         }
-
-
     }
-
 }

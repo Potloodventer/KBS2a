@@ -53,7 +53,7 @@ public class PakbonGUI extends JFrame implements ActionListener {
                     orderNummers.add(rs3.getString("orderid"));
                     orderKleuren.add(rs3.getString("orderkleur"));
                 }
-                }catch (Exception e){
+            }catch (Exception e){
                 e.printStackTrace();
             }
         }
@@ -87,7 +87,7 @@ public class PakbonGUI extends JFrame implements ActionListener {
                 jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
                 jPanel.add(doosVolume);
 
-                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 8)));
                 jPanel.add(klantInfo);
                 jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
                 jPanel.add(klantId);
@@ -101,7 +101,7 @@ public class PakbonGUI extends JFrame implements ActionListener {
                 jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
 
                 jPanel.add(klantTelefoon);
-                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
+                jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 8)));
 
                 jPanel.add(productInfo);
                 jPanel.add(Box.createRigidArea(new Dimension(HoofdschermGUI.getSchermBreedte() / 2, 0)));
