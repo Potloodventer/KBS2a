@@ -148,7 +148,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             yArm[2] = 360;
             yArm[3] = 360;
 
-        }else if(nummer1 == 2){
+        } else if (nummer1 == 2) {
             //Stand Fout van arm 1
             xArm[0] = 440;
             xArm[1] = 450;
@@ -175,15 +175,15 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
         }else if(nummer2 == 2){
             //Stand Geel van arm 2 //Goed
-            xArm2[0] = 700;
-            xArm2[1] = 710;//rechts onder
-            xArm2[2] = 770;
-            xArm2[3] = 760;
+            xArm2[0] = 760; // links onder 760
+            xArm2[1] = 770; // rechts onder 770
+            xArm2[2] = 710; // rechts boven 710
+            xArm2[3] = 700; // links boven 700
 
-            yArm2[0] = 350;
-            yArm2[1] = 360;
-            yArm2[2] = 280;
-            yArm2[3] = 270;
+            yArm2[0] = 250;
+            yArm2[1] = 260;
+            yArm2[2] = 360;
+            yArm2[3] = 350;
 
         }else if(nummer2 == 3){
             //Stand Rood van arm 2 //
