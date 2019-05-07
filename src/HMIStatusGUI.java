@@ -187,15 +187,15 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
         }else if(nummer2 == 3){
             //Stand Rood van arm 2 //
-            xArm2[0] = 590;
-            xArm2[1] = 600;
-            xArm2[2] = 720;
-            xArm2[3] = 710;
+            xArm2[0] = 710;//Rechts boven
+            xArm2[1] = 840;//links boven
+            xArm2[2] = 840;//links onder
+            xArm2[3] = 710;//rechts onder
 
-            yArm2[0] = 101;
-            yArm2[1] = 101;
-            yArm2[2] = 103;
-            yArm2[3] = 102;
+            yArm2[0] = 350;
+            yArm2[1] = 350;
+            yArm2[2] = 360;
+            yArm2[3] = 360;
         }
 
         g.setColor(Color.MAGENTA);
@@ -271,7 +271,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             timer.stop();
 
             // testen van arm(en)
-            if (upp < 3) {
+            if (upp <= 3) {
                 upp++;
             } else {
                 upp = 1;
