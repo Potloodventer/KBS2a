@@ -1,0 +1,50 @@
+import com.fazecast.jSerialComm.SerialPort;
+
+public class ArduinoConnectie {
+
+    public SerialPort comPort;
+
+    public ArduinoConnectie(int baudRate, int port) //commit
+    {
+        try {
+            comPort = SerialPort.getCommPorts()[port];
+            comPort.openPort();
+            comPort.setBaudRate(baudRate);
+            Thread.sleep(1000);
+        }catch (Exception e ){
+            e.printStackTrace();
+        }
+    }
+
+    public void writeString(String s){
+        comPort.writeBytes(s.getBytes(), s.length());
+    }
+
+    public String readString() {
+        String msg = "";
+        try {
+            while (comPort.bytesAvailable() == 0) {
+                Thread.sleep(20);
+            }
+            byte[] readBuffer = new byte[comPort.bytesAvailable()];            //make buffer array as large as data sent and fill with data
+            int numRead = comPort.readBytes(readBuffer, readBuffer.length); //measure readBuffer array and save size in an int
+            msg = new String(readBuffer);                                    //convert readBuffer to string
+            System.out.print(msg);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return msg;
+    }
+
+    public void closeConnectie()
+    {
+        comPort.closePort();
+    }
+    public void openConnectie(int baudRate, int port)
+    {
+        comPort = SerialPort.getCommPorts()[port];
+        comPort.openPort();
+        comPort.setBaudRate(baudRate);
+    }
+
+}
