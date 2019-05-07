@@ -12,7 +12,8 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
     private int aantalRood = 0, aantalGroen = 0, aantalGeel = 0;
     private int pijlX = 0;
 
-    private int upp = 0;
+    private int upp = 0; // puur voor testen van slagboom
+    int y = (HoofdschermGUI.getSchermHoogte() - 200) / 2;
     int[] xpoints = new int[3];
     int[] ypoints = new int[3];
 
@@ -125,7 +126,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
     public void drawBlueprint(Graphics g) {
         //Overzicht van de robot tekenen
-        g.drawImage(blauwdruk, 50, ypoints[0] - 150, null);
+        g.drawImage(blauwdruk, 50, y - 165, null);
     }
 
     public void drawServoArm(Graphics g, int nummer1, int nummer2) {
@@ -230,7 +231,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             g.setColor(Color.YELLOW);
         }
 
-        int y = (HoofdschermGUI.getSchermHoogte() - 200) / 2;
+
         // aanmaken arrays voor de X en Y punten van driehoek (pijlpunt)
 
         for (int i = 1; i < 7; i++) {
@@ -262,7 +263,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
         // Met interval van de delay van de timer wordt dit gedaan:
         if (e.getSource() == timer) {
-            if (pijlX == 120) { // zet de x terug naar begin en reset de posities van de pijlen elke keer
+            if (pijlX > 120) { // zet de x terug naar begin en reset de posities van de pijlen elke keer
                 pijlX = 0;
             }
         }
