@@ -2,7 +2,7 @@ import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
-public class connectieTest {
+public class ConnectieTest {
 
     public static void main(String[] args)
     {

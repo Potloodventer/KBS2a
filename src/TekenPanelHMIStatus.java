@@ -24,6 +24,6 @@ public class TekenPanelHMIStatus extends JPanel {
 
         hmiStatusGUI.drawBlueprint(g);
         hmiStatusGUI.moveArrows(g, null); // null wordt: hmiStatusGUI.getKleur();
-        hmiStatusGUI.drawServoArm(g,1,hmiStatusGUI.getUpp());
+        hmiStatusGUI.drawServoArm(g, hmiStatusGUI.getUpp(), hmiStatusGUI.getUpp());
     }
 }

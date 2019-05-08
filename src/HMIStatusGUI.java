@@ -107,8 +107,14 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         setVisible(false);
     }
 
+    // puur voor testen van de posities van de armen
     public int getUpp() {
         return upp;
+    }
+
+    // getter voor de kleur ( rood, geel, groen of onbekend bij andere kleur )
+    public String getKleur() {
+        return kleur;
     }
 
     // getter voor de aantallen (kleur moet rood, geel of groen zijn)
@@ -136,33 +142,35 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         int[] xArm2 = new int[4];
         int[] yArm2 = new int[4];
 
-        if (nummer1 == 1) {
-            //Stand Goed van arm 1
-            xArm[0] = 400;
-            xArm[1] = 410;
-            xArm[2] = 530;
-            xArm[3] = 520;
+        // 1e arm
+        if (nummer1 == 1) { // 1 = blokje weggooien
+            //Stand dicht van arm 1
+            xArm[0] = 405;
+            xArm[1] = 415;
+            xArm[2] = 500;
+            xArm[3] = 490;
 
-            yArm[0] = 270;
-            yArm[1] = 270;
+            yArm[0] = 265;
+            yArm[1] = 255;
             yArm[2] = 360;
-            yArm[3] = 360;
+            yArm[3] = 370;
 
-        } else if (nummer1 == 2) {
-            //Stand Fout van arm 1
-            xArm[0] = 440;
-            xArm[1] = 450;
-            xArm[2] = 570;
-            xArm[3] = 560;
+        } else if (nummer1 == 2) { // 2 is blokje doorlaten
+            //Stand open van arm 1
+            xArm[0] = 405;
+            xArm[1] = 500;
+            xArm[2] = 500;
+            xArm[3] = 405;
 
-            yArm[0] = 280;
+            yArm[0] = 260;
             yArm[1] = 270;
-            yArm[2] = 290;
-            yArm[3] = 300;
+            yArm[2] = 280;
+            yArm[3] = 270;
         }
 
-        if(nummer2 == 1){
-            //Stand Groen van arm 2 //Correct
+        // 2e arm
+        if (nummer2 == 1){
+            //Stand Groen van arm 2
             xArm2[0] = 590;
             xArm2[1] = 600;
             xArm2[2] = 720;
@@ -173,24 +181,24 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             yArm2[2] = 350;
             yArm2[3] = 360;
 
-        }else if(nummer2 == 2){
-            //Stand Geel van arm 2 //Goed
-            xArm2[0] = 760; // links onder 760
-            xArm2[1] = 770; // rechts onder 770
-            xArm2[2] = 710; // rechts boven 710
-            xArm2[3] = 700; // links boven 700
+        } else if (nummer2 == 2) {
+            //Stand Geel van arm 2
+            xArm2[0] = 760;
+            xArm2[1] = 770;
+            xArm2[2] = 710;
+            xArm2[3] = 700;
 
             yArm2[0] = 250;
             yArm2[1] = 260;
             yArm2[2] = 360;
             yArm2[3] = 350;
 
-        }else if(nummer2 == 3){
-            //Stand Rood van arm 2 //
-            xArm2[0] = 710;//Rechts boven
-            xArm2[1] = 840;//links boven
-            xArm2[2] = 840;//links onder
-            xArm2[3] = 710;//rechts onder
+        } else if (nummer2 == 3) {
+            //Stand Rood van arm 2
+            xArm2[0] = 710; // links boven
+            xArm2[1] = 840; // rechts boven
+            xArm2[2] = 840; // rechts onder
+            xArm2[3] = 710; // links onder
 
             yArm2[0] = 350;
             yArm2[1] = 350;
@@ -219,9 +227,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             g.setColor(Color.YELLOW);
         }
 
-
         // aanmaken arrays voor de X en Y punten van driehoek (pijlpunt)
-
         for (int i = 1; i < 7; i++) {
             // aantal blokjes, hun positie en bewegen met stappen van pijlX
             int x = (120 * i) + pijlX;

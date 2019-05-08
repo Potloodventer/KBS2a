@@ -56,13 +56,89 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                 int x2 = 100 * i;
 
                 int y1 = 50 * j + yPlus;
-                int y2 = 50 * j + yPlus + 120;
+                int y2 = 50 * j + yPlus + 100;
 
                 g.drawLine(x1, y1, x2, y2);                  // linker lijn
                 g.drawLine(x1, y2, x2 + 80, y2);         // onderste lijn
                 g.drawLine(x2 + 80, y1, x1 + 80, y2); // rechter lijn
             }
             yPlus += 50;
+        }
+    }
+
+            // Teken de producten in de dozen
+    public void drawProducts(Graphics g, int aRood, int aGroen, int aGeel) {
+
+        if (aRood > 0) {
+            int y1 = 160; // Onderin doos
+            int x1 = 105; // helemaal links in 1e doos
+            int blok = 0;
+            for (int i = 0; i < aRood; i++) {
+                g.setColor(Color.RED);
+                g.fillRect(x1, y1, 30, 35);
+                blok++;
+
+                if (blok == 1) {
+                    x1 += 10 + 30;
+                } else if (blok == 2) {
+                    x1 -= 10 + 30;
+                    y1 -= 5 + 35;
+                } else if (blok == 3) {
+                    x1 += 10 + 30;
+                } else if (blok == 4) {
+                    y1 += 5 + 35;
+                    x1 += 60;
+                    blok = 0;
+                }
+            }
+        }
+
+        if (aGroen > 0) {
+            int y1 = 310; // Onderin doos
+            int x1 = 105; // helemaal links in 1e doos
+            int blok = 0;
+            for (int i = 0; i < aGroen; i++) {
+                g.setColor(Color.GREEN);
+                g.fillRect(x1, y1, 30, 35);
+                blok++;
+
+                if (blok == 1) {
+                    x1 += 10 + 30;
+                } else if (blok == 2) {
+                    x1 -= 10 + 30;
+                    y1 -= 5 + 35;
+                } else if (blok == 3) {
+                    x1 += 10 + 30;
+                } else if (blok == 4) {
+                    y1 += 5 + 35;
+                    x1 += 60;
+                    blok = 0;
+                }
+            }
+        }
+
+        if (aGeel > 0) {
+            int y1 = 460; // Onderin doos
+            int x1 = 105; // helemaal links in 1e doos
+            int blok = 0;
+            for (int i = 0; i < aGeel; i++) {
+                g.setColor(Color.YELLOW);
+                g.fillRect(x1, y1, 30, 35);
+                blok++;
+
+                if (blok == 1) {
+                    x1 += 10 + 30;
+                } else if (blok == 2) {
+                    x1 -= 10 + 30;
+                    y1 -= 5 + 35;
+                } else if (blok == 3) {
+                    x1 += 10 + 30;
+                } else if (blok == 4) {
+                    y1 += 5 + 35;
+                    x1 += 60;
+                    blok = 0;
+                }
+            }
         }
     }
 
