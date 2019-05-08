@@ -10,7 +10,7 @@ public class OrderInladenDialog extends JDialog implements ActionListener {
     private JLabel jLabel;
     private JButton jbLaadIn;
 
-    private String[] kleuren = {"Rood", "Groen", "Geel"};
+    private String[] kleuren = {"rood", "groen", "geel"};
     private JComboBox jComboBox;
 
     private int orderNummer;

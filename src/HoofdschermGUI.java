@@ -108,33 +108,53 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                     return;
                 }
                 else{
+
+                    arduinoConnectie.writeString("start");
                     JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
                     // Start de robots
                     // Stuur aantal blokjes en kleur per order naar robots
-                        if(sendOrder){
-                            if(rs.next()){
+                        String SQL2 = "SELECT orderkleur, aantalblokjes FROM temporders";
+                        ResultSet rs2 = databaseHelper.selectQuery(SQL2);
+
+                    if(sendOrder){
+                            if(rs2.next()){
                                 sendOrder = false;
-                                String orderKleur = rs.getString("orderkleur");
-                                String orderAantal = rs.getString("aantalblokjes");
+                                String orderKleur = rs2.getString("orderkleur");
+                                String orderAantal = rs2.getString("aantalblokjes");
                                 arduinoConnectie.writeString(orderKleur + ":" + orderAantal);
-                                arduinoConnectie.comPort.addDataListener(new SerialPortDataListener() {
-                                @Override
-                                public int getListeningEvents() {
-                                    return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
+                                System.out.println(orderKleur + " " + orderAantal);
+                                //arduinoConnectie.writeString("rood:2");
 
-                                }
-
-                                @Override
-                                public void serialEvent(SerialPortEvent serialPortEvent) {
-                                    if(arduinoConnectie.readString().equals("nextorder")){
-                                        sendOrder = true;
-                                    }
-                                }
-                            });
 
                         }
 
                     }
+                    arduinoConnectie.comPort.addDataListener(new SerialPortDataListener() {
+                        @Override
+                        public int getListeningEvents() {
+                            return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
+
+                        }
+
+                        @Override
+                        public void serialEvent(SerialPortEvent serialPortEvent) {
+                            System.out.println("IK KOM HIER IN");
+                            String msg = "";
+                            byte[] newData = serialPortEvent.getReceivedData();
+//                            System.out.println("DIT IS NEW DATA VARIABLE" + newData);
+//                            int numRead = arduinoConnectie.comPort.readBytes(newData, newData.length); //measure readBuffer array and save size in an int
+//                            msg = new String(newData);//convert readBuffer to string
+//                            if(msg.equals("nextorder")){
+//                                System.out.println("ik heb nextorder gelezen");
+//                                sendOrder = true;
+//                            }
+                            for(int i =0;i<newData.length;i++){
+                                System.out.print((char)newData[i]);
+                            }
+                            System.out.println("\n");
+
+                        }
+                    });
 
                 }
 
@@ -149,7 +169,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
             // Stop de robots
         if (e.getSource() == stopRobotJB) {
             // stop beide robots
-
+            arduinoConnectie.writeString("stop");
             JOptionPane.showMessageDialog(this, "De robots worden gestopt.");
         }
     }

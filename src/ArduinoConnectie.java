@@ -10,7 +10,6 @@ public class ArduinoConnectie {
             comPort = SerialPort.getCommPorts()[port];
             comPort.openPort();
             comPort.setBaudRate(baudRate);
-            Thread.sleep(1000);
         }catch (Exception e ){
             e.printStackTrace();
         }
@@ -40,6 +39,7 @@ public class ArduinoConnectie {
     {
         comPort.closePort();
     }
+
     public void openConnectie(int baudRate, int port)
     {
         comPort = SerialPort.getCommPorts()[port];
