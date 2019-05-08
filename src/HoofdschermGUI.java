@@ -1,3 +1,7 @@
+import com.fazecast.jSerialComm.SerialPort;
+import com.fazecast.jSerialComm.SerialPortDataListener;
+import com.fazecast.jSerialComm.SerialPortEvent;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +22,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     private VoorraadGUI voorraadGUI;
     private OrderInladenGUI orderInladenGUI;
     private DatabaseHelper databaseHelper;
+    private ArduinoConnectie arduinoConnectie;
+    private boolean sendOrder = true;
 
     public HoofdschermGUI() {
 
@@ -26,7 +32,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         setSize(schermBreedte /2, schermHoogte /2);
         setTitle("HMI Hoofdscherm");
         databaseHelper = new DatabaseHelper();
-
+        arduinoConnectie = new ArduinoConnectie(9600, 0);
 
         orderInladenJB = new JButton("Order inladen");
         robotStatusJB = new JButton("Status robots");
@@ -105,6 +111,31 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
                     // Start de robots
                     // Stuur aantal blokjes en kleur per order naar robots
+                        if(sendOrder){
+                            if(rs.next()){
+                                sendOrder = false;
+                                String orderKleur = rs.getString("orderkleur");
+                                String orderAantal = rs.getString("aantalblokjes");
+                                arduinoConnectie.writeString(orderKleur + ":" + orderAantal);
+                                arduinoConnectie.comPort.addDataListener(new SerialPortDataListener() {
+                                @Override
+                                public int getListeningEvents() {
+                                    return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
+
+                                }
+
+                                @Override
+                                public void serialEvent(SerialPortEvent serialPortEvent) {
+                                    if(arduinoConnectie.readString().equals("nextorder")){
+                                        sendOrder = true;
+                                    }
+                                }
+                            });
+
+                        }
+
+                    }
+
                 }
 
             }catch (Exception x)
