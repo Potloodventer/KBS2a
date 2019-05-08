@@ -23,7 +23,6 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     private OrderInladenGUI orderInladenGUI;
     private DatabaseHelper databaseHelper;
     private ArduinoConnectie arduinoConnectie;
-    private boolean sendOrder = true;
 
     public HoofdschermGUI() {
 
@@ -113,45 +112,23 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
                     // Start de robots
                     // Stuur aantal blokjes en kleur per order naar robots
-                        String SQL2 = "SELECT orderkleur, aantalblokjes FROM temporders";
-                        ResultSet rs2 = databaseHelper.selectQuery(SQL2);
-
-                    if(sendOrder){
-                            if(rs2.next()){
-                                sendOrder = false;
-                                String orderKleur = rs2.getString("orderkleur");
-                                String orderAantal = rs2.getString("aantalblokjes");
-                                arduinoConnectie.writeString(orderKleur + ":" + orderAantal);
-                                System.out.println(orderKleur + " " + orderAantal);
-                                //arduinoConnectie.writeString("rood:2");
-
-
-                        }
-
-                    }
+                    sendOrderToArduino();
                     arduinoConnectie.comPort.addDataListener(new SerialPortDataListener() {
                         @Override
                         public int getListeningEvents() {
                             return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
-
                         }
 
                         @Override
                         public void serialEvent(SerialPortEvent serialPortEvent) {
-                            System.out.println("IK KOM HIER IN");
                             String msg = "";
                             byte[] newData = serialPortEvent.getReceivedData();
-//                            System.out.println("DIT IS NEW DATA VARIABLE" + newData);
-//                            int numRead = arduinoConnectie.comPort.readBytes(newData, newData.length); //measure readBuffer array and save size in an int
-//                            msg = new String(newData);//convert readBuffer to string
-//                            if(msg.equals("nextorder")){
-//                                System.out.println("ik heb nextorder gelezen");
-//                                sendOrder = true;
-//                            }
-                            for(int i =0;i<newData.length;i++){
-                                System.out.print((char)newData[i]);
+                            int numRead = arduinoConnectie.comPort.readBytes(newData, newData.length); //measure readBuffer array and save size in an int
+                            msg = new String(newData);//convert readBuffer to string
+                            if(msg.equals("nextorder")){
+                                System.out.println("ik heb nextorder gelezen");
+                                sendOrderToArduino();
                             }
-                            System.out.println("\n");
 
                         }
                     });
@@ -180,5 +157,25 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     }
     public static int getSchermHoogte() {
         return schermHoogte;
+    }
+
+
+    public void sendOrderToArduino()
+    {
+        try {
+            String SQL2 = "SELECT orderkleur, aantalblokjes FROM temporders";
+            ResultSet rs2 = databaseHelper.selectQuery(SQL2);
+
+            if (rs2.next()) {
+                String orderKleur = rs2.getString("orderkleur");
+                String orderAantal = rs2.getString("aantalblokjes");
+                arduinoConnectie.writeString(orderKleur + ":" + orderAantal);
+                System.out.println(orderKleur + " " + orderAantal);
+            }
+        }catch (Exception e ){
+            e.printStackTrace();
+            System.out.print("geen orders meer te bekennen");
+        }
+
     }
 }

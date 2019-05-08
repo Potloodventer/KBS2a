@@ -28,7 +28,6 @@ public class ArduinoConnectie {
             byte[] readBuffer = new byte[comPort.bytesAvailable()];         //make buffer array as large as data sent and fill with data
             int numRead = comPort.readBytes(readBuffer, readBuffer.length); //measure readBuffer array and save size in an int
             msg = new String(readBuffer);                                   //convert readBuffer to string
-            System.out.print(msg);
         } catch (Exception e){
             e.printStackTrace();
         }
