@@ -68,13 +68,13 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     // BPP probleem oplossing:
     // Eerst alle grootste producten (4) in dozen doen
     // Dan kijken of de som van 2 of 3 producten hier bij in past.
-    // Als het past, kijken we welke de doos zo vol mogelijk maakt (dichtsts bij 8)
+    // Als het past, kijken we welke de doos zo vol mogelijk maakt (dichtst bij 8)
     // Daarna kijken we of de som van 2 - 3 (4) producten een doos kan vullen, zo niet welke het dichtst bij de 8 komt
     // Zo moeten alle producten uiteindelijk in de dozen zijn geplaatst
 
     // Random nummer generator maken met getallen tussen x & x  (2, 3, 4)  /////////// af
     // Aantal producten vanuit Temporder tabel sorteren op kleur
-    // Dit nummer aan een product koppelen, Begin gewoon van ID = 0 die krijgt grootte generateNumber()
+    // Dit product aan een nummer koppelen, Begin gewoon van ID = 0 die krijgt grootte generateNumber()
     // Zo doorgaan tot laatste product
 
 
