@@ -27,6 +27,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
     private ArrayList<String> orderNummers;
     private int aantalRows;
+    private int geteld;
 
     public HoofdschermGUI() {
 
@@ -35,6 +36,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         setSize(schermBreedte /2, schermHoogte /2);
         setTitle("HMI Hoofdscherm");
         databaseHelper = new DatabaseHelper();
+        databaseHelper.openConnection();
         arduinoConnectie = new ArduinoConnectie(9600, 0);
 
         orderInladenJB = new JButton("Order inladen");
@@ -129,11 +131,13 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
                     // Start de robots
                     // Stuur aantal blokjes en kleur per order naar robots
+                    geteld = 0;
                     sendOrderToArduino(0);
-                    for(int i = 1; i < aantalRows; i++) {
-                        String msg = arduinoConnectie.readString();
-                        if (msg.equals("n")) {
-                            sendOrderToArduino(i);
+                    geteld++;
+                    while(geteld < aantalRows){
+                        if(arduinoConnectie.readString().equals("n")){
+                            sendOrderToArduino(geteld);
+                            geteld++;
                         }
                     }
 
