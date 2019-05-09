@@ -29,12 +29,13 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     private ArrayList<String> orderNummers;
     private int aantalRows;
     private int geteld;
+    private boolean tellen;
 
     public HoofdschermGUI() {
 
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(schermBreedte /2, schermHoogte /2);
+        setSize(schermBreedte / 2, schermHoogte / 2);
         setTitle("HMI Hoofdscherm");
         orderNummers = new ArrayList<>();
         databaseHelper = new DatabaseHelper();
@@ -75,23 +76,31 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
             rs.last();
             aantalRows = rs.getRow();
             rs.beforeFirst();
-        }catch (Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         ResultSet rs3 = databaseHelper.selectQuery("SELECT orderid, orderkleur FROM temporders"); // Query om alle order ids te pakken van temporders tabel
-        for(int i = 0; i < aantalRows; i++) // Loop die ervoor zorgt dat alle order ids in een arraylist komen
+        for (int i = 0; i < aantalRows; i++) // Loop die ervoor zorgt dat alle order ids in een arraylist komen
         {
-            try{
-                if(rs3.next()) {
+            try {
+                if (rs3.next()) {
                     orderNummers.add(rs3.getString("orderid"));
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
         setVisible(true);
+    }
+
+    public static int getSchermBreedte() {
+        return schermBreedte;
+    }
+
+    public static int getSchermHoogte() {
+        return schermHoogte;
     }
 
     @Override
@@ -123,25 +132,23 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         if (e.getSource() == startRobotJB) {
             databaseHelper.openConnection();
 
-            if(aantalRows < 1)
-            {
+            if (aantalRows < 1) {
                 JOptionPane.showMessageDialog(this, "Je moet eerst 1 of meer orders inladen.");
                 return;
-            }
-            else{
+            } else {
                 arduinoConnectie.writeString("start");
                 JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
                 // Start de robots
                 // Stuur aantal blokjes en kleur per order naar robots
                 sendOrderToArduino(0);
-                geteld++;
+                geteld = 1;
                 arduinoConnectie.comPort.addDataListener(new SerialPortDataListener() {
                     @Override
                     public int getListeningEvents() {
                         return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
                     }
-                    public int getPacketSize()
-                    {
+
+                    public int getPacketSize() {
                         return 100;
                     }
 
@@ -150,54 +157,55 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                         byte[] newData = serialPortEvent.getReceivedData();
                         String msg;
                         StringBuilder stringBuilder = new StringBuilder();
-                        for(int i=0;i<newData.length;++i){
-                            System.out.print((char)newData[i]);
-                            stringBuilder.append((char)newData[i]);
+                        for (int i = 0; i < newData.length; ++i) {
+                            System.out.print((char) newData[i]);
+                            stringBuilder.append((char) newData[i]);
 
                         }
                         msg = stringBuilder.toString();
-                        if(msg.startsWith("n")){
-                            System.out.print("je moeder is een hoer");
-                            sendOrderToArduino(geteld);
+                        if (msg.startsWith("n")) {
+                            tellen = true;
                         }
+                        if (tellen) {
+                            for (int x = 0; x < aantalRows; x++) {
+                                sendOrderToArduino(geteld);
+                                geteld++;
+                                tellen = false;
+                                System.out.println("geteld: " + geteld);
+                                break;
+                            }
+                        }
+
                     }
+
                 });
+
+
+
+
             }
-
-
-        }
-        //weg
-        // Stop de robots
-        if (e.getSource() == stopRobotJB) {
-            // stop beide robots
-            arduinoConnectie.writeString("stop");
-            JOptionPane.showMessageDialog(this, "De robots worden gestopt.");
-        }
-    }
-
-
-    public static int getSchermBreedte() {
-        return schermBreedte;
-    }
-
-    public static int getSchermHoogte() {
-        return schermHoogte;
-    }
-
-    public void sendOrderToArduino(int i)
-    {
-        try {
-            String SQL2 = String.format("SELECT orderkleur, aantalblokjes FROM temporders WHERE orderid = %S", orderNummers.get(i));
-            ResultSet rs2 = databaseHelper.selectQuery(SQL2);
-
-            if(rs2.next()) {
-                String orderKleur = rs2.getString("orderkleur");
-                String orderAantal = rs2.getString("aantalblokjes");
-                arduinoConnectie.writeString(orderKleur + ":" + orderAantal);
+            //weg
+            // Stop de robots
+            if (e.getSource() == stopRobotJB) {
+                // stop beide robots
+                arduinoConnectie.writeString("stop");
+                JOptionPane.showMessageDialog(this, "De robots worden gestopt.");
             }
-        }catch (Exception e ){
-            e.printStackTrace();
-            System.out.println("geen orders meer te bekennen");
+        }}
+
+        public void sendOrderToArduino(int i){
+            try {
+                String SQL2 = String.format("SELECT orderkleur, aantalblokjes FROM temporders WHERE orderid = %S", orderNummers.get(i));
+                ResultSet rs2 = databaseHelper.selectQuery(SQL2);
+
+                if (rs2.next()) {
+                    String orderKleur = rs2.getString("orderkleur");
+                    String orderAantal = rs2.getString("aantalblokjes");
+                    arduinoConnectie.writeString(orderKleur + ":" + orderAantal);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("geen orders meer te bekennen");
+            }
         }
     }
-}

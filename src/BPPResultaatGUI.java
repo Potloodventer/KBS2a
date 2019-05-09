@@ -68,7 +68,8 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     // BPP probleem oplossing:
     // Eerst alle grootste producten (4) in dozen doen
     // Dan kijken of de som van 2 of 3 producten hier bij in past.
-    // Als het past, kijken we welke de doos zo vol mogelijk maakt (dichtst bij 8)
+    // Als het past, kijken we welke de doos zo vol mogelijk maakt (dichtst
+    // bij 8)
     // Daarna kijken we of de som van 2 - 3 (4) producten een doos kan vullen, zo niet welke het dichtst bij de 8 komt
     // Zo moeten alle producten uiteindelijk in de dozen zijn geplaatst
 
