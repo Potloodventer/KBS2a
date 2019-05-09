@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class HoofdschermGUI extends JFrame implements ActionListener {
 
@@ -23,6 +24,9 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     private OrderInladenGUI orderInladenGUI;
     private DatabaseHelper databaseHelper;
     private ArduinoConnectie arduinoConnectie;
+
+    private ArrayList<String> orderNummers;
+    private int aantalRows;
 
     public HoofdschermGUI() {
 
@@ -62,6 +66,20 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
         add(stopRobotJB);
 
+        ResultSet rs3 = databaseHelper.selectQuery("SELECT orderid, orderkleur FROM temporders"); // Query om alle order ids te pakken van temporders tabel
+        for(int i = 0; i < aantalRows; i++) // Loop die ervoor zorgt dat alle order ids in een arraylist komen
+        {
+            try{
+                if(rs3.next()) {
+                    orderNummers.add(rs3.getString("orderid"));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+
+
         setVisible(true);
     }
 
@@ -97,7 +115,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
             ResultSet rs = databaseHelper.selectQuery(SQL);
             try{
                 rs.last();
-                int aantalRows = rs.getRow();
+                aantalRows = rs.getRow();
                 rs.beforeFirst();
                 if(aantalRows < 1)
                 {
@@ -109,13 +127,14 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
                     // Start de robots
                     // Stuur aantal blokjes en kleur per order naar robots
-                    sendOrderToArduino();
-                    while(arduinoConnectie.comPort.bytesAvailable() > 0){
+                    sendOrderToArduino(0);
+                    for(int i = 1; i < aantalRows; i++) {
                         String msg = arduinoConnectie.readString();
-                        if(msg.equals("nextorder")){
-                            sendOrderToArduino();
+                        if (msg.equals("n")) {
+                            sendOrderToArduino(i);
                         }
                     }
+
                 }
 
             }catch (Exception x)
@@ -141,14 +160,13 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         return schermHoogte;
     }
 
-
-    public void sendOrderToArduino()
+    2public void sendOrderToArduino(int i)
     {
         try {
-            String SQL2 = "SELECT orderkleur, aantalblokjes FROM temporders";
+            String SQL2 = String.format("SELECT orderkleur, aantalblokjes FROM temporders WHERE orderid = %S", orderNummers.get(i));
             ResultSet rs2 = databaseHelper.selectQuery(SQL2);
 
-            if (rs2.next()) {
+            if(rs2.next()) {
                 String orderKleur = rs2.getString("orderkleur");
                 String orderAantal = rs2.getString("aantalblokjes");
                 arduinoConnectie.writeString(orderKleur + ":" + orderAantal);
