@@ -65,6 +65,15 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         add(startRobotJB);
         add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
         add(stopRobotJB);
+        String SQL = "SELECT * FROM temporders";
+        ResultSet rs = databaseHelper.selectQuery(SQL);
+        try {
+            rs.last();
+            aantalRows = rs.getRow();
+            rs.beforeFirst();
+        }catch (Exception e ) {
+            e.printStackTrace();
+        }
 
         ResultSet rs3 = databaseHelper.selectQuery("SELECT orderid, orderkleur FROM temporders"); // Query om alle order ids te pakken van temporders tabel
         for(int i = 0; i < aantalRows; i++) // Loop die ervoor zorgt dat alle order ids in een arraylist komen
@@ -77,8 +86,6 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                 e.printStackTrace();
             }
         }
-
-
 
         setVisible(true);
     }
@@ -111,12 +118,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
             // Start de robots
         if (e.getSource() == startRobotJB) {
             databaseHelper.openConnection();
-            String SQL = "SELECT * FROM temporders";
-            ResultSet rs = databaseHelper.selectQuery(SQL);
-            try{
-                rs.last();
-                aantalRows = rs.getRow();
-                rs.beforeFirst();
+
                 if(aantalRows < 1)
                 {
                     JOptionPane.showMessageDialog(this, "Je moet eerst 1 of meer orders inladen.");
@@ -137,10 +139,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
                 }
 
-            }catch (Exception x)
-            {
-                x.printStackTrace();
-            }
+
         }
 
             // Stop de robots
@@ -160,7 +159,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         return schermHoogte;
     }
 
-    2public void sendOrderToArduino(int i)
+    public void sendOrderToArduino(int i)
     {
         try {
             String SQL2 = String.format("SELECT orderkleur, aantalblokjes FROM temporders WHERE orderid = %S", orderNummers.get(i));
@@ -170,11 +169,10 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                 String orderKleur = rs2.getString("orderkleur");
                 String orderAantal = rs2.getString("aantalblokjes");
                 arduinoConnectie.writeString(orderKleur + ":" + orderAantal);
-                System.out.println(orderKleur + " " + orderAantal);
             }
         }catch (Exception e ){
             e.printStackTrace();
-            System.out.print("geen orders meer te bekennen");
+            System.out.println("geen orders meer te bekennen");
         }
     }
 }
