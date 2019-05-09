@@ -65,7 +65,6 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -74,7 +73,6 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
             this.setVisible(false);
             orderInladenGUI = new OrderInladenGUI();
             orderInladenGUI.setVisible(true);
-
         }
 
             // laat de visuele weergave van de robot zien
@@ -107,40 +105,23 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                     return;
                 }
                 else{
-
                     arduinoConnectie.writeString("start");
                     JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
                     // Start de robots
                     // Stuur aantal blokjes en kleur per order naar robots
                     sendOrderToArduino();
-                    arduinoConnectie.comPort.addDataListener(new SerialPortDataListener() {
-                        @Override
-                        public int getListeningEvents() {
-                            return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
+                    while(arduinoConnectie.comPort.bytesAvailable() > 0){
+                        String msg = arduinoConnectie.readString();
+                        if(msg.equals("nextorder")){
+                            sendOrderToArduino();
                         }
-
-                        @Override
-                        public void serialEvent(SerialPortEvent serialPortEvent) {
-                            String msg = "";
-                            byte[] newData = serialPortEvent.getReceivedData();
-                            int numRead = arduinoConnectie.comPort.readBytes(newData, newData.length); //measure readBuffer array and save size in an int
-                            msg = new String(newData);//convert readBuffer to string
-                            if(msg.equals("nextorder")){
-                                System.out.println("ik heb nextorder gelezen");
-                                sendOrderToArduino();
-                            }
-
-                        }
-                    });
-
+                    }
                 }
 
             }catch (Exception x)
             {
                 x.printStackTrace();
             }
-
-
         }
 
             // Stop de robots
@@ -155,6 +136,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     public static int getSchermBreedte() {
         return schermBreedte;
     }
+
     public static int getSchermHoogte() {
         return schermHoogte;
     }
@@ -176,6 +158,5 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
             e.printStackTrace();
             System.out.print("geen orders meer te bekennen");
         }
-
     }
 }
