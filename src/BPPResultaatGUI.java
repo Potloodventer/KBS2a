@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class BPPResultaatGUI extends JFrame implements ActionListener {
 
@@ -71,9 +72,18 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     // Daarna kijken we of de som van 2 - 3 (4) producten een doos kan vullen, zo niet welke het dichtst bij de 8 komt
     // Zo moeten alle producten uiteindelijk in de dozen zijn geplaatst
 
-    // Random nummer generator maken met getallen tussen x & x  (2, 3, 4)
-    // Dit nummer aan een product koppelen, Begin gewoon van ID = 0? die krijgt grootte x
-    // Zo doorgaan tot laatste product (wel of niet koppelen aan kleur? denk het wel)
+    // Random nummer generator maken met getallen tussen x & x  (2, 3, 4)  /////////// af
+    // Aantal producten vanuit Temporder tabel sorteren op kleur
+    // Dit nummer aan een product koppelen, Begin gewoon van ID = 0 die krijgt grootte generateNumber()
+    // Zo doorgaan tot laatste product
+
+
+    public void generateNumber() {
+        Random rand = new Random();
+        int randomGetal = rand.nextInt(3) + 2; // 3 zorgt dat er 3 getallen 0, 1, 2 gemaakt worden,
+                                                      // + 2 maakt dit 2, 3, 4
+        System.out.println(randomGetal);
+    }
 
 
     public void drawBins(Graphics g) {
