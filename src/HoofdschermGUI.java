@@ -1,6 +1,7 @@
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
+import com.fazecast.jSerialComm.SerialPortMessageListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +36,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(schermBreedte /2, schermHoogte /2);
         setTitle("HMI Hoofdscherm");
+        orderNummers = new ArrayList<>();
         databaseHelper = new DatabaseHelper();
         databaseHelper.openConnection();
         arduinoConnectie = new ArduinoConnectie(9600, 0);
@@ -102,51 +104,70 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
             orderInladenGUI.setVisible(true);
         }
 
-            // laat de visuele weergave van de robot zien
-            // sluit het homescherm
+        // laat de visuele weergave van de robot zien
+        // sluit het homescherm
         if (e.getSource() == robotStatusJB) {
             this.setVisible(false);
             hmiStatusGUI = new HMIStatusGUI();
             hmiStatusGUI.setVisible(true);
         }
 
-            // Laat pagina met alle producten zien
+        // Laat pagina met alle producten zien
         if (e.getSource() == alleProductenJB) {
             this.setVisible(false);
             voorraadGUI = new VoorraadGUI();
             voorraadGUI.setVisible(true);
         }
 
-            // Start de robots
+        // Start de robots
         if (e.getSource() == startRobotJB) {
             databaseHelper.openConnection();
 
-                if(aantalRows < 1)
-                {
-                    JOptionPane.showMessageDialog(this, "Je moet eerst 1 of meer orders inladen.");
-                    return;
-                }
-                else{
-                    arduinoConnectie.writeString("start");
-                    JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
-                    // Start de robots
-                    // Stuur aantal blokjes en kleur per order naar robots
-                    geteld = 0;
-                    sendOrderToArduino(0);
-                    geteld++;
-                    while(geteld < aantalRows){
-                        if(arduinoConnectie.readString().equals("n")){
-                            sendOrderToArduino(geteld);
-                            geteld++;
-                        }
+            if(aantalRows < 1)
+            {
+                JOptionPane.showMessageDialog(this, "Je moet eerst 1 of meer orders inladen.");
+                return;
+            }
+            else{
+                arduinoConnectie.writeString("start");
+                JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
+                // Start de robots
+                // Stuur aantal blokjes en kleur per order naar robots
+                sendOrderToArduino(0);
+                geteld++;
+                arduinoConnectie.comPort.addDataListener(new SerialPortDataListener() {
+                    @Override
+                    public int getListeningEvents() {
+                        return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
+                    }
+                    public int getPacketSize()
+                    {
+                        return 100;
                     }
 
-                }
+                    @Override
+                    public void serialEvent(SerialPortEvent serialPortEvent) {
+                        byte[] newData = serialPortEvent.getReceivedData();
+                        String msg;
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for(int i=0;i<newData.length;++i){
+                            System.out.print((char)newData[i]);
+                            stringBuilder.append((char)newData[i]);
+
+                        }
+                        msg = stringBuilder.toString();
+                        if(msg.startsWith("n")){
+                            System.out.print("je moeder is een hoer");
+                            sendOrderToArduino(geteld);
+                        }
+                    }
+                });
+            }
 
 
         }
-
-            // Stop de robots
+        //weg
+        // Stop de robots
         if (e.getSource() == stopRobotJB) {
             // stop beide robots
             arduinoConnectie.writeString("stop");
