@@ -80,8 +80,36 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
 
     // sorteer lijst van groot naar klein
 
+    // private DatabaseHelper databaseHelper;
+    // in constructor: databaseHelper = new DatabaseHelper();
+    // databaseHelper.openConnection();
+
+    // Queries
+    // orderkleur = rood;
+    // String SQL = String.format("Select * from temporders where orderkleur = %S", orderkleur)
+    // ResultSet rs = databaseHel00per.selectQuery(SQL)
+    // if(rs.next()){rs.getString("orderkleur")}
 
 
+    // BPP algoritme
+  /*  public void decideBestFit() {
+        int vierCounter = 0;
+        // loop door de rode array en kijk of er een oneven aantal van 4 is
+        for (int i = 0; i < productenRood.length; i++) {
+            if (productenRood[i] == 4) {
+                vierCounter++;
+            }
+        }
+        if (vierCounter % 2 == 0) { // als er een even aantal van vier is
+            // plaats alle vieren in de dozen
+        } else {
+            // plaats alle vieren in de dozen en kijk of de som van 1 of 2 andere blokjes het opvult tot 8,
+            // zo niet gebruik degene die het dichtst bij 8 komt
+        }
+    }   */
+
+
+            // maak een random nummer 2,3 of 4
     public void generateNumber() {
         Random rand = new Random();
         int randomGetal = rand.nextInt(3) + 2; // 3 zorgt dat er 3 getallen 0, 1, 2 gemaakt worden,
@@ -101,8 +129,8 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                 int y1 = 50 * j + yPlus;
                 int y2 = 50 * j + yPlus + 100;
 
-                g.drawLine(x1, y1, x2, y2);                  // linker lijn
-                g.drawLine(x1, y2, x2 + 80, y2);         // onderste lijn
+                g.drawLine(x1, y1, x2, y2);                   // linker lijn
+                g.drawLine(x1, y2, x2 + 80, y2);          // onderste lijn
                 g.drawLine(x2 + 80, y1, x1 + 80, y2); // rechter lijn
             }
             yPlus += 50;
