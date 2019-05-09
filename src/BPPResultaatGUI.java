@@ -9,6 +9,8 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     private TekenPanelBPPResultaat tekenPanelBPPResultaat;
 
     private JLabel jlRood, jlGroen, jlGeel;
+    private JLabel jlDoos1, jlDoos2, jlDoos3, jlDoos4, jlDoos5, jlDoos6, jlDoos7;
+    private int d1, d2, d3, d4, d5, d6, d7;
     private JButton jbPakbon;
 
     private int yPlus = 0;
@@ -25,9 +27,25 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         jlGroen = new JLabel("Groen: " + hmiStatusGUI.getAantal("groen"));
         jlGeel = new JLabel("Geel: " + hmiStatusGUI.getAantal("geel"));
 
+        jlDoos1 = new JLabel("Doos 1: " + d1); // d1 krijgt de 2 - 4 groottes van producten mee
+        jlDoos2 = new JLabel("Doos 2: " + d2);
+        jlDoos3 = new JLabel("Doos 3: " + d3);
+        jlDoos4 = new JLabel("Doos 4: " + d4);
+        jlDoos5 = new JLabel("Doos 5: " + d5);
+        jlDoos6 = new JLabel("Doos 6: " + d6);
+        jlDoos7 = new JLabel("Doos 7: " + d7);
+
         tekenPanelBPPResultaat = new TekenPanelBPPResultaat(this);
 
+//        tekenPanelBPPResultaat.add(jlDoos1);
+//        tekenPanelBPPResultaat.add(jlDoos2);
+//        tekenPanelBPPResultaat.add(jlDoos3);
+//        tekenPanelBPPResultaat.add(jlDoos4);
+//        tekenPanelBPPResultaat.add(jlDoos5);
+//        tekenPanelBPPResultaat.add(jlDoos6);
+//        tekenPanelBPPResultaat.add(jlDoos7);
         //tekenPanelBPPResultaat.add(Box.createRigidArea(new Dimension(100, 100)));
+
         tekenPanelBPPResultaat.add(jlRood);
         tekenPanelBPPResultaat.add(Box.createRigidArea(new Dimension(800, 200)));
         tekenPanelBPPResultaat.add(jlGroen);
@@ -45,6 +63,13 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
 
         setVisible(false);
     }
+
+    // BPP probleem oplossing:
+    // Eerst alle grootste producten (4) in dozen doen
+    // Dan kijken of de som van 2 of 3 producten hier bij in past.
+    // Als het past, kijken we welke de doos zo vol mogelijk maakt (dichtsts bij 8)
+    // Daarna kijken we of de som van 2 - 3 (4) producten een doos kan vullen, zo niet welke het dichtst bij de 8 komt
+    // Zo moeten alle producten uiteindelijk in de dozen zijn geplaatst
 
 
     public void drawBins(Graphics g) {
