@@ -77,6 +77,9 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     // Dit product aan een nummer koppelen, Begin gewoon van ID = 0 die krijgt grootte generateNumber()
     // Zo doorgaan tot laatste product
 
+    // sorteer lijst van groot naar klein
+
+
 
     public void generateNumber() {
         Random rand = new Random();
@@ -180,7 +183,6 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
             }
         }
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

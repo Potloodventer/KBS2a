@@ -119,11 +119,11 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
     // getter voor de aantallen (kleur moet rood, geel of groen zijn)
     public int getAantal(String kleur) {
-        if (kleur.equals("rood")) {
+        if (kleur.equals("rood") ) {
             return aantalRood;
-        } else if (kleur.equals("groen")) {
+        } else if (kleur.equals("groen") ) {
             return aantalGroen;
-        } else if (kleur == "geel") {
+        } else if (kleur.equals("geel") ){
             return aantalGeel;
         } else {
             return 404;
@@ -289,7 +289,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             new BPPResultaatGUI(this).setVisible(true);
         }
 
-        // Als op de homeknop gedrukt wordt het scherm gesloten en opent het homescherm
+        // Als op de homeknop gedrukt wordt, wordt het huidige scherm gesloten en opent het homescherm
         if (e.getSource() == jbHome) {
             this.dispose();
             new HoofdschermGUI().setVisible(true);
