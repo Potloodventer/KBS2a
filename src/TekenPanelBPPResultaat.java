@@ -20,6 +20,6 @@ public class TekenPanelBPPResultaat extends JPanel {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         bppResultaatGUI.drawBins(g);
-        bppResultaatGUI.drawProducts(g, 15, 20, 10);
+        bppResultaatGUI.drawProducts(g, "", 20, 10);
     }
 }

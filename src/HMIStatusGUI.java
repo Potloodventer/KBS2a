@@ -9,6 +9,8 @@ import java.io.IOException;
 
 public class HMIStatusGUI extends JFrame implements ActionListener {
 
+    OrderInladenDialog orderInladenDialog;
+
     private int aantalRood = 0, aantalGroen = 0, aantalGeel = 0;
     private int pijlX = 0;
 

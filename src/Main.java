@@ -9,7 +9,9 @@ public class Main {
 
         // testen number generator
          BPPResultaatGUI bppResultaatGUI = new BPPResultaatGUI(hmiStatusGUI);
+        // System.out.println(bppResultaatGUI.getaantallen("groen"));
 
+         bppResultaatGUI.printArrays();
 
 //
 //        for (int i = 0; i < 50; i++) {

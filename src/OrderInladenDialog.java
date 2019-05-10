@@ -18,6 +18,8 @@ public class OrderInladenDialog extends JDialog implements ActionListener {
 
     private DatabaseHelper databaseHelper;
 
+
+
     public OrderInladenDialog(int orderNummer, int aantalProducten) // Aan constructor meegeven zodat de vorige klasse variablen mee kan geven
     {
         // Order nummer en aantal producten meegeven om later te gebruiken
@@ -69,8 +71,9 @@ public class OrderInladenDialog extends JDialog implements ActionListener {
                 x.printStackTrace();
             }
             String selectedKleur = String.valueOf(jComboBox.getSelectedItem()); // Pak de kleur van de combobox
-            System.out.println(selectedKleur);
+            System.out.println("Geselecteerde kleur: "+selectedKleur);
             String SQL = String.format("INSERT INTO temporders (orderkleur, aantalblokjes, orderid) VALUES ('%s', %S, %S)", selectedKleur, aantalProducten, orderNummer);
+            System.out.println(" Aantal Blokjes: ["+aantalProducten+"]");
 
             int querySuccess = databaseHelper.executeUpdateQuery(SQL); // Execute de insert query
 
@@ -81,7 +84,6 @@ public class OrderInladenDialog extends JDialog implements ActionListener {
             }
 
         }
-
-
     }
+
 }
