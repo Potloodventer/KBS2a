@@ -112,6 +112,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         return upp;
     }
 
+
     // getter voor de kleur ( rood, geel, groen of onbekend bij andere kleur )
     public String getKleur() {
         return kleur;

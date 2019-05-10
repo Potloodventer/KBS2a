@@ -12,6 +12,8 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     private JLabel jlRood, jlGroen, jlGeel;
     private JLabel jlDoos1, jlDoos2, jlDoos3, jlDoos4, jlDoos5, jlDoos6, jlDoos7;
     private int d1, d2, d3, d4, d5, d6, d7;
+    private int roodY1 = 160, groenY1 = 310, geelY1 = 460; // Onderin rode doos
+    private int roodX1 = 105, groenX1 = 105, geelX1 = 105; // helemaal links in 1e doos
     private JButton jbPakbon;
 
     private int[] productenRood,productenGroen,productenGeel;//Array voor de blokjes
@@ -84,6 +86,25 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
 
 
 
+    // BPP algoritme
+  /*  public void decideBestFit() {
+        int vierCounter = 0;
+        // loop door de rode array en kijk of er een oneven aantal van 4 is
+        for (int i = 0; i < productenRood.length; i++) {
+            if (productenRood[i] == 4) {
+                vierCounter++;
+            }
+        }
+        if (vierCounter % 2 == 0) { // als er een even aantal van vier is
+            // plaats alle vieren in de dozen
+        } else {
+            // plaats alle vieren in de dozen en kijk of de som van 1 of 2 andere blokjes het opvult tot 8,
+            // zo niet gebruik degene die het dichtst bij 8 komt
+        }
+    }   */
+
+
+            // maak een random nummer 2,3 of 4
     public int generateNumber() {
         Random rand = new Random();
         int randomGetal = rand.nextInt(3) + 2; // 3 zorgt dat er 3 getallen 0, 1, 2 gemaakt worden,
@@ -170,13 +191,6 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
 
     }
 
-
-
-
-
-
-
-
     public void drawBins(Graphics g) {
 
         for (int j = 2; j < 7; j += 2) {
@@ -196,18 +210,19 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         }
     }
 
-            // Teken de producten in de dozen
-    public void drawProducts(Graphics g, int aRood, int aGroen, int aGeel) {
+            // Teken de producten in de dozen ///// blokGrootte moet getal tussen 1 en 4 zijn
+    public void drawProducts(Graphics g, String kleur, int aantal, int blokGrootte) {
+            int width = 0;
+            int height = 0;
+        if (kleur.equals("rood")) {
 
-        if (aRood > 0) {
-            int y1 = 160; // Onderin doos
-            int x1 = 105; // helemaal links in 1e doos
-            int blok = 0;
-            for (int i = 0; i < aRood; i++) {
-                g.setColor(Color.RED);
-                g.fillRect(x1, y1, 30, 35);
-                blok++;
 
+            g.setColor(Color.RED);
+            g.fillRect(roodX1, roodY1, 30, 35);
+
+                //int blok = 0; //// dit uit de for loop halen
+                //blok++;
+                /* blokjes in de dozen
                 if (blok == 1) {
                     x1 += 10 + 30;
                 } else if (blok == 2) {
@@ -219,57 +234,27 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                     y1 += 5 + 35;
                     x1 += 60;
                     blok = 0;
-                }
-            }
-        }
+                }  */
 
+        }
+/*
         if (aGroen > 0) {
             int y1 = 310; // Onderin doos
             int x1 = 105; // helemaal links in 1e doos
-            int blok = 0;
             for (int i = 0; i < aGroen; i++) {
                 g.setColor(Color.GREEN);
                 g.fillRect(x1, y1, 30, 35);
-                blok++;
-
-                if (blok == 1) {
-                    x1 += 10 + 30;
-                } else if (blok == 2) {
-                    x1 -= 10 + 30;
-                    y1 -= 5 + 35;
-                } else if (blok == 3) {
-                    x1 += 10 + 30;
-                } else if (blok == 4) {
-                    y1 += 5 + 35;
-                    x1 += 60;
-                    blok = 0;
-                }
             }
         }
 
         if (aGeel > 0) {
             int y1 = 460; // Onderin doos
             int x1 = 105; // helemaal links in 1e doos
-            int blok = 0;
             for (int i = 0; i < aGeel; i++) {
                 g.setColor(Color.YELLOW);
                 g.fillRect(x1, y1, 30, 35);
-                blok++;
-
-                if (blok == 1) {
-                    x1 += 10 + 30;
-                } else if (blok == 2) {
-                    x1 -= 10 + 30;
-                    y1 -= 5 + 35;
-                } else if (blok == 3) {
-                    x1 += 10 + 30;
-                } else if (blok == 4) {
-                    y1 += 5 + 35;
-                    x1 += 60;
-                    blok = 0;
-                }
             }
-        }
+        } */
     }
 
     @Override
