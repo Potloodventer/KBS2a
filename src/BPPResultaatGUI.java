@@ -14,6 +14,9 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     private int d1, d2, d3, d4, d5, d6, d7;
     private JButton jbPakbon;
 
+    private int[] productenRood,productenGroen,productenGeel;//Array voor de blokjes
+    private int[] gesorteerdRood,gesorteerdGroen,gesorteerdGeel;//Gesorteerde array van groot naar klein.
+
     private int yPlus = 0;
 
     public BPPResultaatGUI(HMIStatusGUI hmiStatusGUI) {
@@ -68,8 +71,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     // BPP probleem oplossing:
     // Eerst alle grootste producten (4) in dozen doen
     // Dan kijken of de som van 2 of 3 producten hier bij in past.
-    // Als het past, kijken we welke de doos zo vol mogelijk maakt (dichtst
-    // bij 8)
+    // Als het past, kijken we welke de doos zo vol mogelijk maakt (dichtst bij 8)
     // Daarna kijken we of de som van 2 - 3 (4) producten een doos kan vullen, zo niet welke het dichtst bij de 8 komt
     // Zo moeten alle producten uiteindelijk in de dozen zijn geplaatst
 
@@ -80,42 +82,99 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
 
     // sorteer lijst van groot naar klein
 
-    // private DatabaseHelper databaseHelper;
-    // in constructor: databaseHelper = new DatabaseHelper();
-    // databaseHelper.openConnection();
-
-    // Queries
-    // orderkleur = rood;
-    // String SQL = String.format("Select * from temporders where orderkleur = %S", orderkleur)
-    // ResultSet rs = databaseHel00per.selectQuery(SQL)
-    // if(rs.next()){rs.getString("orderkleur")}
 
 
-    // BPP algoritme
-  /*  public void decideBestFit() {
-        int vierCounter = 0;
-        // loop door de rode array en kijk of er een oneven aantal van 4 is
-        for (int i = 0; i < productenRood.length; i++) {
-            if (productenRood[i] == 4) {
-                vierCounter++;
-            }
-        }
-        if (vierCounter % 2 == 0) { // als er een even aantal van vier is
-            // plaats alle vieren in de dozen
-        } else {
-            // plaats alle vieren in de dozen en kijk of de som van 1 of 2 andere blokjes het opvult tot 8,
-            // zo niet gebruik degene die het dichtst bij 8 komt
-        }
-    }   */
-
-
-            // maak een random nummer 2,3 of 4
-    public void generateNumber() {
+    public int generateNumber() {
         Random rand = new Random();
         int randomGetal = rand.nextInt(3) + 2; // 3 zorgt dat er 3 getallen 0, 1, 2 gemaakt worden,
                                                       // + 2 maakt dit 2, 3, 4
-        System.out.println(randomGetal);
+        return randomGetal;
     }
+
+
+    //Array maken voor elke kleur die we sorteren
+    //pak alle items van een kleur die in order 1 zitten
+
+//    public void haalAantalProducten(){
+//        for(int i = 0; i < aantalRodeBlokjes; i++){/*aantalblokjes = aantal opgehaalde aantal per kleur*/
+//            productenRood[i] = generateNumber();
+//        }
+//        for(int i = 0; i < aantalGroeneBlokjes; i++){/*aantalblokjes = aantal opgehaalde aantal per kleur*/
+//            productenGroen[i] = generateNumber();
+//        }
+//        for(int i = 0; i < aantalGeleBlokjes; i++){/*aantalblokjes = aantal opgehaalde aantal per kleur*/
+//            productenGeel[i] = generateNumber();
+//        }
+//    }
+
+    public void sorteerBlokjes() {
+        //van groot naar klein
+        //3 vershillende waardes
+        int highestNumber = 0;
+        int indexRood =0;
+        int indexGroen= 0;
+        int indexGeel= 0;
+
+        //Loopen door de array en het hoogste nummer er uit pakken.
+        for (int i = 0; i < productenRood.length; i++) {
+            if (productenRood[i] > highestNumber) {
+                highestNumber = productenRood[i];
+            }
+        }
+        //Gesorteerde array
+        for (int i = 0; i < productenRood.length; i++) {
+            if (productenRood[i] == highestNumber){
+                gesorteerdRood[indexRood] = productenRood[i];
+            }else if(productenRood[i] == highestNumber - 1){//Als het het nummer in de array gelijk is aan het hoogste aantal - 1 voeg toe aan array
+                gesorteerdRood[indexRood] = productenRood[i];
+            }else if(productenRood[i] == highestNumber - 2){//Als het het nummer in de array gelijk is aan het hoogste aantal - 1 voeg toe aan array
+                gesorteerdRood[indexRood] = productenRood[i];
+            }else if(productenRood[i] == highestNumber - 3){//Als het het nummer in de array gelijk is aan het hoogste aantal - 1 voeg toe aan array
+                gesorteerdRood[indexRood] = productenRood[i];
+            }
+        }
+
+        for (int i = 0; i < productenGroen.length; i++) {
+            if (productenGroen[i] > highestNumber) {
+                highestNumber = productenGroen[i];
+            }
+        }
+        for (int i = 0; i < productenGroen.length; i++) {
+            if (productenGroen[i] == highestNumber){
+                gesorteerdGroen[indexGroen] = productenGroen[i];
+            }else if(productenGroen[i] == highestNumber - 1){//Als het het nummer in de array gelijk is aan het hoogste aantal - 1 voeg toe aan array
+                gesorteerdGroen[indexGroen] = productenGroen[i];
+            }else if(productenGroen[i] == highestNumber - 2){//Als het het nummer in de array gelijk is aan het hoogste aantal - 1 voeg toe aan array
+                gesorteerdGroen[indexGroen] = productenGroen[i];
+            }else if(productenGroen[i] == highestNumber - 3){//Als het het nummer in de array gelijk is aan het hoogste aantal - 1 voeg toe aan array
+                gesorteerdGroen[indexGroen] = productenGroen[i];
+            }
+        }
+
+        for (int i = 0; i < productenGeel.length; i++) {
+            if (productenGeel[i] > highestNumber) {
+                highestNumber = productenGeel[i];
+            }
+        }
+        for (int i = 0; i < productenGeel.length; i++) {
+            if (productenGeel[i] == highestNumber){
+                gesorteerdGeel[indexGeel] = productenGeel[i];
+            }else if(productenGeel[i] == highestNumber - 1){//Als het het nummer in de array gelijk is aan het hoogste aantal - 1 voeg toe aan array
+                gesorteerdGeel[indexGeel] = productenGeel[i];
+            }else if(productenGeel[i] == highestNumber - 2){//Als het het nummer in de array gelijk is aan het hoogste aantal - 1 voeg toe aan array
+                gesorteerdGeel[indexGeel] = productenGeel[i];
+            }else if(productenGeel[i] == highestNumber - 3){//Als het het nummer in de array gelijk is aan het hoogste aantal - 1 voeg toe aan array
+                gesorteerdGeel[indexGeel] = productenGeel[i];
+            }
+        }
+
+    }
+
+
+
+
+
+
 
 
     public void drawBins(Graphics g) {
@@ -129,8 +188,8 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                 int y1 = 50 * j + yPlus;
                 int y2 = 50 * j + yPlus + 100;
 
-                g.drawLine(x1, y1, x2, y2);                   // linker lijn
-                g.drawLine(x1, y2, x2 + 80, y2);          // onderste lijn
+                g.drawLine(x1, y1, x2, y2);                  // linker lijn
+                g.drawLine(x1, y2, x2 + 80, y2);         // onderste lijn
                 g.drawLine(x2 + 80, y1, x1 + 80, y2); // rechter lijn
             }
             yPlus += 50;
