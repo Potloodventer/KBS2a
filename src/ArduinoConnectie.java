@@ -1,5 +1,7 @@
 import com.fazecast.jSerialComm.SerialPort;
 
+import java.io.PrintWriter;
+
 public class ArduinoConnectie {
 
     public SerialPort comPort;
@@ -19,6 +21,13 @@ public class ArduinoConnectie {
         comPort.writeBytes(s.getBytes(), s.length());
     }
 
+    public void writeStringKlaas(String s){
+        PrintWriter pout = new PrintWriter(comPort.getOutputStream());
+        pout.print(s);
+        pout.flush();
+
+    }
+
     public String readString() {
         String msg = "";
         try {
@@ -34,8 +43,9 @@ public class ArduinoConnectie {
         return msg;
     }
 
-    public void closeConnectie()
+    public void closeConnectie(int port)
     {
+        comPort = SerialPort.getCommPorts()[port];
         comPort.closePort();
     }
 

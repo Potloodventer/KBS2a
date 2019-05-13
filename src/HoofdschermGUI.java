@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+// rechts 0, links 1
+
 public class HoofdschermGUI extends JFrame implements ActionListener {
 
     private static int schermBreedte = 1100, schermHoogte = 800;
@@ -25,11 +27,15 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     private OrderInladenGUI orderInladenGUI;
     private DatabaseHelper databaseHelper;
     private ArduinoConnectie arduinoConnectie;
+    private ArduinoConnectie arduinoConnectie2;
 
     private ArrayList<String> orderNummers;
     private int aantalRows;
     private int geteld;
     private boolean tellen;
+    private StringBuilder stringBuilder;
+    private String msg;
+    private boolean startrobot2;
 
     public HoofdschermGUI() {
 
@@ -40,7 +46,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         orderNummers = new ArrayList<>();
         databaseHelper = new DatabaseHelper();
         databaseHelper.openConnection();
-        arduinoConnectie = new ArduinoConnectie(9600, 0);
+        arduinoConnectie = new ArduinoConnectie(9600, 1);
+        //arduinoConnectie = new ArduinoConnectie(9600, 1);
 
         orderInladenJB = new JButton("Order inladen");
         robotStatusJB = new JButton("Status robots");
@@ -136,11 +143,11 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Je moet eerst 1 of meer orders inladen.");
                 return;
             } else {
-                arduinoConnectie.writeString("start");
-                JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
+                arduinoConnectie.writeStringKlaas("start");
+//                JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
                 // Start de robots
                 // Stuur aantal blokjes en kleur per order naar robots
-                sendOrderToArduino(0);
+                //sendOrderToArduino(0);
                 geteld = 1;
                 arduinoConnectie.comPort.addDataListener(new SerialPortDataListener() {
                     @Override
@@ -155,14 +162,19 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                     @Override
                     public void serialEvent(SerialPortEvent serialPortEvent) {
                         byte[] newData = serialPortEvent.getReceivedData();
-                        String msg;
-                        StringBuilder stringBuilder = new StringBuilder();
+
+                        stringBuilder = new StringBuilder();
                         for (int i = 0; i < newData.length; ++i) {
                             System.out.print((char) newData[i]);
                             stringBuilder.append((char) newData[i]);
 
                         }
                         msg = stringBuilder.toString();
+                        System.out.print("Message is " + msg);
+                        if (msg.contains("x")) {
+                            System.out.print("ik kom in x rood");
+                            startrobot2 = true;
+                        }
                         if (msg.startsWith("n")) {
                             tellen = true;
                         }
@@ -175,37 +187,49 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                                 break;
                             }
                         }
-
                     }
-
                 });
+//                            if (startrobot2) {
+//                                System.out.print("ja");
+//                                arduinoConnectie.closeConnectie(1);
+//                            }
+                arduinoConnectie.closeConnectie(1);
+                arduinoConnectie2 = new ArduinoConnectie(9600, 0);
+                arduinoConnectie2.writeStringKlaas("start");
 
-
-
-
-            }
-            //weg
-            // Stop de robots
-            if (e.getSource() == stopRobotJB) {
-                // stop beide robots
-                arduinoConnectie.writeString("stop");
-                JOptionPane.showMessageDialog(this, "De robots worden gestopt.");
-            }
-        }}
-
-        public void sendOrderToArduino(int i){
-            try {
-                String SQL2 = String.format("SELECT orderkleur, aantalblokjes FROM temporders WHERE orderid = %S", orderNummers.get(i));
-                ResultSet rs2 = databaseHelper.selectQuery(SQL2);
-
-                if (rs2.next()) {
-                    String orderKleur = rs2.getString("orderkleur");
-                    String orderAantal = rs2.getString("aantalblokjes");
-                    arduinoConnectie.writeString(orderKleur + ":" + orderAantal);
+                try {
+                    System.out.println("ik kom er in");
+                    Thread.sleep(100);
+                    System.out.print("ik kom langs writestring");
+                } catch (Exception x) {
+                    System.out.println(x);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("geen orders meer te bekennen");
             }
+
+        }
+
+
+        // Stop de robots
+        if (e.getSource() == stopRobotJB) {
+            // stop beide robots
+            arduinoConnectie.writeStringKlaas("stop");
+            JOptionPane.showMessageDialog(this, "De robots worden gestopt.");
         }
     }
+
+    public void sendOrderToArduino(int i) {
+        try {
+            String SQL2 = String.format("SELECT orderkleur, aantalblokjes FROM temporders WHERE orderid = %S", orderNummers.get(i));
+            ResultSet rs2 = databaseHelper.selectQuery(SQL2);
+
+            if (rs2.next()) {
+                String orderKleur = rs2.getString("orderkleur");
+                String orderAantal = rs2.getString("aantalblokjes");
+                arduinoConnectie.writeStringKlaas(orderKleur + ":" + orderAantal);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("geen orders meer te bekennen");
+        }
+    }
+}
