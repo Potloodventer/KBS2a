@@ -46,7 +46,6 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         orderNummers = new ArrayList<>();
         databaseHelper = new DatabaseHelper();
         databaseHelper.openConnection();
-        arduinoConnectie = new ArduinoConnectie(9600, 1);
         //arduinoConnectie = new ArduinoConnectie(9600, 1);
 
         orderInladenJB = new JButton("Order inladen");
@@ -60,6 +59,11 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         alleProductenJB.setPreferredSize(new Dimension(160, 30));
         startRobotJB.setPreferredSize(new Dimension(160, 30));
         stopRobotJB.setPreferredSize(new Dimension(160, 30));
+
+        arduinoConnectie = new ArduinoConnectie(9600, 1);
+        arduinoConnectie2 = new ArduinoConnectie(9600, 0);
+
+
 
         orderInladenJB.addActionListener(this);
         robotStatusJB.addActionListener(this);
@@ -143,7 +147,15 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Je moet eerst 1 of meer orders inladen.");
                 return;
             } else {
-                arduinoConnectie.writeStringKlaas("start");
+                arduinoConnectie.writeString("start");
+                try{
+                    Thread.sleep(1000);
+                } catch (Exception x ){
+                    x.printStackTrace();
+                }
+
+                arduinoConnectie2.writeString("start");
+
                 JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
                 // Start de robots
                 // Stuur aantal blokjes en kleur per order naar robots
@@ -169,7 +181,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                             stringBuilder.append((char) newData[i]);
 
                         }
-
+                        msg = stringBuilder.toString();
                         if (msg.startsWith("n")) {
                             tellen = true;
                         }
@@ -206,7 +218,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
             if (rs2.next()) {
                 String orderKleur = rs2.getString("orderkleur");
                 String orderAantal = rs2.getString("aantalblokjes");
-                arduinoConnectie.writeStringKlaas(orderKleur + ":" + orderAantal);
+                arduinoConnectie.writeString(orderKleur + ":" + orderAantal);
             }
         } catch (Exception e) {
             e.printStackTrace();
