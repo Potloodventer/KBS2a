@@ -144,10 +144,10 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                 return;
             } else {
                 arduinoConnectie.writeStringKlaas("start");
-//                JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
+                JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
                 // Start de robots
                 // Stuur aantal blokjes en kleur per order naar robots
-                //sendOrderToArduino(0);
+                sendOrderToArduino(0);
                 geteld = 1;
                 arduinoConnectie.comPort.addDataListener(new SerialPortDataListener() {
                     @Override
@@ -169,12 +169,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                             stringBuilder.append((char) newData[i]);
 
                         }
-                        msg = stringBuilder.toString();
-                        System.out.print("Message is " + msg);
-                        if (msg.contains("x")) {
-                            System.out.print("ik kom in x rood");
-                            startrobot2 = true;
-                        }
+
                         if (msg.startsWith("n")) {
                             tellen = true;
                         }
@@ -189,21 +184,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                         }
                     }
                 });
-//                            if (startrobot2) {
-//                                System.out.print("ja");
-//                                arduinoConnectie.closeConnectie(1);
-//                            }
-                arduinoConnectie.closeConnectie(1);
-                arduinoConnectie2 = new ArduinoConnectie(9600, 0);
-                arduinoConnectie2.writeStringKlaas("start");
 
-                try {
-                    System.out.println("ik kom er in");
-                    Thread.sleep(100);
-                    System.out.print("ik kom langs writestring");
-                } catch (Exception x) {
-                    System.out.println(x);
-                }
             }
 
         }
