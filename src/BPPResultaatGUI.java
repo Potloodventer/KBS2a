@@ -14,9 +14,12 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
 
     private JLabel jlRood, jlGroen, jlGeel;
     private JLabel jlDoos1, jlDoos2, jlDoos3, jlDoos4, jlDoos5, jlDoos6, jlDoos7;
+
     private int d1, d2, d3, d4, d5, d6, d7;
+
     private int roodY1 = 160, groenY1 = 310, geelY1 = 460; // Onderin rode doos
     private int roodX1 = 105, groenX1 = 105, geelX1 = 105; // helemaal links in 1e doos
+
     private JButton jbPakbon;
 
     private int[] productenRood, productenGroen, productenGeel;//Array voor de blokjes
@@ -141,9 +144,11 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         databaseHelper = new DatabaseHelper();
         databaseHelper.openConnection();
         try {
+            //Pakt de aantal blokjes voor de gevraagde kleur.
             String SQL = String.format("Select aantalblokjes From temporders where orderkleur ='%s'", kleur);
             ResultSet rs = databaseHelper.selectQuery(SQL);
             if (rs.next()) {
+                //Pakt het aantal blokjes die met de sql query zijn gevraagd
                 aantalblokjes = rs.getString("aantalblokjes");
             }
         } catch (Exception ex) {
@@ -154,14 +159,14 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
 
     public void sorteerBlokjes() {
         //van groot naar klein
-        //3 vershillende waardes
+        //3 vershillende waardes. Voor elke kleur array index.
         int highestNumber = 0;
         int indexRood = 0;
         int indexGroen = 0;
         int indexGeel = 0;
 
 
-        //Loopen door de array en het hoogste nummer er uit pakken.
+        //Loopen door de array en het hoogste nummer er uit pakken.//-- Array voor de Rode Blokjes --\\
         for (int i = 0; i < productenRood.length; i++) {
             if (productenRood[i] > highestNumber) {
                 highestNumber = productenRood[i];
@@ -186,7 +191,59 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                 indexRood++;
             }
         }
+        //-- Array voor de GROENE Blokjes --\\
+        for (int i = 0; i < productenGroen.length; i++) {
+            if (productenGroen[i] > highestNumber) {
+                highestNumber = productenGroen[i];
+            }
+        }
+        //Gesorteerde array
+        for (int i = 0; i < productenGroen.length; i++) {
+            if (productenGroen[i] == highestNumber) {//Pak de nummers die het hoogst zijn en zet die voor in de array
+                gesorteerdGroen[indexGroen] = productenGroen[i];
+                indexGroen++;
+            }
+        }
+        for (int i = 0; i < productenGroen.length; i++) {//Pak alle getallen die 1 lager zijn dan het hoogste getal.
+            if (productenGroen[i] == highestNumber - 1) {
+                gesorteerdGroen[indexGroen] = productenGroen[i];
+                indexGroen++;
+            }
+        }
+        for (int i = 0; i < productenGroen.length; i++) {//Pak alle getallen die 2 lager zijn dan het hoogste getal.
+            if (productenGroen[i] == highestNumber - 2) {
+                gesorteerdGroen[indexGroen] = productenGroen[i];
+                indexRood++;
+            }
+        }
+        //-- Array voor de GELE blokjes --\\
+        for (int i = 0; i < productenGeel.length; i++) {
+            if (productenGeel[i] > highestNumber) {
+                highestNumber = productenGeel[i];
+            }
+        }
+        //Gesorteerde array
+        for (int i = 0; i < productenGeel.length; i++) {
+            if (productenGeel[i] == highestNumber) {//Pak de nummers die het hoogst zijn en zet die voor in de array
+                gesorteerdGeel[indexGeel] = productenGeel[i];
+                indexGeel++;
+            }
+        }
+        for (int i = 0; i < productenGeel.length; i++) {//Pak alle getallen die 1 lager zijn dan het hoogste getal.
+            if (productenGeel[i] == highestNumber - 1) {
+                gesorteerdGeel[indexGeel] = productenGeel[i];
+                indexGeel++;
+            }
+        }
+        for (int i = 0; i < productenGeel.length; i++) {//Pak alle getallen die 2 lager zijn dan het hoogste getal.
+            if (productenGeel[i] == highestNumber - 2) {
+                gesorteerdGeel[indexGeel] = productenGeel[i];
+                indexRood++;
+            }
+        }
     }
+
+
 
     //Testen van arraywaardes
     public void printArrays() {
