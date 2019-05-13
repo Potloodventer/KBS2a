@@ -158,7 +158,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                     public int getPacketSize() {
                         return 100;
                     }
-
+                    //jannes
                     @Override
                     public void serialEvent(SerialPortEvent serialPortEvent) {
                         byte[] newData = serialPortEvent.getReceivedData();
