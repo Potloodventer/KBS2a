@@ -35,6 +35,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     private boolean tellen;
     private StringBuilder stringBuilder;
     private String msg;
+    private String msg2;
     private boolean startrobot2;
 
     public HoofdschermGUI() {
@@ -190,10 +191,41 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                                 sendOrderToArduino(geteld);
                                 geteld++;
                                 tellen = false;
-                                System.out.println("geteld: " + geteld);
                                 break;
                             }
                         }
+                        arduinoConnectie2.comPort.addDataListener(new SerialPortDataListener() {
+                            @Override
+                            public int getListeningEvents() {
+                                return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
+                            }
+
+                            public int getPacketSize() {
+                                return 100;
+                            }
+                            //jannes
+                            @Override
+                            public void serialEvent(SerialPortEvent serialPortEvent) {
+                                byte[] newData = serialPortEvent.getReceivedData();
+
+                                stringBuilder = new StringBuilder();
+                                for (int i = 0; i < newData.length; ++i) {
+                                    System.out.print((char) newData[i]);
+                                    stringBuilder.append((char) newData[i]);
+
+                                }
+                                msg2 = stringBuilder.toString();
+                                if (msg2.startsWith("z")) {
+                                    arduinoConnectie.writeString("zrood");
+                                } else if(msg2.startsWith("y")){
+                                    arduinoConnectie.writeString("ygroen");
+                                } else if(msg2.startsWith("x")){
+                                    arduinoConnectie.writeString("xgeel");
+                                }
+
+                            }
+                        });
+
                     }
                 });
 
@@ -206,6 +238,12 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         if (e.getSource() == stopRobotJB) {
             // stop beide robots
             arduinoConnectie.writeStringKlaas("stop");
+            try{
+                Thread.sleep(100);
+            }catch (Exception x){
+                x.printStackTrace();
+            }
+            arduinoConnectie2.writeString("stop");
             JOptionPane.showMessageDialog(this, "De robots worden gestopt.");
         }
     }
