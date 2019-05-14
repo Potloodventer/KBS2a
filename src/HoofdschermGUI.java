@@ -17,10 +17,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     private static int schermBreedte = 1100, schermHoogte = 800;
 
     private JButton orderInladenJB;
-    private JButton robotStatusJB;
     private JButton alleProductenJB;
     private JButton startRobotJB;
-    private JButton stopRobotJB;
 
     private HMIStatusGUI hmiStatusGUI;
     private VoorraadGUI voorraadGUI;
@@ -50,16 +48,12 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         //arduinoConnectie = new ArduinoConnectie(9600, 1);
 
         orderInladenJB = new JButton("Order inladen");
-        robotStatusJB = new JButton("Status robots");
         alleProductenJB = new JButton("Pas voorraad aan");
         startRobotJB = new JButton("Start robots");
-        stopRobotJB = new JButton("Stop robots");
 
         orderInladenJB.setPreferredSize(new Dimension(160, 30));
-        robotStatusJB.setPreferredSize(new Dimension(160, 30));
         alleProductenJB.setPreferredSize(new Dimension(160, 30));
         startRobotJB.setPreferredSize(new Dimension(160, 30));
-        stopRobotJB.setPreferredSize(new Dimension(160, 30));
 
         arduinoConnectie = new ArduinoConnectie(9600, 1);
         arduinoConnectie2 = new ArduinoConnectie(9600, 0);
@@ -67,21 +61,15 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
 
         orderInladenJB.addActionListener(this);
-        robotStatusJB.addActionListener(this);
         alleProductenJB.addActionListener(this);
         startRobotJB.addActionListener(this);
-        stopRobotJB.addActionListener(this);
 
         add(Box.createRigidArea(new Dimension(schermBreedte / 2, 35)));  // lege Box voor de indeling
         add(orderInladenJB);
         add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
-        add(robotStatusJB);
-        add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
         add(alleProductenJB);
         add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
         add(startRobotJB);
-        add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
-        add(stopRobotJB);
         String SQL = "SELECT * FROM temporders";
         ResultSet rs = databaseHelper.selectQuery(SQL);
         try {
@@ -127,11 +115,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
         // laat de visuele weergave van de robot zien
         // sluit het homescherm
-        if (e.getSource() == robotStatusJB) {
-            this.setVisible(false);
-            hmiStatusGUI = new HMIStatusGUI();
-            hmiStatusGUI.setVisible(true);
-        }
+
 
         // Laat pagina met alle producten zien
         if (e.getSource() == alleProductenJB) {
@@ -228,6 +212,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
                     }
                 });
+                this.dispose();
+                new HMIStatusGUI(arduinoConnectie, arduinoConnectie2).setVisible(true);
 
             }
 
@@ -235,17 +221,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
 
         // Stop de robots
-        if (e.getSource() == stopRobotJB) {
-            // stop beide robots
-            arduinoConnectie.writeStringKlaas("stop");
-            try{
-                Thread.sleep(100);
-            }catch (Exception x){
-                x.printStackTrace();
-            }
-            arduinoConnectie2.writeString("stop");
-            JOptionPane.showMessageDialog(this, "De robots worden gestopt.");
-        }
+
     }
 
     public void sendOrderToArduino(int i) {

@@ -1,3 +1,7 @@
+import com.fazecast.jSerialComm.SerialPort;
+import com.fazecast.jSerialComm.SerialPortDataListener;
+import com.fazecast.jSerialComm.SerialPortEvent;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -6,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class HMIStatusGUI extends JFrame implements ActionListener {
 
@@ -26,10 +32,14 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
     private TekenPanelHMIStatus tekenPanelHMIStatus;
     private Timer timer;
-
+    private ArduinoConnectie arduinoConnectie1;
+    private ArduinoConnectie arduinoConnectie2;
     private BufferedImage blauwdruk = null;
 
-    public HMIStatusGUI() {
+
+    public HMIStatusGUI(ArduinoConnectie arduinoConnectie1, ArduinoConnectie arduinoConnectie2) {
+        this.arduinoConnectie1 = arduinoConnectie1;
+        this.arduinoConnectie2 = arduinoConnectie2;
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
@@ -74,17 +84,11 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         jbHome.addActionListener(this);
         jbHome.setPreferredSize(new Dimension(100, 30));
 
-        //starknop
-        jbStart = new JButton("START");
-        jbStart.addActionListener(this);
-        jbStart.setPreferredSize(new Dimension(100, 30));
-        jbStart.setEnabled(true);
-
         //stopknop
         jbStop = new JButton("STOP");
         jbStop.addActionListener(this);
         jbStop.setPreferredSize(new Dimension(100, 30));
-        jbStop.setEnabled(false);
+        jbStop.setEnabled(true);
 
         //resultaatknop
         jbResultaat = new JButton("RESULTAAT");
@@ -96,8 +100,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         add(Box.createRigidArea(new Dimension(45, 3)));
         add(jbHome);
         add(Box.createRigidArea(new Dimension(30, 3)));
-        add(jbStart);
-        add(Box.createRigidArea(new Dimension(30, 3)));
         add(jbStop);
         add(Box.createRigidArea(new Dimension(30, 3)));
         add(jbResultaat);
@@ -105,6 +107,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         // tekenpanel
         add(Box.createRigidArea(new Dimension(800, 50)));
         add(tekenPanelHMIStatus);
+        timer.start();
 
         setVisible(false);
     }
@@ -122,11 +125,11 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
     // getter voor de aantallen (kleur moet rood, geel of groen zijn)
     public int getAantal(String kleur) {
-        if (kleur.equals("rood") ) {
+        if (kleur.equals("rood")) {
             return aantalRood;
-        } else if (kleur.equals("groen") ) {
+        } else if (kleur.equals("groen")) {
             return aantalGroen;
-        } else if (kleur.equals("geel") ){
+        } else if (kleur.equals("geel")) {
             return aantalGeel;
         } else {
             return 404;
@@ -172,7 +175,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         }
 
         // 2e arm
-        if (nummer2 == 1){
+        if (nummer2 == 1) {
             //Stand Groen van arm 2
             xArm2[0] = 590;
             xArm2[1] = 600;
@@ -210,9 +213,9 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         }
 
         g.setColor(Color.MAGENTA);
-        g.fillPolygon(xArm,yArm,4);
+        g.fillPolygon(xArm, yArm, 4);
         g.setColor(Color.GREEN);
-        g.fillPolygon(xArm2,yArm2,4);
+        g.fillPolygon(xArm2, yArm2, 4);
 
 
     }
@@ -270,34 +273,55 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             jbStart.setEnabled(false);
             jbStop.setEnabled(true);
             timer.start();
+
+
         }
 
-        // wanneer op de stopknop wordt gedrukt gebeurd dit:
-        if (e.getSource() == jbStop) {
-            jbStart.setEnabled(true);
-            jbStop.setEnabled(false);
-            jbResultaat.setEnabled(true);
-            timer.stop();
 
-            // testen van arm(en)
-            if (upp <= 3) {
-                upp++;
-            } else {
-                upp = 1;
-            }
-        }
+    // wanneer op de stopknop wordt gedrukt gebeurd dit:
+        if(e.getSource()==jbStop)
 
-        // wanneer op de resultaatknop wordt gedrukt gebeurd dit:
-        if (e.getSource() == jbResultaat) {
-            new BPPResultaatGUI(this).setVisible(true);
-        }
+    {
+        jbStop.setEnabled(false);
+        jbResultaat.setEnabled(true);
+        arduinoConnectie2.writeString("stop");
 
-        // Als op de homeknop gedrukt wordt, wordt het huidige scherm gesloten en opent het homescherm
-        if (e.getSource() == jbHome) {
-            this.dispose();
-            new HoofdschermGUI().setVisible(true);
-            timer.stop();
+        try{
+            Thread.sleep(100);
+        }catch (Exception x){
+            x.printStackTrace();
         }
-        repaint();
+        arduinoConnectie1.writeString("stop");
+
+        timer.stop();
+        JOptionPane.showMessageDialog(this, "Robots worden gestopt");
+
+        // testen van arm(en)
+        if (upp <= 3) {
+            upp++;
+        } else {
+            upp = 1;
+        }
     }
+
+    // wanneer op de resultaatknop wordt gedrukt gebeurd dit:
+        if(e.getSource()==jbResultaat)
+
+    {
+        new BPPResultaatGUI(this).setVisible(true);
+    }
+
+    // Als op de homeknop gedrukt wordt, wordt het huidige scherm gesloten en opent het homescherm
+        if(e.getSource()==jbHome)
+
+    {
+        this.dispose();
+        new HoofdschermGUI().setVisible(true);
+        timer.stop();
+    }
+
+    repaint();
 }
+}
+
+
