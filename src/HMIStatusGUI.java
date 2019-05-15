@@ -28,6 +28,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
     int[] ypoints = new int[3];
 
     private String kleur; // Hier moet de kleur inkomen die de sensor waarneemt
+    private String telSensorKleur;
 
     private JButton jbHome, jbStart, jbStop, jbResultaat;
     private JLabel jlAantallen, jlRood, jlGroen, jlGeel;
@@ -131,6 +132,14 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
     }
     public void setKleur(String kleur){ this.kleur = kleur; }
 
+
+    public void setTelSensorKleur(String kleur){
+        this.telSensorKleur = kleur;
+    }
+    public String getTelSensorKleur(){
+        return telSensorKleur;
+    }
+
     // getter voor de aantallen (kleur moet rood, geel of groen zijn)
     public int getAantal(String kleur) {
         if (kleur.equals("rood")) {
@@ -164,11 +173,11 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         g.fillRect(185, 300, 60, 30);
 
     }
-    public void drawTelSensor(Graphics g){
-        if(getKleur() != null){
+    public void drawTelSensor(Graphics g, String kleur){
+        if(kleur == null){
+            g.setColor(Color.BLACK);
+        } else if(kleur.equals("paars")){
             g.setColor(Color.MAGENTA);
-        } else{
-            g.setColor(Color.black);
         }
         g.fillRect(457, 250, 30, 15);
 

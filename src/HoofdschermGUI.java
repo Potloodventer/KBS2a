@@ -216,6 +216,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                                     stringBuilder.append((char) newData[i]);
 
                                 }
+
                                 msg2 = stringBuilder.toString();
                                 if (msg2.startsWith("z")) {
                                     arduinoConnectie.writeString("zrood");
@@ -228,6 +229,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                                 } else if(msg2.startsWith("x")){
                                     arduinoConnectie.writeString("xgeel");
                                     hmiStatusGUI.setKleur("geel");
+                                } else if(msg2.startsWith("q")){
+                                    hmiStatusGUI.setTelSensorKleur("paars");
                                 }
 
 
