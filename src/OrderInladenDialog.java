@@ -16,6 +16,8 @@ public class OrderInladenDialog extends JDialog implements ActionListener {
     private int orderNummer;
     private int aantalProducten;
 
+    private int orderIDDatabaseInt;
+
     private DatabaseHelper databaseHelper;
 
 
@@ -72,6 +74,28 @@ public class OrderInladenDialog extends JDialog implements ActionListener {
             }
             String selectedKleur = String.valueOf(jComboBox.getSelectedItem()); // Pak de kleur van de combobox
             System.out.println("Geselecteerde kleur: "+selectedKleur);
+            try{
+                String SQL2 = "SELECT orderkleur, orderid FROM temporders";
+                ResultSet rs1 = databaseHelper.selectQuery(SQL2);
+                while(rs1.next()){
+                    String kleurDatabase = rs1.getString("orderkleur");
+                    String orderIDDatabase = rs1.getString("orderid");
+                    orderIDDatabaseInt = Integer.parseInt(orderIDDatabase);
+                    System.out.println("ordernummer: " + orderNummer);
+                    System.out.println("orderIDDatabase: " + orderIDDatabase);
+                    if(selectedKleur.equals(kleurDatabase)){
+                        JOptionPane.showMessageDialog(this, "Je kan niet twee dezelfde kleuren toevoegen!");
+                        return;
+                    }
+                    if(orderNummer == orderIDDatabaseInt){
+                        JOptionPane.showMessageDialog(this, "Je kan niet twee dezelfde orderid's toevoegen!");
+                        return;
+                    }
+                    orderIDDatabase = "";
+                }
+            }catch (Exception x){
+                x.printStackTrace();
+            }
             String SQL = String.format("INSERT INTO temporders (orderkleur, aantalblokjes, orderid) VALUES ('%s', %S, %S)", selectedKleur, aantalProducten, orderNummer);
             System.out.println(" Aantal Blokjes: ["+aantalProducten+"]");
 
