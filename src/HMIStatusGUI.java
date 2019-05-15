@@ -19,7 +19,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
     OrderInladenDialog orderInladenDialog;
 
-    private int aantalRood = 0, aantalGroen = 0, aantalGeel = 0;
     private int pijlX = 0;
 
     private int upp = 0; // puur voor testen van slagboom
@@ -32,6 +31,14 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
     private JButton jbHome, jbStart, jbStop, jbResultaat;
     private JLabel jlAantallen, jlRood, jlGroen, jlGeel;
+
+    private int aantalRoodInt = 0;
+    private int aantalGeelInt = 0;
+    private int aantalGroenInt = 0;
+
+    private boolean paars;
+
+
 
     private TekenPanelHMIStatus tekenPanelHMIStatus;
     private Timer timer;
@@ -64,9 +71,9 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         tekenPanelHMIStatus = new TekenPanelHMIStatus(this);
 
         jlAantallen = new JLabel("De waargenomen aantallen per kleur: ");
-        jlRood = new JLabel("Rood: " + aantalRood);
-        jlGroen = new JLabel("Groen: " + aantalGroen);
-        jlGeel = new JLabel("Geel: " + aantalGeel);
+        jlRood = new JLabel("Rood: " + aantalRoodInt);
+        jlGroen = new JLabel("Groen: " + aantalGroenInt);
+        jlGeel = new JLabel("Geel: " + aantalGeelInt);
 
 
         tekenPanelHMIStatus = new TekenPanelHMIStatus(this);
@@ -133,24 +140,35 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
     public void setKleur(String kleur){ this.kleur = kleur; }
 
 
-    public void setTelSensorKleur(String kleur){
-        this.telSensorKleur = kleur;
+    public void setTelSensorKleur(String telkleur){
+        this.telSensorKleur = telkleur;
     }
-    public String getTelSensorKleur(){
-        return telSensorKleur;
+    public int getAantalRood() {
+        return aantalRoodInt;
     }
 
-    // getter voor de aantallen (kleur moet rood, geel of groen zijn)
-    public int getAantal(String kleur) {
-        if (kleur.equals("rood")) {
-            return aantalRood;
-        } else if (kleur.equals("groen")) {
-            return aantalGroen;
-        } else if (kleur.equals("geel")) {
-            return aantalGeel;
-        } else {
-            return 404;
-        }
+    public int getAantalGroen() {
+        return aantalGroenInt;
+    }
+
+    public int getAantalGeel() {
+        return aantalGeelInt;
+    }
+
+    public void setAantalRood(int aantalRood) {
+        this.aantalRoodInt = aantalRood;
+    }
+
+    public void setAantalGroen(int aantalGroen) {
+        this.aantalGroenInt = aantalGroen;
+    }
+
+    public void setAantalGeel(int aantalGeel) {
+        this.aantalGeelInt = aantalGeel;
+    }
+
+    public String getTelSensorKleur(){
+        return telSensorKleur;
     }
 
 
@@ -178,6 +196,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             g.setColor(Color.BLACK);
         } else if(kleur.equals("paars")){
             g.setColor(Color.MAGENTA);
+
         }
         g.fillRect(457, 250, 30, 15);
 
@@ -364,9 +383,16 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         new HoofdschermGUI().setVisible(true);
         timer.stop();
     }
-
+    jlRood.setText("Rood: " + aantalRoodInt);
+        jlGeel.setText("Geel: " + aantalGeelInt);
+        jlGroen.setText("Groen: " + aantalGroenInt);
     repaint();
 }
+    public boolean getPaars(){return paars;}
+    public void setPaars(boolean paars){
+        this.paars = paars;
+    }
+
 }
 
 

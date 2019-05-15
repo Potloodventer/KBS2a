@@ -22,6 +22,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     private JButton statusRobotJB;
     private Graphics g;
     private HMIStatusGUI hmiStatusGUI;
+    private boolean paars;
     private TekenPanelHMIStatus tekenPanelHMIStatus;
     private VoorraadGUI voorraadGUI;
     private OrderInladenGUI orderInladenGUI;
@@ -40,6 +41,11 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     private String msg;
     private String msg2;
     private boolean startrobot2;
+
+    private int aantalRood;
+    private int aantalGeel;
+    private int aantalGroen;
+
 
     public HoofdschermGUI() {
 
@@ -187,6 +193,32 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                         msg = stringBuilder.toString();
                         if (msg.startsWith("n")) {
                             tellen = true;
+                            hmiStatusGUI.setTelSensorKleur(null);
+
+                        }else if(msg.startsWith("q")){
+                            hmiStatusGUI.setPaars(true);
+                            if(hmiStatusGUI.getPaars()) {
+                                hmiStatusGUI.setTelSensorKleur("paars");
+                            } else{
+                                hmiStatusGUI.setTelSensorKleur(null);
+                            }
+                            }
+                        if(msg.startsWith("m")){
+                            System.out.println("ik kom hier in");
+                            aantalRood = hmiStatusGUI.getAantalRood();
+                            hmiStatusGUI.setAantalRood(aantalRood + 1);
+                            hmiStatusGUI.setTelSensorKleur(null);
+                            System.out.println(hmiStatusGUI.getAantalRood());
+                        }else if(msg.startsWith("p")){
+                            aantalGeel = hmiStatusGUI.getAantalGeel();
+                            hmiStatusGUI.setAantalGeel(aantalGeel + 1);
+                            hmiStatusGUI.setTelSensorKleur(null);
+
+                        }else if(msg.startsWith("l")){
+                            aantalGroen = hmiStatusGUI.getAantalGroen();
+                            hmiStatusGUI.setAantalGroen(aantalGroen + 1);
+                            hmiStatusGUI.setTelSensorKleur(null);
+
                         }
                         if (tellen) {
                             for (int x = 0; x < aantalRows; x++) {
@@ -229,9 +261,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                                 } else if(msg2.startsWith("x")){
                                     arduinoConnectie.writeString("xgeel");
                                     hmiStatusGUI.setKleur("geel");
-                                } else if(msg2.startsWith("q")){
-                                    hmiStatusGUI.setTelSensorKleur("paars");
                                 }
+
 
 
                             }
@@ -252,6 +283,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         // Stop de robots
 
     }
+
 
     public void sendOrderToArduino(int i) {
         try {

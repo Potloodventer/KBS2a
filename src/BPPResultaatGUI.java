@@ -37,9 +37,9 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         setTitle("BPP Resultaat");
 
-        jlRood  = new JLabel("Rood: "  + hmiStatusGUI.getAantal("rood"));
-        jlGroen = new JLabel("Groen: " + hmiStatusGUI.getAantal("groen"));
-        jlGeel  = new JLabel("Geel: "  + hmiStatusGUI.getAantal("geel"));
+        jlRood  = new JLabel("Rood: ");
+        jlGroen = new JLabel("Groen: " );
+        jlGeel  = new JLabel("Geel: ");
 
         jlDoos1 = new JLabel("Doos 1: " + d1);
         jlDoos2 = new JLabel("Doos 2: " + d2);
