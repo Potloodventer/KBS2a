@@ -20,10 +20,13 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     private JButton alleProductenJB;
     private JButton startRobotJB;
     private JButton statusRobotJB;
-
+    private Graphics g;
     private HMIStatusGUI hmiStatusGUI;
+    private TekenPanelHMIStatus tekenPanelHMIStatus;
     private VoorraadGUI voorraadGUI;
     private OrderInladenGUI orderInladenGUI;
+    private BPPResultaatGUI bppResultaatGUI;
+
     private DatabaseHelper databaseHelper;
     private ArduinoConnectie arduinoConnectie;
     private ArduinoConnectie arduinoConnectie2;
@@ -47,6 +50,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         orderNummers = new ArrayList<>();
         databaseHelper = new DatabaseHelper();
         databaseHelper.openConnection();
+
         //arduinoConnectie = new ArduinoConnectie(9600, 1);
 
         orderInladenJB = new JButton("Order inladen");
@@ -152,6 +156,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                     x.printStackTrace();
                 }
                 hmiStatusGUI = new HMIStatusGUI(arduinoConnectie, arduinoConnectie2);
+                hmiStatusGUI.setVisible(true);
                 arduinoConnectie2.writeString("start");
 
                 JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
@@ -216,9 +221,12 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                                     arduinoConnectie.writeString("zrood");
                                     hmiStatusGUI.setKleur("rood");
 
+
+
                                 } else if(msg2.startsWith("y")){
                                     arduinoConnectie.writeString("ygroen");
                                     hmiStatusGUI.setKleur("groen");
+
                                 } else if(msg2.startsWith("x")){
                                     arduinoConnectie.writeString("xgeel");
                                     hmiStatusGUI.setKleur("geel");
@@ -231,7 +239,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                     }
                 });
                 this.dispose();
-                hmiStatusGUI.setVisible(true);
+
 
 
 

@@ -145,8 +145,15 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         }
     }
 
+
+
+    public void drawBlueprint(Graphics g) {
+        //Overzicht van de robot tekenen
+        g.drawImage(blauwdruk, 50, y - 165, null);
+    }
+
     public void drawRGBSensor(Graphics g, String kleur){
-        if (kleur.equals("zwart")) {
+        if (kleur == null) {
             g.setColor(Color.BLACK);
         } else if (kleur.equals("groen")) {
             g.setColor(Color.GREEN);
@@ -157,11 +164,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         }
         g.fillRect(213, 309, 30, 40);
 
-    }
-
-    public void drawBlueprint(Graphics g) {
-        //Overzicht van de robot tekenen
-        g.drawImage(blauwdruk, 50, y - 165, null);
     }
 
     public void drawServoArm(Graphics g, int nummer1, int nummer2) {

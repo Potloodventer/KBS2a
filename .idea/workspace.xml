@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc498e77-49a1-4f05-a2d5-cf791ceff1bf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OrderInladenDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OrderInladenDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KBS2a/hoofdSchermGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KBS2a/hoofdSchermGUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DatabaseHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HMIStatusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HMIStatusGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HoofdschermGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HoofdschermGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TekenPanelHMIStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TekenPanelHMIStatus.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,37 +33,44 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/src/ConnectieTest.java">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="380">
+                    <caret line="22" selection-start-line="22" selection-end-line="22" />
+                    <folding>
+                      <element signature="imports" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/HMIStatusGUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="281">
+              <caret line="350" column="6" selection-start-line="350" selection-start-column="6" selection-end-line="350" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BPPResultaatGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1482">
+            <state relative-caret-position="-98">
               <caret line="84" column="7" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/HMIStatusGUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5757">
-              <caret line="320" column="5" selection-start-line="320" selection-start-column="5" selection-end-line="320" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TekenPanelBPPResultaat.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="11" column="47" selection-start-line="11" selection-start-column="47" selection-end-line="11" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -71,68 +81,31 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/HoofdschermGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="170" column="42" selection-start-line="170" selection-start-column="42" selection-end-line="170" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PakbonGUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="665">
-              <caret line="42" column="22" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/OrderInladenGUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="104" column="47" lean-forward="true" selection-start-line="104" selection-start-column="47" selection-end-line="104" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/OrderInladenDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
+            <state relative-caret-position="154">
+              <caret line="221" column="63" selection-start-line="221" selection-start-column="63" selection-end-line="221" selection-end-column="63" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#3722#3723#0" expanded="true" />
+                <element signature="e#3758#3759#0" expanded="true" />
+                <element signature="e#3801#3802#0" expanded="true" />
+                <element signature="e#3836#3837#0" expanded="true" />
+                <element signature="e#5723#5724#0" expanded="true" />
+                <element signature="e#5818#5819#0" expanded="true" />
+                <element signature="e#5868#5869#0" expanded="true" />
+                <element signature="e#5926#5927#0" expanded="true" />
+                <element signature="e#7153#7154#0" expanded="true" />
+                <element signature="e#7264#7265#0" expanded="true" />
+                <element signature="e#7322#7323#0" expanded="true" />
+                <element signature="e#7396#7397#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DatabaseHelper.java">
+        <entry file="file://$PROJECT_DIR$/src/TekenPanelHMIStatus.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ConnectieTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ArduinoConnectie.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="370">
+              <caret line="24" column="58" selection-start-line="24" selection-start-column="58" selection-end-line="24" selection-end-column="58" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -181,16 +154,16 @@
         <option value="$PROJECT_DIR$/src/OrderInladenGUI.java" />
         <option value="$PROJECT_DIR$/src/OrderInladenDialogVerwijderen.java" />
         <option value="$PROJECT_DIR$/src/TekenPanel.java" />
-        <option value="$PROJECT_DIR$/src/TekenPanelHMIStatus.java" />
         <option value="$PROJECT_DIR$/src/PakbonGUI.java" />
         <option value="$PROJECT_DIR$/src/ArduinoConnectie.java" />
         <option value="$PROJECT_DIR$/src/TekenPanelBPPResultaat.java" />
         <option value="$PROJECT_DIR$/src/BPPResultaatGUI.java" />
-        <option value="$PROJECT_DIR$/src/DatabaseHelper.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/HoofdschermGUI.java" />
-        <option value="$PROJECT_DIR$/src/HMIStatusGUI.java" />
         <option value="$PROJECT_DIR$/src/OrderInladenDialog.java" />
+        <option value="$PROJECT_DIR$/src/DatabaseHelper.java" />
+        <option value="$PROJECT_DIR$/src/HoofdschermGUI.java" />
+        <option value="$PROJECT_DIR$/src/TekenPanelHMIStatus.java" />
+        <option value="$PROJECT_DIR$/src/HMIStatusGUI.java" />
       </list>
     </option>
   </component>
@@ -231,7 +204,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557911299835" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557913992589" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/mysql-connector-java-5.1.47.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -310,7 +283,7 @@
       <workItem from="1557745262514" duration="240000" />
       <workItem from="1557822298841" duration="165000" />
       <workItem from="1557830647482" duration="2456000" />
-      <workItem from="1557908234352" duration="2979000" />
+      <workItem from="1557908234352" duration="5666000" />
     </task>
     <task id="LOCAL-00001" summary="Alles samengevoegd">
       <created>1556103224748</created>
@@ -438,17 +411,24 @@
       <option name="project" value="LOCAL" />
       <updated>1557833086383</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="hoofdscherm aangepast">
+      <created>1557911314350</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1557911314350</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90637000" />
+    <option name="totallyTimeSpent" value="93324000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.040939596" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19865772" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -459,7 +439,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4989719" visible="true" weight="0.23371105" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39770868" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39660057" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -551,16 +531,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Windesheim Office365/Thijmen Boerland (student) - KBS 2/PakbonGUIbackup.java" />
-    <entry file="file://$PROJECT_DIR$/src/TekenPanelHMIStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="25" column="38" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/OrderInladenDialogVerwijderen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -588,23 +558,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BPPResultaatGUI.java">
+    <entry file="file://$PROJECT_DIR$/src/ArduinoConnectie.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1482">
-          <caret line="84" column="7" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
+        <state relative-caret-position="380">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/HMIStatusGUI.java">
+    <entry file="file://$PROJECT_DIR$/src/ConnectieTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5757">
-          <caret line="320" column="5" selection-start-line="320" selection-start-column="5" selection-end-line="320" selection-end-column="5" />
+        <state relative-caret-position="380">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OrderInladenDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1045">
+          <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PakbonGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="42" column="22" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OrderInladenGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="104" column="47" selection-start-line="104" selection-start-column="47" selection-end-line="104" selection-end-column="47" />
         </state>
       </provider>
     </entry>
@@ -618,34 +612,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PakbonGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="42" column="22" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DatabaseHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+        <state relative-caret-position="190">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ConnectieTest.java">
+    <entry file="file://$PROJECT_DIR$/src/BPPResultaatGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ArduinoConnectie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="-98">
+          <caret line="84" column="7" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -654,25 +631,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/HoofdschermGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="170" column="42" selection-start-line="170" selection-start-column="42" selection-end-line="170" selection-end-column="42" />
+        <state relative-caret-position="154">
+          <caret line="221" column="63" selection-start-line="221" selection-start-column="63" selection-end-line="221" selection-end-column="63" />
+          <folding>
+            <element signature="e#3722#3723#0" expanded="true" />
+            <element signature="e#3758#3759#0" expanded="true" />
+            <element signature="e#3801#3802#0" expanded="true" />
+            <element signature="e#3836#3837#0" expanded="true" />
+            <element signature="e#5723#5724#0" expanded="true" />
+            <element signature="e#5818#5819#0" expanded="true" />
+            <element signature="e#5868#5869#0" expanded="true" />
+            <element signature="e#5926#5927#0" expanded="true" />
+            <element signature="e#7153#7154#0" expanded="true" />
+            <element signature="e#7264#7265#0" expanded="true" />
+            <element signature="e#7322#7323#0" expanded="true" />
+            <element signature="e#7396#7397#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/OrderInladenGUI.java">
+    <entry file="file://$PROJECT_DIR$/src/TekenPanelHMIStatus.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="104" column="47" lean-forward="true" selection-start-line="104" selection-start-column="47" selection-end-line="104" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/OrderInladenDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
+        <state relative-caret-position="370">
+          <caret line="24" column="58" selection-start-line="24" selection-start-column="58" selection-end-line="24" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HMIStatusGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="350" column="6" selection-start-line="350" selection-start-column="6" selection-end-line="350" selection-end-column="6" />
         </state>
       </provider>
     </entry>
