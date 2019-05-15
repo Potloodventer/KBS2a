@@ -221,8 +221,6 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                                     arduinoConnectie.writeString("zrood");
                                     hmiStatusGUI.setKleur("rood");
 
-
-
                                 } else if(msg2.startsWith("y")){
                                     arduinoConnectie.writeString("ygroen");
                                     hmiStatusGUI.setKleur("groen");

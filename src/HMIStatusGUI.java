@@ -125,7 +125,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         return upp;
     }
 
-
     // getter voor de kleur ( rood, geel, groen of onbekend bij andere kleur )
     public String getKleur() {
         return kleur;
@@ -162,7 +161,16 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         } else if (kleur.equals("geel")) {
             g.setColor(Color.YELLOW);
         }
-        g.fillRect(213, 309, 30, 40);
+        g.fillRect(185, 300, 60, 30);
+
+    }
+    public void drawTelSensor(Graphics g){
+        if(getKleur() != null){
+            g.setColor(Color.MAGENTA);
+        } else{
+            g.setColor(Color.black);
+        }
+        g.fillRect(457, 250, 30, 15);
 
     }
 
