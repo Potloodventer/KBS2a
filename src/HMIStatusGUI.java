@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -67,6 +69,12 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
 
         tekenPanelHMIStatus = new TekenPanelHMIStatus(this);
+        tekenPanelHMIStatus.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                System.out.println(e.getX() + "," + e.getY());
+            }
+        });
         tekenPanelHMIStatus.add(Box.createRigidArea(new Dimension(900, 100)));
         tekenPanelHMIStatus.add(jlAantallen);
         tekenPanelHMIStatus.add(Box.createRigidArea(new Dimension(630, 5)));
@@ -122,6 +130,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
     public String getKleur() {
         return kleur;
     }
+    public void setKleur(String kleur){ this.kleur = kleur; }
 
     // getter voor de aantallen (kleur moet rood, geel of groen zijn)
     public int getAantal(String kleur) {
@@ -134,6 +143,20 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         } else {
             return 404;
         }
+    }
+
+    public void drawRGBSensor(Graphics g, String kleur){
+        if (kleur.equals("zwart")) {
+            g.setColor(Color.BLACK);
+        } else if (kleur.equals("groen")) {
+            g.setColor(Color.GREEN);
+        } else if (kleur.equals("rood")) {
+            g.setColor(Color.RED);
+        } else if (kleur.equals("geel")) {
+            g.setColor(Color.YELLOW);
+        }
+        g.fillRect(213, 309, 30, 40);
+
     }
 
     public void drawBlueprint(Graphics g) {
@@ -257,6 +280,9 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         // verplaats de pijlen met een verandering van 20 naar rechts
         pijlX += 3;
     }
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

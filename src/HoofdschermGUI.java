@@ -19,6 +19,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     private JButton orderInladenJB;
     private JButton alleProductenJB;
     private JButton startRobotJB;
+    private JButton statusRobotJB;
 
     private HMIStatusGUI hmiStatusGUI;
     private VoorraadGUI voorraadGUI;
@@ -27,6 +28,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     private ArduinoConnectie arduinoConnectie;
     private ArduinoConnectie arduinoConnectie2;
 
+    private boolean tekenRood;
     private ArrayList<String> orderNummers;
     private int aantalRows;
     private int geteld;
@@ -50,7 +52,9 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         orderInladenJB = new JButton("Order inladen");
         alleProductenJB = new JButton("Pas voorraad aan");
         startRobotJB = new JButton("Start robots");
+        statusRobotJB = new JButton("Status robots");
 
+        statusRobotJB.setPreferredSize(new Dimension(160, 30));
         orderInladenJB.setPreferredSize(new Dimension(160, 30));
         alleProductenJB.setPreferredSize(new Dimension(160, 30));
         startRobotJB.setPreferredSize(new Dimension(160, 30));
@@ -60,9 +64,12 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
 
 
+
         orderInladenJB.addActionListener(this);
         alleProductenJB.addActionListener(this);
         startRobotJB.addActionListener(this);
+        statusRobotJB.addActionListener(this);
+
 
         add(Box.createRigidArea(new Dimension(schermBreedte / 2, 35)));  // lege Box voor de indeling
         add(orderInladenJB);
@@ -70,6 +77,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         add(alleProductenJB);
         add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
         add(startRobotJB);
+        add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
+        add(statusRobotJB);
         String SQL = "SELECT * FROM temporders";
         ResultSet rs = databaseHelper.selectQuery(SQL);
         try {
@@ -123,6 +132,10 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
             voorraadGUI = new VoorraadGUI();
             voorraadGUI.setVisible(true);
         }
+        if(e.getSource() == statusRobotJB){
+            hmiStatusGUI = new HMIStatusGUI(arduinoConnectie, arduinoConnectie2);
+            hmiStatusGUI.setVisible(true);
+        }
 
         // Start de robots
         if (e.getSource() == startRobotJB) {
@@ -138,7 +151,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                 } catch (Exception x ){
                     x.printStackTrace();
                 }
-
+                hmiStatusGUI = new HMIStatusGUI(arduinoConnectie, arduinoConnectie2);
                 arduinoConnectie2.writeString("start");
 
                 JOptionPane.showMessageDialog(this, "Robots zijn gestart met " + aantalRows + " orders.");
@@ -201,11 +214,16 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                                 msg2 = stringBuilder.toString();
                                 if (msg2.startsWith("z")) {
                                     arduinoConnectie.writeString("zrood");
+                                    hmiStatusGUI.setKleur("rood");
+
                                 } else if(msg2.startsWith("y")){
                                     arduinoConnectie.writeString("ygroen");
+                                    hmiStatusGUI.setKleur("groen");
                                 } else if(msg2.startsWith("x")){
                                     arduinoConnectie.writeString("xgeel");
+                                    hmiStatusGUI.setKleur("geel");
                                 }
+
 
                             }
                         });
@@ -213,7 +231,9 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                     }
                 });
                 this.dispose();
-                new HMIStatusGUI(arduinoConnectie, arduinoConnectie2).setVisible(true);
+                hmiStatusGUI.setVisible(true);
+
+
 
             }
 
@@ -239,4 +259,5 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
             System.out.println("geen orders meer te bekennen");
         }
     }
+
 }

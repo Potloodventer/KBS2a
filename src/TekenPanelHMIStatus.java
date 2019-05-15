@@ -11,7 +11,6 @@ public class TekenPanelHMIStatus extends JPanel {
     public TekenPanelHMIStatus(HMIStatusGUI hmiStatusGUI) {
         this.hmiStatusGUI = hmiStatusGUI;
 
-
         setLayout(new FlowLayout());
         setPreferredSize(new Dimension(tekenPanelBreedte, tekenPanelHoogte));
         setBackground(Color.white);
@@ -25,5 +24,7 @@ public class TekenPanelHMIStatus extends JPanel {
         hmiStatusGUI.drawBlueprint(g);
         hmiStatusGUI.moveArrows(g, null); // null wordt: hmiStatusGUI.getKleur();
         hmiStatusGUI.drawServoArm(g, hmiStatusGUI.getUpp(), hmiStatusGUI.getUpp());
+        hmiStatusGUI.drawRGBSensor(g, hmiStatusGUI.getKleur());
+
     }
 }
