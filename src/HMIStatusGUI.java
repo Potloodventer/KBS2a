@@ -343,9 +343,10 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
 
     // wanneer op de stopknop wordt gedrukt gebeurd dit:
-        if(e.getSource()==jbStop)
+        if(e.getSource() == jbStop)
 
     {
+        timer.stop();
         jbStop.setEnabled(false);
         jbResultaat.setEnabled(true);
         arduinoConnectie2.writeString("stop");
@@ -357,7 +358,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         }
         arduinoConnectie1.writeString("stop");
 
-        timer.stop();
+
         JOptionPane.showMessageDialog(this, "Robots worden gestopt");
 
         // testen van arm(en)

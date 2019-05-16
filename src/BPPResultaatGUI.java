@@ -80,9 +80,9 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
 
     // BPP probleem oplossing:
     // Eerst alle grootste producten (4) in dozen doen
-    // Dan kijken of de som van 2 of 3 producten hier bij in past.
+    // Dan kijken of de som van 2 andere producten hier bij in past. (en op 1 na grootste of die m vult)
     // Als het past, kijken we welke de doos zo vol mogelijk maakt (dichtst bij 8)
-    // Daarna kijken we of de som van 2 - 3 (4) producten een doos kan vullen, zo niet welke het dichtst bij de 8 komt
+    // Daarna kijken we of de som van 2 - 3 producten een doos kan vullen, zo niet welke het dichtst bij de 8 komt
     // Zo moeten alle producten uiteindelijk in de dozen zijn geplaatst
 
     // Random nummer generator maken met getallen tussen x & x  (2, 3, 4)  /////////// af
@@ -119,124 +119,142 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     }
 
     // Genereer random nummers voor het aantal producten per kleur en stop deze in de productarray
-    public void haalAantalProducten() {
-        // Haal het aantal blokjes per kleur op uit de database
+    public void haalAantalProducten(String kleur) {
 
-        int aantalRood = 14;  // Hoger dan 15 - 16 kan error geven omdat er maar 7 bakken zijn (array error)
-        System.out.println("Rood: " + aantalRood);
-        int aantalGroen = 2;
-        System.out.println("Groen: " + aantalGroen);
-        int aantalGeel = 3;
-        System.out.println("Geel: " + aantalGeel);
-        //int aantalRood = getaantallen("rood");
-        //int aantalGroen = getaantallen("groen");
-        //int aantalGeel = getaantallen("geel");
+        if (kleur.equals("rood")) {
+            //int aantalRood = getaantallen("rood"); // Haal het aantal blokjes per kleur op uit de database
+            int aantalRood = 10;  // Hoger dan 15 - 16 kan error geven omdat er maar 7 bakken zijn (array error)
+            for (int i = 0; i < aantalRood; i++) {
+                productenRood.add(generateNumber());
+            }
+        } else if (kleur.equals("groen")) {
+            int aantalGroen = 10;
+            //int aantalGroen = getaantallen("groen");
+            for (int i = 0; i < aantalGroen; i++) {
+                productenGroen.add(generateNumber());
+            }
+        } else if (kleur.equals("geel")) {
+            int aantalGeel = 10;
+            //int aantalGeel = getaantallen("geel");
+            for (int i = 0; i < aantalGeel; i++) {
+                productenGeel.add(generateNumber());
+            }
+        }
 
-        for (int i = 0; i < aantalRood; i++) {
-            productenRood.add(generateNumber());
-        }
-        for (int i = 0; i < aantalGroen; i++) {
-            productenGroen.add(generateNumber());
-        }
-        for (int i = 0; i < aantalGeel; i++) {
-            productenGeel.add(generateNumber());
-        }
+
     }
 
-    public void sorteerBlokjes() {
-        haalAantalProducten(); // Genereert random nummers voor aantal producten per kleur en vult arrays
+    int highestNumberRood = 0;
+    int highestNumberGroen = 0;
+    int highestNumberGeel = 0;
+    public void sorteerBlokjes(String kleur) {
+        haalAantalProducten(kleur); // Genereert random nummers voor aantal producten per kleur en vult arrays
 
         //3 vershillende waardes. Voor elke kleur array index.
-        int highestNumber = 0;
 
-        //Loopen door de array en het hoogste nummer er uit pakken.//-- Array voor de Rode Blokjes --\\
-        for (Integer a : productenRood) {
-            if (a > highestNumber) {//Bepaal de hoogste waarde in de array
-                highestNumber = a;
+
+        if (kleur.equals("rood")) {
+            //Loopen door de array en het hoogste nummer er uit pakken.//-- Array voor de Rode Blokjes --\\
+            for (Integer a : productenRood) {
+                if (a > highestNumberRood) {//Bepaal de hoogste waarde in de array
+                    highestNumberRood = a;
+                }
             }
-        }
-        //Gesorteerde array
-        for (Integer a : productenRood) {
-            if (a == highestNumber) {//Pak de nummers die het hoogst zijn en zet die voorin de array
-                gesorteerdRood.add(a);
+            //Gesorteerde array
+            for (Integer a : productenRood) {
+                if (a == highestNumberRood) {//Pak de nummers die het hoogst zijn en zet die voorin de array
+                    gesorteerdRood.add(a);
+                }
             }
-        }
-        for (Integer a : productenRood) {
-            if (a == highestNumber - 1) {//Pak alle getallen die 1 lager zijn dan het hoogste getal.
-                gesorteerdRood.add(a);
+            for (Integer a : productenRood) {
+                if (a == highestNumberRood - 1) {//Pak alle getallen die 1 lager zijn dan het hoogste getal.
+                    gesorteerdRood.add(a);
+                }
             }
-        }
-        for (Integer a : productenRood) {
-            if (a == highestNumber - 2) {//Pak alle getallen die 2 lager zijn dan het hoogste getal.
-                gesorteerdRood.add(a);
+            for (Integer a : productenRood) {
+                if (a == highestNumberRood - 2) {//Pak alle getallen die 2 lager zijn dan het hoogste getal.
+                    gesorteerdRood.add(a);
+                }
             }
-        }
-        //-- Array voor de GROENE Blokjes --\\
-        for (Integer b : productenGroen) {
-            if (b > highestNumber) {//Bepaal de hoogste waarde in de array
-                highestNumber = b;
+        } else if (kleur.equals("groen")) {
+            //-- Array voor de GROENE Blokjes --\\
+            for (Integer b : productenGroen) {
+                if (b > highestNumberGroen) {//Bepaal de hoogste waarde in de array
+                    highestNumberGroen = b;
+                }
             }
-        }
-        //Gesorteerde array
-        for (Integer b : productenGroen) {
-            if (b == highestNumber) {//Pak de nummers die het hoogst zijn en zet die voor in de array
-                gesorteerdGroen.add(b);
+            //Gesorteerde array
+            for (Integer b : productenGroen) {
+                if (b == highestNumberGroen) {//Pak de nummers die het hoogst zijn en zet die voor in de array
+                    gesorteerdGroen.add(b);
+                }
             }
-        }
-        for (Integer b : productenGroen) {
-            if (b == highestNumber - 1) {//Pak alle getallen die 1 lager zijn dan het hoogste getal.
-                gesorteerdGroen.add(b);
+            for (Integer b : productenGroen) {
+                if (b == highestNumberGroen - 1) {//Pak alle getallen die 1 lager zijn dan het hoogste getal.
+                    gesorteerdGroen.add(b);
+                }
             }
-        }
-        for (Integer b : productenGroen) {
-            if (b == highestNumber - 2) {//Pak alle getallen die 2 lager zijn dan het hoogste getal.
-                gesorteerdGroen.add(b);
+            for (Integer b : productenGroen) {
+                if (b == highestNumberGroen - 2) {//Pak alle getallen die 2 lager zijn dan het hoogste getal.
+                    gesorteerdGroen.add(b);
+                }
             }
-        }
-        //-- Array voor de GELE blokjes --\\
-        for (Integer c : gesorteerdGeel) {
-            if (c > highestNumber) { //Bepaal de hoogste waarde in de array
-                highestNumber = c;
+        } else if (kleur.equals("geel")) {
+            //-- Array voor de GELE blokjes --\\
+            for (Integer c : productenGeel) {
+                if (c > highestNumberGeel) { //Bepaal de hoogste waarde in de array
+                    highestNumberGeel = c;
+                }
             }
-        }
-        //Gesorteerde array
-        for (Integer c : gesorteerdGeel) {
-            if (c == highestNumber) {//Pak de nummers die het hoogst zijn en zet die voor in de array
-                gesorteerdGeel.add(c);
+            //Gesorteerde array
+            for (Integer c : productenGeel) {
+                if (c == highestNumberGeel) {//Pak de nummers die het hoogst zijn en zet die voor in de array
+                    gesorteerdGeel.add(c);
+                }
             }
-        }
-        for (Integer c : gesorteerdGeel) {
-            if (c == highestNumber - 1) {//Pak alle getallen die 1 lager zijn dan het hoogste getal.
-                gesorteerdGeel.add(c);
+            for (Integer c : productenGeel) {
+                if (c == highestNumberGeel - 1) {//Pak alle getallen die 1 lager zijn dan het hoogste getal.
+                    gesorteerdGeel.add(c);
+                }
             }
-        }
-        for (Integer c : gesorteerdGeel) {
-            if (c == highestNumber - 2) {//Pak alle getallen die 2 lager zijn dan het hoogste getal.
-                gesorteerdGeel.add(c);
+            for (Integer c : productenGeel) {
+                if (c == highestNumberGeel - 2) {//Pak alle getallen die 2 lager zijn dan het hoogste getal.
+                    gesorteerdGeel.add(c);
+                }
             }
+
+//            // testen waardes
+//            for (int a : gesorteerdGeel) {
+//                System.out.println(a);
+//            }
         }
     }
 
     //Testen van arraywaardes
     public void printArrays() {
-        sorteerBlokjes(); // Zet de groottes van groot naar klein
 
         System.out.println("ROOD: ");
-        for (Integer a : productenRood) {
+        for (int a : gesorteerdRood) {
             if (a != 0) {
                 System.out.println(a);
             }
         }
         System.out.println("GROEN: ");
-        for (int a : productenGroen) {
+        for (int a : gesorteerdGroen) {
             if (a != 0) {
                 System.out.println(a);
             }
         }
         System.out.println("GEEL: ");
-        for (int a : productenGeel) {
+        for (int a : gesorteerdGeel) {
             if (a != 0) {
                 System.out.println(a);
+            }
+        }
+
+        for (int i = 0; i < 7; i++) {
+            if (xYHeightRood[3][i] != 0) {
+                System.out.println("Doos " + i + ": " + xYHeightRood[3][i]);
             }
         }
     }
@@ -261,87 +279,272 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         }
     }
 
+    // Alles voor decideBestFit
     int width = 77;
-    int rDoos = 0;
-    int xYHeightIndex = 0; // Voor rood
-    int [][] xYHeight = { {0, 0, 0, 0, 0, 0, 0}, // X waardes = Array 0
-                          {0, 0, 0, 0, 0, 0, 0}, // Y waardes = Array 1
-                          {0, 0, 0, 0, 0, 0, 0} }; // Height waardes = Array 2
+    int rDoos = 0; // rode dozen
+    int grDoos = 0; // groene dozen
+    int geDoos = 0; // gele dozen
+    int xYHeightIndexRood = 0; // Voor rood
+    int xYHeightIndexGroen = 0; // groen
+    int xYHeightIndexGeel = 0; // geel
+    int [][] xYHeightRood = { {0, 0, 0, 0, 0, 0, 0}, // X waardes = Array 0
+                              {0, 0, 0, 0, 0, 0, 0}, // Y waardes = Array 1
+                              {0, 0, 0, 0, 0, 0, 0}, // Height waardes = Array 2
+                              {0, 0, 0, 0, 0, 0, 0} }; // gevulde waarde per doos
+
+    int [][] xYHeightGroen ={ {0, 0, 0, 0, 0, 0, 0}, // X waardes = Array 0
+                              {0, 0, 0, 0, 0, 0, 0}, // Y waardes = Array 1
+                              {0, 0, 0, 0, 0, 0, 0}, // Height waardes = Array 2
+                              {0, 0, 0, 0, 0, 0, 0} }; // gevulde waarde per doos
+
+    int [][] xYHeightGeel = { {0, 0, 0, 0, 0, 0, 0}, // X waardes = Array 0
+                              {0, 0, 0, 0, 0, 0, 0}, // Y waardes = Array 1
+                              {0, 0, 0, 0, 0, 0, 0}, // Height waardes = Array 2
+                              {0, 0, 0, 0, 0, 0, 0} }; // gevulde waarde per doos
 
     // BPP algoritme
-    public void decideBestFit(String kleur) {
-        sorteerBlokjes();
-        // ZET DE arrays om te printen in de juiste volgorde T.O.V. BPP oplossing
-        if (kleur.equals("rood")) {
 
+    public void vulDozen(String kleur, int aantal) { // Geef bij aantal highestNumber, -1 of -2 mee
+
+        if (kleur.equals("rood") ) {
             for (Integer a : gesorteerdRood) {
+                if (a == aantal) {
+                    if (rDoos + a > 8) { // Als doos te vol zou worden
+                        // Verplaats dan de waardes naar volgende doos
+                        roodX1 += 100; // ga naar volgende doos (naar rechts)
+                        roodY1 = 180;  // en begin onderin (onderkant rode doos)
+                        rDoos = a;
+                        roodY1 -= rDoos * 10; // zorg dat de Y waarde op zelfde hoogte begint als hoogte
+                        xYHeightIndexRood++; // Ga naar volgende doos
 
-                if (rDoos + a > 8) { // Als doos te vol zou worden
-                    // Verplaats dan de waardes naar volgende doos
-                    roodX1 += 100; // ga naar volgende doos (naar rechts)
-                    roodY1 = 180;  // en begin onderin (onderkant rode doos)
-                    rDoos = a;
-                    roodY1 -= rDoos * 10; // zorg dat de Y waarde op zelfde hoogte begint als hoogte
-                    xYHeightIndex++; // Ga naar volgende doos
+                        xYHeightRood[0][xYHeightIndexRood] = roodX1;
+                        xYHeightRood[1][xYHeightIndexRood] = roodY1;
+                        xYHeightRood[2][xYHeightIndexRood] = rDoos * 10;
+                        xYHeightRood[3][xYHeightIndexRood] = rDoos;
 
-                    xYHeight[0][xYHeightIndex] = roodX1;
-                    xYHeight[1][xYHeightIndex] = roodY1;
-                    xYHeight[2][xYHeightIndex] = rDoos * 10;
-                } else {
-                    if (a != 0) {
+                        a = 0;
+                    } else {
                         rDoos += a;
                         roodY1 = 180;
                         roodY1 -= rDoos * 10; // Zorgt dat die vanaf de juiste hoogte getekend wordt.
 
-                        xYHeight[0][xYHeightIndex] = roodX1;
-                        xYHeight[1][xYHeightIndex] = roodY1;
-                        xYHeight[2][xYHeightIndex] = rDoos * 10;
+                        xYHeightRood[0][xYHeightIndexRood] = roodX1;
+                        xYHeightRood[1][xYHeightIndexRood] = roodY1;
+                        xYHeightRood[2][xYHeightIndexRood] = rDoos * 10;
+                        xYHeightRood[3][xYHeightIndexRood] = rDoos;
+
+                        a = 0;
                     }
                 }
             }
+        } else if (kleur.equals("groen")) {
+            for (Integer a : gesorteerdGroen) {
+                if (a == aantal) {
+                    if (grDoos + a > 8) { // Als doos te vol zou worden
+                        // Verplaats dan de waardes naar volgende doos
+                        groenX1 += 100; // ga naar volgende doos (naar rechts)
+                        groenY1 = 330;  // en begin onderin (onderkant rode doos)
+                        grDoos = a;
+                        groenY1 -= grDoos * 10; // zorg dat de Y waarde op zelfde hoogte begint als hoogte
+                        xYHeightIndexGroen++; // Ga naar volgende doos
 
+                        xYHeightGroen[0][xYHeightIndexGroen] = groenX1;
+                        xYHeightGroen[1][xYHeightIndexGroen] = groenY1;
+                        xYHeightGroen[2][xYHeightIndexGroen] = grDoos * 10;
+                        xYHeightGroen[3][xYHeightIndexGroen] = grDoos;
 
+                        a = 0;
+                    } else {
+                        grDoos += a;
+                        groenY1 = 330;
+                        groenY1 -= grDoos * 10; // Zorgt dat die vanaf de juiste hoogte getekend wordt.
 
-            // loop door de rode array en kijk of er een oneven aantal van 4 is
+                        xYHeightGroen[0][xYHeightIndexGroen] = groenX1;
+                        xYHeightGroen[1][xYHeightIndexGroen] = groenY1;
+                        xYHeightGroen[2][xYHeightIndexGroen] = grDoos * 10;
+                        xYHeightGroen[3][xYHeightIndexGroen] = grDoos;
 
-            // Daarna, aparte if / else kijken of het op 1 na hoogste getal de doos op kan vullen
-            // Als dat niet mogelijk is het op 2 na hoogste getal. Wel mogelijk && dichtst bij 8 --> stop het in de dozen
-            // Ook op 2 na hoogste getal *2 + hoogste getal
+                        a = 0;
+                    }
+                }
+            }
+        } else if (kleur.equals("geel")) {
+            for (Integer a : gesorteerdGeel) {
+                if (a == aantal) {
+                    if (geDoos + a > 8) { // Als doos te vol zou worden
+                        // Verplaats dan de waardes naar volgende doos
+                        geelX1 += 100; // ga naar volgende doos (naar rechts)
+                        geelY1 = 480;  // en begin onderin (onderkant rode doos)
+                        geDoos = a;
+                        geelY1 -= geDoos * 10; // zorg dat de Y waarde op zelfde hoogte begint als hoogte
+                        xYHeightIndexGeel++; // Ga naar volgende doos
 
-            // plaats alle vieren in de dozen en kijk of de som van 1 of 2 andere blokjes het opvult tot 8,
-            // zo niet gebruik degene die het dichtst bij 8 komt
+                        xYHeightGeel[0][xYHeightIndexGeel] = geelX1;
+                        xYHeightGeel[1][xYHeightIndexGeel] = geelY1;
+                        xYHeightGeel[2][xYHeightIndexGeel] = geDoos * 10;
+                        xYHeightGeel[3][xYHeightIndexGeel] = geDoos;
+
+                        a = 0;
+                    } else {
+                        geDoos += a;
+                        geelY1 = 480;
+                        geelY1 -= geDoos * 10; // Zorgt dat die vanaf de juiste hoogte getekend wordt.
+
+                        xYHeightGeel[0][xYHeightIndexGeel] = geelX1;
+                        xYHeightGeel[1][xYHeightIndexGeel] = geelY1;
+                        xYHeightGeel[2][xYHeightIndexGeel] = geDoos * 10;
+                        xYHeightGeel[3][xYHeightIndexGeel] = geDoos;
+
+                        a = 0;
+                    }
+                }
+            }
         }
     }
 
+    public void decideBestFit(String kleur) {
 
+        sorteerBlokjes(kleur);
+        // ZET DE arrays om te printen in de juiste volgorde T.O.V. BPP oplossing
+        if (kleur.equals("rood") ) {
+            vulDozen("rood", highestNumberRood);
 
+            // stop alle highestNumbers -1 in dozen waar er plek voor is
+            for (int i = 0; i < xYHeightRood[3].length; i++) { // per doos kijken naar alle andere dozen
+                if (xYHeightRood[3][i] != 8) { // als doos niet vol is
+                    for (int a : gesorteerdRood) { // Alle waardes van gesorteerde array afgaan
+                        if (a == (highestNumberRood - 1) ) {
+                            if (xYHeightRood[3][i] <= 8 - (highestNumberRood - 1)) { // (3)
+                                xYHeightRood[3][i] += (highestNumberRood - 1); // verander gevulde waarde doos
+                                xYHeightRood[1][i] -= (highestNumberRood - 1) * 10; // verander Y waarde doos
+                                xYHeightRood[2][i] += (highestNumberRood - 1) * 10; // verander getekende hoogte doos
 
-    // HaalproductenOp() --- Pak hiervan het hoogste nummer
-    // Als je het hoogste nummer heb print die dan elke keer in de doos tot het juiste aantal is bereikt
-    // Als dat nummer een oneven aantal heeft 3 x 4 bv. dan moet er bij die laatste 4 een ander getal in de doos
-    // Hierna moeten alle op 1 na hoogste getallen geprint worden.
-    // Nu voor elke doos kijken of het laagste getal er nog bij in past.
+                                a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
+                            }
+                        }
+                    }
+                }
+            }
+            // Stop alle overgebleven hoogstenummers -1 in nieuwe dozen
+            vulDozen("rood", highestNumberRood -1);
+
+            // stop alle hoogstenummers -2 in dozen waar er plek voor is
+            for (int i = 0; i < xYHeightRood[3].length; i++) { // per doos kijken naar alle andere dozen
+                if (xYHeightRood[3][i] != 8) {
+                    for (int a : gesorteerdRood) { // Alle waardes van gesorteerde array afgaan
+                         if (a == (highestNumberRood - 2) ){
+                        if (xYHeightRood[3][i] <= 8 - (highestNumberRood - 2))  {
+                            xYHeightRood[3][i] += (highestNumberRood - 2); // verander gevulde waarde doos
+                            xYHeightRood[1][i] -= (highestNumberRood - 2) * 10; // verander Y waarde doos
+                            xYHeightRood[2][i] += (highestNumberRood - 2) * 10; // verander getekende hoogte doos
+
+                            a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
+                        }
+                        }
+                    }
+                }
+            }
+            // Stop alle overgebleven hoogstenummers -2 in nieuwe dozen
+            vulDozen("rood", highestNumberRood -2);
+        } else if (kleur.equals("groen") ) {
+            vulDozen("groen", highestNumberGroen);
+
+            // stop alle hoogstenummers -1 in dozen waar er plek voor is
+            for (int i = 0; i < xYHeightGroen[3].length; i++) { // per doos kijken naar alle andere dozen
+                if (xYHeightGroen[3][i] != 8) {
+                    for (int a : gesorteerdGroen) { // Alle waardes van gesorteerde array afgaan
+                        if (xYHeightGroen[3][i] <= 8 - (highestNumberGroen - 1) && a == (highestNumberGroen - 1) ) { // (3)
+                            xYHeightGroen[3][i] += (highestNumberGroen - 1); // verander gevulde waarde doos
+                            xYHeightGroen[1][i] -= (highestNumberGroen - 1) * 10; // verander Y waarde doos
+                            xYHeightGroen[2][i] += (highestNumberGroen - 1) * 10; // verander getekende hoogte doos
+
+                            a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
+                        }
+                    }
+                }
+            }
+            // Stop alle overgebleven hoogstenummers -1 in nieuwe dozen
+            vulDozen("groen", highestNumberGroen -1);
+
+            // stop alle hoogstenummers -2 in dozen waar er plek voor is
+            for (int i = 0; i < xYHeightGroen[3].length; i++) { // per doos kijken naar alle andere dozen
+                if (xYHeightGroen[3][i] != 8) {
+                    for (int a : gesorteerdGroen) { // Alle waardes van gesorteerde array afgaan
+                        if (xYHeightGroen[3][i] <= 8 - (highestNumberGroen - 2) && a == (highestNumberGroen - 2) ) {
+                            xYHeightGroen[3][i] += (highestNumberGroen - 2); // verander gevulde waarde doos
+                            xYHeightGroen[1][i] -= (highestNumberGroen - 2) * 10; // verander Y waarde doos
+                            xYHeightGroen[2][i] += (highestNumberGroen - 2) * 10; // verander getekende hoogte doos
+
+                            a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
+                        }
+                    }
+                }
+            }
+            // Stop alle overgebleven hoogstenummers -2 in nieuwe dozen
+            vulDozen("groen", highestNumberGroen -2);
+        } else if (kleur.equals("geel") ) {
+            vulDozen("geel", highestNumberGeel);
+
+            // stop alle hoogstenummers -1 in dozen waar er plek voor is
+            for (int i = 0; i < xYHeightGeel[3].length; i++) { // per doos kijken naar alle andere dozen
+                if (xYHeightGeel[3][i] != 8) {
+                    for (int a : gesorteerdGeel) { // Alle waardes van gesorteerde array afgaan
+                        if (xYHeightGeel[3][i] <= 8 - (highestNumberGeel - 1) && a == (highestNumberGeel - 1) ) {
+                            xYHeightGeel[3][i] += (highestNumberGeel - 1); // verander gevulde waarde doos
+                            xYHeightGeel[1][i] -= (highestNumberGeel - 1) * 10; // verander Y waarde doos
+                            xYHeightGeel[2][i] += (highestNumberGeel - 1) * 10; // verander getekende hoogte doos
+
+                            a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
+                        }
+                    }
+                }
+            }
+            // Stop alle overgebleven hoogstenummers -1 in nieuwe dozen
+            vulDozen("geel", highestNumberGeel -1);
+
+            // stop alle hoogstenummers -2 in dozen waar er plek voor is
+            for (int i = 0; i < xYHeightGeel[3].length; i++) { // per doos kijken naar alle andere dozen
+                if (xYHeightGeel[3][i] != 8) {
+                    for (int a : gesorteerdGeel) { // Alle waardes van gesorteerde array afgaan
+                        if (xYHeightGeel[3][i] <= 8 - (highestNumberGeel - 2) && a == (highestNumberGeel - 2) ) { // (3)
+                            xYHeightGeel[3][i] += (highestNumberGeel - 2); // verander gevulde waarde doos
+                            xYHeightGeel[1][i] -= (highestNumberGeel - 2) * 10; // verander Y waarde doos
+                            xYHeightGeel[2][i] += (highestNumberGeel - 2) * 10; // verander getekende hoogte doos
+
+                            a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
+                        }
+                    }
+                }
+            }
+            // Stop alle overgebleven hoogstenummers -2 in nieuwe dozen
+            vulDozen("geel", highestNumberGeel -2);
+        }
+    }
 
     // Teken de producten in de dozen ///// blokGrootte moet getal tussen 1 en 4 zijn
-    public void drawProducts(Graphics g, String kleur) {
+    public void drawProducts(Graphics g) {
 
         decideBestFit("rood");
-        // groen
-        // geel
-        if (kleur.equals("rood")) { // kan ws weg, alles in 1x printen 3 verschillende arrays
-            // Paint de arrays (3, per kleur)
+        decideBestFit("groen");
+        decideBestFit("geel");
+        printArrays();
 
-            g.setColor(Color.RED);
-            // For-loop hierom heen om te printen
-            for (int i = 0; i < xYHeight[0].length; i++) {
-                g.fillRect(xYHeight[0][i], xYHeight[1][i], width, xYHeight[2][i]);
-
-                //System.out.println("PAINTEN X waarde: " + xYHeight[0][i]);
-                //System.out.println("PAINTEN Y waarde: " + xYHeight[1][i]);
-                //System.out.println("PAINTEN HEIGHT waarde: " + xYHeight[2][i]);
-            }
-            //g.fillRect(200, 200, 200, 200);
-        } // EIND if kleur.equals("ROOD") /////////////////
+        g.setColor(Color.RED);
+        // For-loop hierom heen om te printen
+        for (int i = 0; i < xYHeightRood[0].length; i++) {
+            g.fillRect(xYHeightRood[0][i], xYHeightRood[1][i], width, xYHeightRood[2][i]);
+            System.out.println(i + ": " + xYHeightRood[3][i]);
+        }
+        g.setColor(Color.GREEN);
+        // For-loop hierom heen om te printen
+        for (int i = 0; i < xYHeightGroen[0].length; i++) {
+            g.fillRect(xYHeightGroen[0][i], xYHeightGroen[1][i], width, xYHeightGroen[2][i]);
+        }
+        g.setColor(Color.YELLOW);
+        // For-loop hierom heen om te printen
+        for (int i = 0; i < xYHeightGeel[0].length; i++) {
+            g.fillRect(xYHeightGeel[0][i], xYHeightGeel[1][i], width, xYHeightGeel[2][i]);
+        }
     }
 
     @Override

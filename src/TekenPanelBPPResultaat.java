@@ -22,6 +22,6 @@ public class TekenPanelBPPResultaat extends JPanel {
         // Teken de dozen
         bppResultaatGUI.drawBins(g);
         // Teken de producten in de dozen
-        bppResultaatGUI.drawProducts(g, "rood");
+        bppResultaatGUI.drawProducts(g);
     }
 }
