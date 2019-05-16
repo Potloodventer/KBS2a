@@ -191,7 +191,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
                         }
                         msg = stringBuilder.toString();
-                        if (msg.startsWith("n")) {
+                        if (msg.startsWith("k")) {
                             tellen = true;
                             hmiStatusGUI.setTelSensorKleur(null);
 
@@ -214,7 +214,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                             hmiStatusGUI.setAantalGeel(aantalGeel + 1);
                             hmiStatusGUI.setTelSensorKleur(null);
 
-                        }else if(msg.startsWith("l")){
+                        }else if(msg.startsWith("v")){
                             aantalGroen = hmiStatusGUI.getAantalGroen();
                             hmiStatusGUI.setAantalGroen(aantalGroen + 1);
                             hmiStatusGUI.setTelSensorKleur(null);
