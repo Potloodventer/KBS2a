@@ -277,8 +277,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         g.fillPolygon(xArm, yArm, 4);
         g.setColor(Color.GREEN);
         g.fillPolygon(xArm2, yArm2, 4);
-
-
     }
 
     // teken en beweeg de pijlen op de lopende band
@@ -286,11 +284,11 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         // stelt de kleur van de pijlen in
         if (kleur == null) {
             g.setColor(Color.BLACK);
-        } else if (kleur == "groen") {
+        } else if (kleur.equals("groen") ) {
             g.setColor(Color.GREEN);
-        } else if (kleur == "rood") {
+        } else if (kleur.equals("rood") ) {
             g.setColor(Color.RED);
-        } else if (kleur == "geel") {
+        } else if (kleur.equals("geel") ) {
             g.setColor(Color.YELLOW);
         }
 

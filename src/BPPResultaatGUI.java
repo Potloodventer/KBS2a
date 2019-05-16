@@ -519,6 +519,19 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
             // Stop alle overgebleven hoogstenummers -2 in nieuwe dozen
             vulDozen("geel", highestNumberGeel -2);
         }
+
+        // Puur om dozen op 0 te zetten?? buggg
+        for (int i = 0; i < 7; i++) {
+            if (xYHeightRood[0][i] == 0) {
+                xYHeightRood[3][i] = 0;
+            }
+            if (xYHeightGroen[0][i] == 0) {
+                xYHeightGroen[3][i] = 0;
+            }
+            if (xYHeightGeel[0][i] == 0) {
+                xYHeightGeel[3][i] = 0;
+            }
+        }
     }
 
     // Teken de producten in de dozen ///// blokGrootte moet getal tussen 1 en 4 zijn
@@ -533,7 +546,10 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         // For-loop hierom heen om te printen
         for (int i = 0; i < xYHeightRood[0].length; i++) {
             g.fillRect(xYHeightRood[0][i], xYHeightRood[1][i], width, xYHeightRood[2][i]);
-            System.out.println(i + ": " + xYHeightRood[3][i]);
+            System.out.println(i + " 0: " + xYHeightRood[0][i]);
+            System.out.println(i + " 1: " + xYHeightRood[1][i]);
+            System.out.println(i + " 2: " + xYHeightRood[2][i]);
+            System.out.println(i + " 3: " + xYHeightRood[3][i]);
         }
         g.setColor(Color.GREEN);
         // For-loop hierom heen om te printen
