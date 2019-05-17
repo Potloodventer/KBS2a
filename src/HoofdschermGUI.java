@@ -1,7 +1,6 @@
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
-import com.fazecast.jSerialComm.SerialPortMessageListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,38 +9,41 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-// rechts 0, links 1
 
-public class HoofdschermGUI extends JFrame implements ActionListener {
+public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse voor het hoofdscherm.
 
-    private static int schermBreedte = 1100, schermHoogte = 800;
 
+    private static int schermBreedte = 1100, schermHoogte = 800; // Bepaal breedte en hoogte van scherm.
+
+    // Buttons.
     private JButton orderInladenJB;
     private JButton alleProductenJB;
     private JButton startRobotJB;
     private JButton statusRobotJB;
-    private Graphics g;
+
+    // Schermen die nodig zijn.
     private HMIStatusGUI hmiStatusGUI;
-    private boolean paars;
-    private TekenPanelHMIStatus tekenPanelHMIStatus;
     private VoorraadGUI voorraadGUI;
     private OrderInladenGUI orderInladenGUI;
     private BPPResultaatGUI bppResultaatGUI;
 
+    // Database connectie en Arduino connecties.
     private DatabaseHelper databaseHelper;
     private ArduinoConnectie arduinoConnectie;
     private ArduinoConnectie arduinoConnectie2;
 
-    private boolean tekenRood;
-    private ArrayList<String> orderNummers;
-    private int aantalRows;
+
+    private ArrayList<String> orderNummers; // ArrayList met ordernummers van temporders uit de database.
+    private int aantalRows; // Aantal rows van temporders uit de database.
     private int geteld;
     private boolean tellen;
+
+    // Arduinoconnectie variablen
     private StringBuilder stringBuilder;
     private String msg;
     private String msg2;
-    private boolean startrobot2;
 
+    // Aantal blokes die de telsensor optelt.
     private int aantalRood;
     private int aantalGeel;
     private int aantalGroen;
@@ -49,32 +51,38 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
 
     public HoofdschermGUI() {
 
+        // Layout opties
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(schermBreedte / 2, schermHoogte / 2);
         setTitle("HMI Hoofdscherm");
-        orderNummers = new ArrayList<>();
+
+        orderNummers = new ArrayList<>(); // ArrayList voor de ordernummers.
+        // Open de database connectie in constructor.
         databaseHelper = new DatabaseHelper();
         databaseHelper.openConnection();
 
         //arduinoConnectie = new ArduinoConnectie(9600, 1);
 
+        // Initialiseer buttons.
         orderInladenJB = new JButton("Order inladen");
         alleProductenJB = new JButton("Pas voorraad aan");
         startRobotJB = new JButton("Start robots");
         statusRobotJB = new JButton("Status robots");
 
+        // Button opties.
         statusRobotJB.setPreferredSize(new Dimension(160, 30));
         orderInladenJB.setPreferredSize(new Dimension(160, 30));
         alleProductenJB.setPreferredSize(new Dimension(160, 30));
         startRobotJB.setPreferredSize(new Dimension(160, 30));
 
+        // Open arduinoconnecties in de constructor
         arduinoConnectie = new ArduinoConnectie(9600, 1);
         arduinoConnectie2 = new ArduinoConnectie(9600, 0);
 
 
 
-
+        // Actionlisteners voor de buttons.
         orderInladenJB.addActionListener(this);
         alleProductenJB.addActionListener(this);
         startRobotJB.addActionListener(this);
@@ -89,11 +97,13 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         add(startRobotJB);
         add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
         add(statusRobotJB);
-        String SQL = "SELECT * FROM temporders";
+
+
+        String SQL = "SELECT * FROM temporders"; // Query om de rows te tellen van temporders.
         ResultSet rs = databaseHelper.selectQuery(SQL);
         try {
             rs.last();
-            aantalRows = rs.getRow();
+            aantalRows = rs.getRow(); // Aantal wordt opgeslagen in aantalRows variable.
             rs.beforeFirst();
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,11 +124,11 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public static int getSchermBreedte() {
+    public static int getSchermBreedte() { // Getter voor de schermbreedte.
         return schermBreedte;
     }
 
-    public static int getSchermHoogte() {
+    public static int getSchermHoogte() { // Getter voor de schermhoogte.
         return schermHoogte;
     }
 
@@ -170,7 +180,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                 // Stuur aantal blokjes en kleur per order naar robots
                 sendOrderToArduino(0);
                 geteld = 1;
-                arduinoConnectie.comPort.addDataListener(new SerialPortDataListener() {
+
+                arduinoConnectie.comPort.addDataListener(new SerialPortDataListener() { // Listener voor sorteerrobot.
                     @Override
                     public int getListeningEvents() {
                         return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
@@ -184,43 +195,45 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                     public void serialEvent(SerialPortEvent serialPortEvent) {
                         byte[] newData = serialPortEvent.getReceivedData();
 
-                        stringBuilder = new StringBuilder();
+                        stringBuilder = new StringBuilder(); // Maak een stringbuilder
                         for (int i = 0; i < newData.length; ++i) {
                             System.out.print((char) newData[i]);
-                            stringBuilder.append((char) newData[i]);
+                            stringBuilder.append((char) newData[i]); // Voeg char voor char toe aan stringbuilder.
 
                         }
-                        msg = stringBuilder.toString();
-                        if (msg.startsWith("k")) {
-                            tellen = true;
-                            hmiStatusGUI.setTelSensorKleur(null);
+                        msg = stringBuilder.toString(); // Maak er een string van zodat het leesbaar is.
 
-                        }else if(msg.startsWith("q")){
+                        // ifs om te lezen uit de arduino.
+                        if (msg.startsWith("k")) { // Als k wordt gestuurd, stuurt de applicatie de volgende order.
+                            tellen = true; // Tellen gaat op true.
+                            hmiStatusGUI.setTelSensorKleur(null); // Telsensor kleur wordt zwart
+
+                        }else if(msg.startsWith("q")){ // Als q gestuurd wordt, dan is er een blokje langs telsensor gekomen en wordt de sensor eventjes paars gemaakt.
                             hmiStatusGUI.setPaars(true);
                             if(hmiStatusGUI.getPaars()) {
                                 hmiStatusGUI.setTelSensorKleur("paars");
                             } else{
                                 hmiStatusGUI.setTelSensorKleur(null);
                             }
-                            }
-                        if(msg.startsWith("m")){
-                            System.out.println("ik kom hier in");
+                        }
+
+                        if(msg.startsWith("m")){ // Als m gestuurd wordt dan is er een rood blokje geteld en wordt een label geupdate in de live status.
                             aantalRood = hmiStatusGUI.getAantalRood();
                             hmiStatusGUI.setAantalRood(aantalRood + 1);
                             hmiStatusGUI.setTelSensorKleur(null);
                             System.out.println(hmiStatusGUI.getAantalRood());
-                        }else if(msg.startsWith("p")){
+                        }else if(msg.startsWith("p")){ // Als p gestuurd wordt dan is er een geel blokje geteld en wordt een label geupdate in de live status.
                             aantalGeel = hmiStatusGUI.getAantalGeel();
                             hmiStatusGUI.setAantalGeel(aantalGeel + 1);
                             hmiStatusGUI.setTelSensorKleur(null);
 
-                        }else if(msg.startsWith("v")){
+                        }else if(msg.startsWith("v")){ // Als v gestuurd wordt dan is er een groen blokje geteld en wordt er een label geupdate.
                             aantalGroen = hmiStatusGUI.getAantalGroen();
                             hmiStatusGUI.setAantalGroen(aantalGroen + 1);
                             hmiStatusGUI.setTelSensorKleur(null);
 
                         }
-                        if (tellen) {
+                        if (tellen) { // Als dit true is wordt er een nieuwe order gestuurd naar de arduino.
                             for (int x = 0; x < aantalRows; x++) {
                                 sendOrderToArduino(geteld);
                                 geteld++;
@@ -228,7 +241,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                                 break;
                             }
                         }
-                        arduinoConnectie2.comPort.addDataListener(new SerialPortDataListener() {
+
+                        arduinoConnectie2.comPort.addDataListener(new SerialPortDataListener() { // Luistert naar de serial van de kleurrobot
                             @Override
                             public int getListeningEvents() {
                                 return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
@@ -241,7 +255,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                             @Override
                             public void serialEvent(SerialPortEvent serialPortEvent) {
                                 byte[] newData = serialPortEvent.getReceivedData();
-
+                                // Hetzelfde als de eerste listener.
                                 stringBuilder = new StringBuilder();
                                 for (int i = 0; i < newData.length; ++i) {
                                     System.out.print((char) newData[i]);
@@ -250,17 +264,19 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
                                 }
 
                                 msg2 = stringBuilder.toString();
-                                if (msg2.startsWith("z")) {
+
+                                if (msg2.startsWith("z")) { // Als kleursensor z stuurt dan is er een rood blokje gezien en wordt er zrood geprint naar de sorteerrobot
                                     arduinoConnectie.writeString("zrood");
                                     hmiStatusGUI.setKleur("rood");
 
-                                } else if(msg2.startsWith("y")){
+                                } else if(msg2.startsWith("y")){ // Hetzelfde als de bovenstaande if
                                     arduinoConnectie.writeString("ygroen");
                                     hmiStatusGUI.setKleur("groen");
 
-                                } else if(msg2.startsWith("x")){
+                                } else if(msg2.startsWith("x")){ // Hetzelfde als de bovenstaande if
                                     arduinoConnectie.writeString("xgeel");
                                     hmiStatusGUI.setKleur("geel");
+
                                 }
 
 
@@ -285,7 +301,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener {
     }
 
 
-    public void sendOrderToArduino(int i) {
+    public void sendOrderToArduino(int i) { // Functie om een order naar de arduino te sturen van de ingeladen orders uit de database.
         try {
             String SQL2 = String.format("SELECT orderkleur, aantalblokjes FROM temporders WHERE orderid = %S", orderNummers.get(i));
             ResultSet rs2 = databaseHelper.selectQuery(SQL2);

@@ -147,6 +147,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     int highestNumberRood = 0;
     int highestNumberGroen = 0;
     int highestNumberGeel = 0;
+
     public void sorteerBlokjes(String kleur) {
         haalAantalProducten(kleur); // Genereert random nummers voor aantal producten per kleur en vult arrays
 
@@ -309,7 +310,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         if (kleur.equals("rood") ) {
             for (Integer a : gesorteerdRood) {
                 if (a == aantal) {
-                    if (rDoos + a > 8) { // Als doos te vol zou worden
+                    if ((rDoos + a) > 8) { // Als doos te vol zou worden
                         // Verplaats dan de waardes naar volgende doos
                         roodX1 += 100; // ga naar volgende doos (naar rechts)
                         roodY1 = 180;  // en begin onderin (onderkant rode doos)
@@ -322,7 +323,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                         xYHeightRood[2][xYHeightIndexRood] = rDoos * 10;
                         xYHeightRood[3][xYHeightIndexRood] = rDoos;
 
-                        a = 0;
+                        //a = 0;
                     } else {
                         rDoos += a;
                         roodY1 = 180;
@@ -333,7 +334,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                         xYHeightRood[2][xYHeightIndexRood] = rDoos * 10;
                         xYHeightRood[3][xYHeightIndexRood] = rDoos;
 
-                        a = 0;
+                        //a = 0;
                     }
                 }
             }
@@ -345,6 +346,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                         groenX1 += 100; // ga naar volgende doos (naar rechts)
                         groenY1 = 330;  // en begin onderin (onderkant rode doos)
                         grDoos = a;
+                        System.out.println("Grootte doos groen: " + grDoos);
                         groenY1 -= grDoos * 10; // zorg dat de Y waarde op zelfde hoogte begint als hoogte
                         xYHeightIndexGroen++; // Ga naar volgende doos
 
@@ -419,7 +421,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                                 xYHeightRood[1][i] -= (highestNumberRood - 1) * 10; // verander Y waarde doos
                                 xYHeightRood[2][i] += (highestNumberRood - 1) * 10; // verander getekende hoogte doos
 
-                                a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
+                                //a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
                             }
                         }
                     }
@@ -438,7 +440,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                             xYHeightRood[1][i] -= (highestNumberRood - 2) * 10; // verander Y waarde doos
                             xYHeightRood[2][i] += (highestNumberRood - 2) * 10; // verander getekende hoogte doos
 
-                            a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
+                            //a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
                         }
                         }
                     }
@@ -527,13 +529,24 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         decideBestFit("rood");
         decideBestFit("groen");
         decideBestFit("geel");
-        printArrays();
+        //printArrays();
+        for (int a : gesorteerdRood) {
+            if (a != 0) {
+                System.out.println("Rood : " + a);
+            }
+        }
 
         g.setColor(Color.RED);
         // For-loop hierom heen om te printen
-        for (int i = 0; i < xYHeightRood[0].length; i++) {
+        for (int i = 0; i < 7; i++) {
             g.fillRect(xYHeightRood[0][i], xYHeightRood[1][i], width, xYHeightRood[2][i]);
-            System.out.println(i + ": " + xYHeightRood[3][i]);
+            System.out.println(i + " 0: " + xYHeightRood[0][i]);
+
+            System.out.println(i + " 1: " + xYHeightRood[1][i]);
+
+            System.out.println(i + " 2: " + xYHeightRood[2][i]);
+
+            System.out.println(i + " 3: " + xYHeightRood[3][i]);
         }
         g.setColor(Color.GREEN);
         // For-loop hierom heen om te printen

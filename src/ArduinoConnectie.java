@@ -1,12 +1,11 @@
 import com.fazecast.jSerialComm.SerialPort;
 
-import java.io.PrintWriter;
+public class ArduinoConnectie { // Klasse om de arduino connectie via JSerialComm makkelijker te maken.
 
-public class ArduinoConnectie {
-
+    // Serial port om te gebruiken.
     public SerialPort comPort;
 
-    public ArduinoConnectie(int baudRate, int port) //commit
+    public ArduinoConnectie(int baudRate, int port) //Constructor die automatisch de connectie al opent.
     {
         try {
             comPort = SerialPort.getCommPorts()[port];
@@ -17,39 +16,33 @@ public class ArduinoConnectie {
         }
     }
 
-    public void writeString(String s){
+    public void writeString(String s){ // Schrijf een string naar de arduino's serial.
         comPort.writeBytes(s.getBytes(), s.length());
     }
 
-    public void writeStringKlaas(String s){
-        PrintWriter pout = new PrintWriter(comPort.getOutputStream());
-        pout.print(s);
-        pout.flush();
 
-    }
-
-    public String readString() {
+    public String readString() { // Lees van de serial.
         String msg = "";
         try {
             while (comPort.bytesAvailable() == 0) {
                 Thread.sleep(20);
             }
-            byte[] readBuffer = new byte[comPort.bytesAvailable()];         //make buffer array as large as data sent and fill with data
-            int numRead = comPort.readBytes(readBuffer, readBuffer.length); //measure readBuffer array and save size in an int
-            msg = new String(readBuffer);                                   //convert readBuffer to string
+            byte[] readBuffer = new byte[comPort.bytesAvailable()];
+            int numRead = comPort.readBytes(readBuffer, readBuffer.length);
+            msg = new String(readBuffer);
         } catch (Exception e){
             e.printStackTrace();
         }
         return msg;
     }
 
-    public void closeConnectie(int port)
+    public void closeConnectie(int port) // Sluit de connectie.
     {
         comPort = SerialPort.getCommPorts()[port];
         comPort.closePort();
     }
 
-    public void openConnectie(int baudRate, int port)
+    public void openConnectie(int baudRate, int port) // Open de connectie.
     {
         comPort = SerialPort.getCommPorts()[port];
         comPort.openPort();

@@ -1,11 +1,8 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 
 public class VoorraadGUI extends JFrame implements ActionListener {
 
@@ -16,6 +13,7 @@ public class VoorraadGUI extends JFrame implements ActionListener {
     private JButton jbWijzig;
 
     public VoorraadGUI() {
+        // Layout opties.
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());

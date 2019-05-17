@@ -3,21 +3,20 @@ import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
 import javax.imageio.ImageIO;
+
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 
 public class HMIStatusGUI extends JFrame implements ActionListener {
-
-    OrderInladenDialog orderInladenDialog;
 
     private int pijlX = 0;
 
@@ -29,28 +28,40 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
     private String kleur; // Hier moet de kleur inkomen die de sensor waarneemt
     private String telSensorKleur;
 
+    // Knoppen en labels.
     private JButton jbHome, jbStart, jbStop, jbResultaat;
     private JLabel jlAantallen, jlRood, jlGroen, jlGeel;
 
+    // Aantal getelden voor liveresultaat.
     private int aantalRoodInt = 0;
     private int aantalGeelInt = 0;
     private int aantalGroenInt = 0;
 
+    // Variablen voor servo armen
+    private int nummer1;
+    private int nummer2;
+
+    // Variable voor telsensor
     private boolean paars;
 
-
-
-    private TekenPanelHMIStatus tekenPanelHMIStatus;
+    // Timer voor het tekenpanel om hem steeds te laten repainten
     private Timer timer;
+    // Tekenpanel om te gebruiken in het JFrame.
+    private TekenPanelHMIStatus tekenPanelHMIStatus;
+
+    // Arduino connecties
     private ArduinoConnectie arduinoConnectie1;
     private ArduinoConnectie arduinoConnectie2;
+
+    // Variable om jpeg in de gui te laden.
     private BufferedImage blauwdruk = null;
 
 
-    public HMIStatusGUI(ArduinoConnectie arduinoConnectie1, ArduinoConnectie arduinoConnectie2) {
+    public HMIStatusGUI(ArduinoConnectie arduinoConnectie1, ArduinoConnectie arduinoConnectie2) { // Connectie wordt meegegeven uit hoofdscherm.
         this.arduinoConnectie1 = arduinoConnectie1;
         this.arduinoConnectie2 = arduinoConnectie2;
 
+        // Layout opties.
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
@@ -128,48 +139,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         setVisible(false);
     }
 
-    // puur voor testen van de posities van de armen
-    public int getUpp() {
-        return upp;
-    }
-
-    // getter voor de kleur ( rood, geel, groen of onbekend bij andere kleur )
-    public String getKleur() {
-        return kleur;
-    }
-    public void setKleur(String kleur){ this.kleur = kleur; }
-
-
-    public void setTelSensorKleur(String telkleur){
-        this.telSensorKleur = telkleur;
-    }
-    public int getAantalRood() {
-        return aantalRoodInt;
-    }
-
-    public int getAantalGroen() {
-        return aantalGroenInt;
-    }
-
-    public int getAantalGeel() {
-        return aantalGeelInt;
-    }
-
-    public void setAantalRood(int aantalRood) {
-        this.aantalRoodInt = aantalRood;
-    }
-
-    public void setAantalGroen(int aantalGroen) {
-        this.aantalGroenInt = aantalGroen;
-    }
-
-    public void setAantalGeel(int aantalGeel) {
-        this.aantalGeelInt = aantalGeel;
-    }
-
-    public String getTelSensorKleur(){
-        return telSensorKleur;
-    }
 
 
 
@@ -178,7 +147,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         g.drawImage(blauwdruk, 50, y - 165, null);
     }
 
-    public void drawRGBSensor(Graphics g, String kleur){
+    public void drawRGBSensor(Graphics g, String kleur){ // Functie om de kleursensor te tekenen.
         if (kleur == null) {
             g.setColor(Color.BLACK);
         } else if (kleur.equals("groen")) {
@@ -191,7 +160,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         g.fillRect(185, 300, 60, 30);
 
     }
-    public void drawTelSensor(Graphics g, String kleur){
+    public void drawTelSensor(Graphics g, String kleur){ // Functie om de telsensor te tekenen.
         if(kleur == null){
             g.setColor(Color.BLACK);
         } else if(kleur.equals("paars")){
@@ -202,7 +171,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
     }
 
-    public void drawServoArm(Graphics g, int nummer1, int nummer2) {
+    public void drawServoArm(Graphics g, int nummer1, int nummer2) { // Functie om de servo armen te tekenen.
 
         int[] xArm = new int[4];
         int[] yArm = new int[4];
@@ -320,8 +289,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
     }
 
 
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -358,7 +325,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         }
         arduinoConnectie1.writeString("stop");
 
-
         JOptionPane.showMessageDialog(this, "Robots worden gestopt");
 
         // testen van arm(en)
@@ -389,8 +355,72 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         jlGroen.setText("Groen: " + aantalGroenInt);
     repaint();
 }
-    public boolean getPaars(){return paars;}
-    public void setPaars(boolean paars){
+    // puur voor testen van de posities van de armen
+    public int getUpp() {
+        return upp;
+    }
+
+    // getter voor de kleur ( rood, geel, groen of onbekend bij andere kleur )
+    public String getKleur() {
+        return kleur;
+    }
+
+    public void setKleur(String kleur){
+        this.kleur = kleur; }
+
+
+    public void setTelSensorKleur(String telkleur){ // Setter voor de telsensorkleur
+
+        this.telSensorKleur = telkleur;
+    }
+    public int getAantalRood() { // Geef aantal getelde rode blokjes terug.
+        return aantalRoodInt;
+    }
+
+    public int getAantalGroen() { // Geef aantal getelde groene blokjes terug.
+        return aantalGroenInt;
+    }
+
+    public int getAantalGeel() { // Geef aantal getelde gele blokjes terug.
+        return aantalGeelInt;
+    }
+
+    public void setAantalRood(int aantalRood) { // Set aantal rode blokjes.
+        this.aantalRoodInt = aantalRood;
+    }
+
+    public void setAantalGroen(int aantalGroen) { // Set aantal groene blokjes.
+        this.aantalGroenInt = aantalGroen;
+    }
+
+    public void setAantalGeel(int aantalGeel) { // Set aantal gele blokjes.
+        this.aantalGeelInt = aantalGeel;
+    }
+
+    public int getNummer1() { // Getter voor servo arm 1.
+        return nummer1;
+    }
+
+    public void setNummer1(int nummer1) { // Setter voor servo arm 1.
+        this.nummer1 = nummer1;
+    }
+
+    public int getNummer2() { // Getter voor servo arm 2.
+        return nummer2;
+    }
+
+    public void setNummer2(int nummer2) { // Setter voor servo arm 2.
+        this.nummer2 = nummer2;
+    }
+
+
+    public String getTelSensorKleur(){ // Getter voor de telsensor kleur.
+        return telSensorKleur;
+    }
+
+    public boolean getPaars(){ // Getter om te kijken of paars true of false is.
+        return paars;}
+    public void setPaars(boolean paars){ // Setter voor boolean paars.
         this.paars = paars;
     }
 

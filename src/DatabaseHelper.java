@@ -16,7 +16,7 @@ public class DatabaseHelper {
     public DatabaseHelper() // Registreer de driver in je java applicatie
     {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
 
         } catch (Exception e)
         {
@@ -59,7 +59,7 @@ public class DatabaseHelper {
         return rows;
     }
 
-    public int executeUpdateQuery(String sql) // Functie om de rest van de query's uit te voeren
+    public int executeUpdateQuery(String sql) // Functie om de rest van de query's (alles behalve een select query) uit te voeren
     {
         int rowsAffected = 0;
 

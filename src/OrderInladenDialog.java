@@ -1,19 +1,19 @@
 import javax.swing.*;
-import javax.xml.transform.Result;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 
-public class OrderInladenDialog extends JDialog implements ActionListener {
+public class OrderInladenDialog extends JDialog implements ActionListener { // Dialoog voor wanneer je op de order inladen button klikt bij OrderInladenGui.
 
     private JLabel jLabel;
     private JButton jbLaadIn;
 
-    private String[] kleuren = {"rood", "groen", "geel"};
+
+    private String[] kleuren = {"rood", "groen", "geel"}; // Kleuren voor de combobox.
     private JComboBox jComboBox;
 
-    private int orderNummer;
+    private int orderNummer; // Ordernummer die meegegeven is uit het vorige scherm.
     private int aantalProducten;
 
     private int orderIDDatabaseInt;
@@ -53,11 +53,12 @@ public class OrderInladenDialog extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == jbLaadIn)
+        if(e.getSource() == jbLaadIn) // Als op inladen gedrukt is.
         {
             // Database connectie
             databaseHelper = new DatabaseHelper();
             databaseHelper.openConnection();
+            // Tel aantal rows uit ingeladen order database.
             try{
                 String SQL = "SELECT * FROM temporders";
                 ResultSet rs = databaseHelper.selectQuery(SQL);
@@ -72,12 +73,14 @@ public class OrderInladenDialog extends JDialog implements ActionListener {
             }catch (Exception x){
                 x.printStackTrace();
             }
+
+
             String selectedKleur = String.valueOf(jComboBox.getSelectedItem()); // Pak de kleur van de combobox
-            System.out.println("Geselecteerde kleur: "+selectedKleur);
             try{
-                String SQL2 = "SELECT orderkleur, orderid FROM temporders";
+                String SQL2 = "SELECT orderkleur, orderid FROM temporders"; // Selecteer orderkleur uit de database met id
                 ResultSet rs1 = databaseHelper.selectQuery(SQL2);
-                while(rs1.next()){
+
+                while(rs1.next()){ // Check of order al niet ingeladen is en vang dit af met een joptionpane.
                     String kleurDatabase = rs1.getString("orderkleur");
                     String orderIDDatabase = rs1.getString("orderid");
                     orderIDDatabaseInt = Integer.parseInt(orderIDDatabase);
@@ -96,6 +99,8 @@ public class OrderInladenDialog extends JDialog implements ActionListener {
             }catch (Exception x){
                 x.printStackTrace();
             }
+
+            // Insert de order in de database om hem in te laden.
             String SQL = String.format("INSERT INTO temporders (orderkleur, aantalblokjes, orderid) VALUES ('%s', %S, %S)", selectedKleur, aantalProducten, orderNummer);
             System.out.println(" Aantal Blokjes: ["+aantalProducten+"]");
 
