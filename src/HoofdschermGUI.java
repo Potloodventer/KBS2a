@@ -208,31 +208,42 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
                             tellen = true; // Tellen gaat op true.
                             hmiStatusGUI.setTelSensorKleur(null); // Telsensor kleur wordt zwart
 
-                        }else if(msg.startsWith("q")){ // Als q gestuurd wordt, dan is er een blokje langs telsensor gekomen en wordt de sensor eventjes paars gemaakt.
+                        } else if (msg.startsWith("q")) { // Als q gestuurd wordt, dan is er een blokje langs telsensor gekomen en wordt de sensor eventjes paars gemaakt.
                             hmiStatusGUI.setPaars(true);
-                            if(hmiStatusGUI.getPaars()) {
+                            if (hmiStatusGUI.getPaars()) {
                                 hmiStatusGUI.setTelSensorKleur("paars");
-                            } else{
+                            } else {
                                 hmiStatusGUI.setTelSensorKleur(null);
                             }
+                        } else if (msg.startsWith("j")) { // rood
+                            hmiStatusGUI.setNummer1(2);
+                            hmiStatusGUI.setNummer2(3);
+                        } else if (msg.startsWith("b")) { // geel
+                            hmiStatusGUI.setNummer1(2);
+                            hmiStatusGUI.setNummer2(2);
+                        } else if (msg.startsWith("f")) { // groen
+                            hmiStatusGUI.setNummer1(2);
+                            hmiStatusGUI.setNummer2(1);
+                        } else if (msg.startsWith("a")) { // fout
+                            hmiStatusGUI.setNummer1(1);
                         }
 
-                        if(msg.startsWith("m")){ // Als m gestuurd wordt dan is er een rood blokje geteld en wordt een label geupdate in de live status.
+                        if (msg.startsWith("m")) { // Als m gestuurd wordt dan is er een rood blokje geteld en wordt een label geupdate in de live status.
                             aantalRood = hmiStatusGUI.getAantalRood();
                             hmiStatusGUI.setAantalRood(aantalRood + 1);
                             hmiStatusGUI.setTelSensorKleur(null);
                             System.out.println(hmiStatusGUI.getAantalRood());
-                        }else if(msg.startsWith("p")){ // Als p gestuurd wordt dan is er een geel blokje geteld en wordt een label geupdate in de live status.
+                        } else if (msg.startsWith("p")) { // Als p gestuurd wordt dan is er een geel blokje geteld en wordt een label geupdate in de live status.
                             aantalGeel = hmiStatusGUI.getAantalGeel();
                             hmiStatusGUI.setAantalGeel(aantalGeel + 1);
                             hmiStatusGUI.setTelSensorKleur(null);
 
-                        }else if(msg.startsWith("v")){ // Als v gestuurd wordt dan is er een groen blokje geteld en wordt er een label geupdate.
+                        } else if (msg.startsWith("v")) { // Als v gestuurd wordt dan is er een groen blokje geteld en wordt er een label geupdate.
                             aantalGroen = hmiStatusGUI.getAantalGroen();
                             hmiStatusGUI.setAantalGroen(aantalGroen + 1);
                             hmiStatusGUI.setTelSensorKleur(null);
-
                         }
+
                         if (tellen) { // Als dit true is wordt er een nieuwe order gestuurd naar de arduino.
                             for (int x = 0; x < aantalRows; x++) {
                                 sendOrderToArduino(geteld);

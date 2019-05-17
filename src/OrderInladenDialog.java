@@ -110,6 +110,7 @@ public class OrderInladenDialog extends JDialog implements ActionListener { // D
             {
                 JOptionPane.showMessageDialog(this, "Order " + orderNummer + " ingeladen met kleur " + selectedKleur);
                 this.dispose();
+                databaseHelper.closeConnection();
             }
 
         }
