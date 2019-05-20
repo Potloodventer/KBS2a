@@ -162,7 +162,6 @@ public class PakbonGUI extends JFrame implements ActionListener {
         setVisible(false);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
 

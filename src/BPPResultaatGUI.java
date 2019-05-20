@@ -15,11 +15,15 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     private JLabel jlRood, jlGroen, jlGeel;
     private JLabel jlDoos1, jlDoos2, jlDoos3, jlDoos4, jlDoos5, jlDoos6, jlDoos7;
     private JButton jbPakbon;
+    private JTabbedPane jTabbedPane;
+    private JPanel jPanel;
 
-    private int d1, d2, d3, d4, d5, d6, d7;
     private int yPlus = 0;
     private int roodY1 = 180, groenY1 = 330, geelY1 = 480; // Onderin rode doos
     private int roodX1 = 102, groenX1 = 102, geelX1 = 102; // helemaal links in 1e doos
+    private int aantalOrders;
+
+    private ArrayList<String> orderKleuren;
 
     private ArrayList<Integer> productenRood = new ArrayList<>();
     private ArrayList<Integer> productenGroen = new ArrayList<>();
@@ -32,40 +36,39 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     public BPPResultaatGUI(HMIStatusGUI hmiStatusGUI) {
         this.hmiStatusGUI = hmiStatusGUI;
 
+        orderKleuren = new ArrayList<>();
+
+        getAantalRows();
+        ResultSet rs3 = databaseHelper.selectQuery("SELECT orderid, orderkleur FROM temporders"); // Query om alle order ids te pakken van temporders tabel
+        for(int i = 0; i < aantalOrders; i++) // Loop die ervoor zorgt dat alle order ids in een arraylist komen
+        {
+            try{
+                if(rs3.next()) {
+                    orderKleuren.add(rs3.getString("orderkleur"));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         setTitle("BPP Resultaat");
 
         jlRood  = new JLabel("Rood: ");
-        jlGroen = new JLabel("Groen: " );
+        jlGroen = new JLabel("Groen: ");
         jlGeel  = new JLabel("Geel: ");
-
-        jlDoos1 = new JLabel("Doos 1: " + d1);
-        jlDoos2 = new JLabel("Doos 2: " + d2);
-        jlDoos3 = new JLabel("Doos 3: " + d3);
-        jlDoos4 = new JLabel("Doos 4: " + d4);
-        jlDoos5 = new JLabel("Doos 5: " + d5);
-        jlDoos6 = new JLabel("Doos 6: " + d6);
-        jlDoos7 = new JLabel("Doos 7: " + d7);
 
         tekenPanelBPPResultaat = new TekenPanelBPPResultaat(this);
 
-//        tekenPanelBPPResultaat.add(jlDoos1);
-//        tekenPanelBPPResultaat.add(jlDoos2);
-//        tekenPanelBPPResultaat.add(jlDoos3);
-//        tekenPanelBPPResultaat.add(jlDoos4);
-//        tekenPanelBPPResultaat.add(jlDoos5);
-//        tekenPanelBPPResultaat.add(jlDoos6);
-//        tekenPanelBPPResultaat.add(jlDoos7);
-        //tekenPanelBPPResultaat.add(Box.createRigidArea(new Dimension(100, 100)));
-
         tekenPanelBPPResultaat.add(jlRood);
-        tekenPanelBPPResultaat.add(Box.createRigidArea(new Dimension(800, 200)));
+        tekenPanelBPPResultaat.add(Box.createRigidArea(new Dimension(810, 200)));
         tekenPanelBPPResultaat.add(jlGroen);
-        tekenPanelBPPResultaat.add(Box.createRigidArea(new Dimension(800, 90)));
+        tekenPanelBPPResultaat.add(Box.createRigidArea(new Dimension(810, 90)));
         tekenPanelBPPResultaat.add(jlGeel);
-        tekenPanelBPPResultaat.add(Box.createRigidArea(new Dimension(800, 200)));
+        tekenPanelBPPResultaat.add(Box.createRigidArea(new Dimension(810, 200)));
 
         jbPakbon = new JButton("Pakbon");
         jbPakbon.addActionListener(this);
@@ -73,29 +76,107 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         // voeg dit allemaal toe op het scherm
         add(jbPakbon);
         add(tekenPanelBPPResultaat);
+        ///////////////////////////////////////////////////
+        jTabbedPane = new JTabbedPane();
+        for (int i = 0; i < aantalOrders; i++) {
 
 
+            jPanel = new JPanel();
+
+            jlDoos1 = new JLabel();
+            jlDoos2 = new JLabel();
+            jlDoos3 = new JLabel();
+            jlDoos4 = new JLabel();
+            jlDoos5 = new JLabel();
+            jlDoos6 = new JLabel();
+            jlDoos7 = new JLabel();
+
+            jPanel.add(jlDoos1);
+            jPanel.add(jlDoos2);
+            jPanel.add(jlDoos3);
+            jPanel.add(jlDoos4);
+            jPanel.add(jlDoos5);
+            jPanel.add(jlDoos6);
+            jPanel.add(jlDoos7);
+            weergaveProductGrootte(orderKleuren.get(i));
+            jTabbedPane.add(orderKleuren.get(i), jPanel);
+
+        }
+        jTabbedPane.setPreferredSize(new Dimension(300, 200));
+        add(jTabbedPane);
         setVisible(false);
     }
 
-    // BPP probleem oplossing:
-    // Eerst alle grootste producten (4) in dozen doen
-    // Dan kijken of de som van 2 andere producten hier bij in past. (en op 1 na grootste of die m vult)
-    // Als het past, kijken we welke de doos zo vol mogelijk maakt (dichtst bij 8)
-    // Daarna kijken we of de som van 2 - 3 producten een doos kan vullen, zo niet welke het dichtst bij de 8 komt
-    // Zo moeten alle producten uiteindelijk in de dozen zijn geplaatst
-
-    // Random nummer generator maken met getallen tussen x & x  (2, 3, 4)  /////////// af
-    // Aantal producten vanuit Temporder tabel sorteren op kleur     ////////////////  af
-    // Dit product aan een nummer koppelen                ////////////////// af
-    // sorteer lijst van groot naar klein                 ////////////////// af
-
+    // functie met setText voor de dozen per kleur (String kleur meegeven)
+    public void weergaveProductGrootte(String kleur) {
+        if (kleur.equals("rood") ) {
+            jlDoos1.setText(productWaardesRood[0]);
+            if (!productWaardesRood[1].equals("Doos 2: ")) {
+                jlDoos2.setText(productWaardesRood[1]);
+            }
+            if (!productWaardesRood[2].equals("Doos 3: ")) {
+                jlDoos3.setText(productWaardesRood[2]);
+            }
+            if (!productWaardesRood[3].equals("Doos 4: ")) {
+                jlDoos4.setText(productWaardesRood[3]);
+            }
+            if (!productWaardesRood[4].equals("Doos 5: ")) {
+                jlDoos5.setText(productWaardesRood[4]);
+            }
+            if (!productWaardesRood[5].equals("Doos 6: ")) {
+                jlDoos6.setText(productWaardesRood[5]);
+            }
+            if (!productWaardesRood[6].equals("Doos 7: ")) {
+                jlDoos7.setText(productWaardesRood[6]);
+            }
+        } else if (kleur.equals("groen") ) {
+            jlDoos1.setText(productWaardesGroen[0]);
+            if (!productWaardesGroen[1].equals("Doos 2: ")) {
+                jlDoos2.setText(productWaardesGroen[1]);
+            }
+            if (!productWaardesGroen[2].equals("Doos 3: ")) {
+                jlDoos3.setText(productWaardesGroen[2]);
+            }
+            if (!productWaardesGroen[3].equals("Doos 4: ")) {
+                jlDoos4.setText(productWaardesGroen[3]);
+            }
+            if (!productWaardesGroen[4].equals("Doos 5: ")) {
+                jlDoos5.setText(productWaardesGroen[4]);
+            }
+            if (!productWaardesGroen[5].equals("Doos 6: ")) {
+                jlDoos6.setText(productWaardesGroen[5]);
+            }
+            if (!productWaardesGroen[6].equals("Doos 7: ")) {
+                jlDoos7.setText(productWaardesGroen[6]);
+            }
+        } else if (kleur.equals("geel") ) {
+            jlDoos1.setText(productWaardesGeel[0]);
+            if (!productWaardesGeel[1].equals("Doos 2: ")) {
+                jlDoos2.setText(productWaardesGeel[1]);
+            }
+            if (!productWaardesGeel[2].equals("Doos 3: ")) {
+                jlDoos3.setText(productWaardesGeel[2]);
+            }
+            if (!productWaardesGeel[3].equals("Doos 4: ")) {
+                jlDoos4.setText(productWaardesGeel[3]);
+            }
+            if (!productWaardesGeel[4].equals("Doos 5: ")) {
+                jlDoos5.setText(productWaardesGeel[4]);
+            }
+            if (!productWaardesGeel[5].equals("Doos 6: ")) {
+                jlDoos6.setText(productWaardesGeel[5]);
+            }
+            if (!productWaardesGeel[6].equals("Doos 7: ")) {
+                jlDoos7.setText(productWaardesGeel[6]);
+            }
+        }
+    }
 
     // maak een random nummer 2,3 of 4
     public int generateNumber() {
         Random rand = new Random();
         int randomGetal = rand.nextInt(3) + 2; // 3 zorgt dat er 3 getallen 0, 1, 2 gemaakt worden,
-        // + 2 maakt dit 2, 3, 4
+                                                      // + 2 maakt dit 2, 3, 4
         return randomGetal;
     }
 
@@ -118,30 +199,39 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         return aantalblokjes;
     }
 
+    public int getAantalRows() {
+        databaseHelper = new DatabaseHelper();
+        databaseHelper.openConnection();
+        ResultSet rs = databaseHelper.selectQuery("SELECT * FROM temporders"); // Query om rijen te tellen
+        try { // Tel de rijen en sla op in aantalOrders
+            rs.last();
+            aantalOrders = rs.getRow();
+            rs.beforeFirst();
+        } catch (Exception e ){
+            e.printStackTrace();
+        }
+        return aantalOrders;
+    }
+
     // Genereer random nummers voor het aantal producten per kleur en stop deze in de productarray
     public void haalAantalProducten(String kleur) {
 
         if (kleur.equals("rood")) {
-            //int aantalRood = getaantallen("rood"); // Haal het aantal blokjes per kleur op uit de database
-            int aantalRood = 10;  // Hoger dan 15 - 16 kan error geven omdat er maar 7 bakken zijn (array error)
+            int aantalRood = getaantallen("rood"); // Haal het aantal blokjes per kleur op uit de database
             for (int i = 0; i < aantalRood; i++) {
                 productenRood.add(generateNumber());
             }
         } else if (kleur.equals("groen")) {
-            int aantalGroen = 10;
-            //int aantalGroen = getaantallen("groen");
+            int aantalGroen = getaantallen("groen");
             for (int i = 0; i < aantalGroen; i++) {
                 productenGroen.add(generateNumber());
             }
         } else if (kleur.equals("geel")) {
-            int aantalGeel = 10;
-            //int aantalGeel = getaantallen("geel");
+            int aantalGeel = getaantallen("geel");
             for (int i = 0; i < aantalGeel; i++) {
                 productenGeel.add(generateNumber());
             }
         }
-
-
     }
 
     int highestNumberRood = 0;
@@ -150,10 +240,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     public void sorteerBlokjes(String kleur) {
         haalAantalProducten(kleur); // Genereert random nummers voor aantal producten per kleur en vult arrays
 
-        //3 vershillende waardes. Voor elke kleur array index.
-
-
-        if (kleur.equals("rood")) {
+        if (kleur.equals("rood") ) {
             //Loopen door de array en het hoogste nummer er uit pakken.//-- Array voor de Rode Blokjes --\\
             for (Integer a : productenRood) {
                 if (a > highestNumberRood) {//Bepaal de hoogste waarde in de array
@@ -222,11 +309,6 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                     gesorteerdGeel.add(c);
                 }
             }
-
-//            // testen waardes
-//            for (int a : gesorteerdGeel) {
-//                System.out.println(a);
-//            }
         }
     }
 
@@ -249,12 +331,6 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         for (int a : gesorteerdGeel) {
             if (a != 0) {
                 System.out.println(a);
-            }
-        }
-
-        for (int i = 0; i < 7; i++) {
-            if (xYHeightRood[3][i] != 0) {
-                System.out.println("Doos " + i + ": " + xYHeightRood[3][i]);
             }
         }
     }
@@ -302,6 +378,12 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                               {0, 0, 0, 0, 0, 0, 0}, // Height waardes = Array 2
                               {0, 0, 0, 0, 0, 0, 0} }; // gevulde waarde per doos
 
+    // Productwaardes worden aan de string toegevoegd
+    String [] productWaardesRood = {"Doos 1: ", "Doos 2: ", "Doos 3: ", "Doos 4: ", "Doos 5: ", "Doos 6: ", "Doos 7: "};
+    String [] productWaardesGroen = {"Doos 1: ", "Doos 2: ", "Doos 3: ", "Doos 4: ", "Doos 5: ", "Doos 6: ", "Doos 7: "};
+    String [] productWaardesGeel = {"Doos 1: ", "Doos 2: ", "Doos 3: ", "Doos 4: ", "Doos 5: ", "Doos 6: ", "Doos 7: "};
+
+
     // BPP algoritme
 
     public void vulDozen(String kleur, int aantal) { // Geef bij aantal highestNumber, -1 of -2 mee
@@ -322,7 +404,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                         xYHeightRood[2][xYHeightIndexRood] = rDoos * 10;
                         xYHeightRood[3][xYHeightIndexRood] = rDoos;
 
-                        a = 0;
+                        productWaardesRood[xYHeightIndexRood] += " " + a;
                     } else {
                         rDoos += a;
                         roodY1 = 180;
@@ -333,7 +415,8 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                         xYHeightRood[2][xYHeightIndexRood] = rDoos * 10;
                         xYHeightRood[3][xYHeightIndexRood] = rDoos;
 
-                        a = 0;
+                        productWaardesRood[xYHeightIndexRood] += " - " + a;
+                        System.out.println(productWaardesRood[xYHeightIndexRood]);
                     }
                 }
             }
@@ -353,6 +436,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                         xYHeightGroen[2][xYHeightIndexGroen] = grDoos * 10;
                         xYHeightGroen[3][xYHeightIndexGroen] = grDoos;
 
+                        productWaardesGroen[xYHeightIndexGroen] += " " + a;
                         a = 0;
                     } else {
                         grDoos += a;
@@ -364,6 +448,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                         xYHeightGroen[2][xYHeightIndexGroen] = grDoos * 10;
                         xYHeightGroen[3][xYHeightIndexGroen] = grDoos;
 
+                        productWaardesGroen[xYHeightIndexGroen] += " - " + a;
                         a = 0;
                     }
                 }
@@ -384,6 +469,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                         xYHeightGeel[2][xYHeightIndexGeel] = geDoos * 10;
                         xYHeightGeel[3][xYHeightIndexGeel] = geDoos;
 
+                        productWaardesGroen[xYHeightIndexGeel] += " " + a;
                         a = 0;
                     } else {
                         geDoos += a;
@@ -395,6 +481,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                         xYHeightGeel[2][xYHeightIndexGeel] = geDoos * 10;
                         xYHeightGeel[3][xYHeightIndexGeel] = geDoos;
 
+                        productWaardesGroen[xYHeightIndexGeel] += " - " + a;
                         a = 0;
                     }
                 }
@@ -417,9 +504,8 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                             if (xYHeightRood[3][i] <= 8 - (highestNumberRood - 1)) { // (3)
                                 xYHeightRood[3][i] += (highestNumberRood - 1); // verander gevulde waarde doos
                                 xYHeightRood[1][i] -= (highestNumberRood - 1) * 10; // verander Y waarde doos
-                                xYHeightRood[2][i] += (highestNumberRood - 1) * 10; // verander getekende hoogte doos
+                                xYHeightRood[2][i] += (highestNumberRood - 1) * 10; // verander getekende hoogte dooszz
 
-                                a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
                             }
                         }
                     }
@@ -433,13 +519,13 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                 if (xYHeightRood[3][i] != 8) {
                     for (int a : gesorteerdRood) { // Alle waardes van gesorteerde array afgaan
                          if (a == (highestNumberRood - 2) ){
-                        if (xYHeightRood[3][i] <= 8 - (highestNumberRood - 2))  {
-                            xYHeightRood[3][i] += (highestNumberRood - 2); // verander gevulde waarde doos
-                            xYHeightRood[1][i] -= (highestNumberRood - 2) * 10; // verander Y waarde doos
-                            xYHeightRood[2][i] += (highestNumberRood - 2) * 10; // verander getekende hoogte doos
+                            if (xYHeightRood[3][i] <= 8 - (highestNumberRood - 2))  {
+                                xYHeightRood[3][i] += (highestNumberRood - 2); // verander gevulde waarde doos
+                                xYHeightRood[1][i] -= (highestNumberRood - 2) * 10; // verander Y waarde doos
+                                xYHeightRood[2][i] += (highestNumberRood - 2) * 10; // verander getekende hoogte doos
 
-                            a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
-                        }
+                                a = 0; // zorgt ervoor dat ditzelfde getal niet weer gepakt wordt (--, als het ware)
+                            }
                         }
                     }
                 }
@@ -520,7 +606,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
             vulDozen("geel", highestNumberGeel -2);
         }
 
-        // Puur om dozen op 0 te zetten?? buggg
+        // Niet gevulde dozen op 0 zetten
         for (int i = 0; i < 7; i++) {
             if (xYHeightRood[0][i] == 0) {
                 xYHeightRood[3][i] = 0;
@@ -534,22 +620,19 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         }
     }
 
-    // Teken de producten in de dozen ///// blokGrootte moet getal tussen 1 en 4 zijn
+    // Teken de producten in de dozen
     public void drawProducts(Graphics g) {
 
         decideBestFit("rood");
         decideBestFit("groen");
         decideBestFit("geel");
         printArrays();
+        weergaveProductGrootte("rood");
 
         g.setColor(Color.RED);
         // For-loop hierom heen om te printen
         for (int i = 0; i < xYHeightRood[0].length; i++) {
             g.fillRect(xYHeightRood[0][i], xYHeightRood[1][i], width, xYHeightRood[2][i]);
-            System.out.println(i + " 0: " + xYHeightRood[0][i]);
-            System.out.println(i + " 1: " + xYHeightRood[1][i]);
-            System.out.println(i + " 2: " + xYHeightRood[2][i]);
-            System.out.println(i + " 3: " + xYHeightRood[3][i]);
         }
         g.setColor(Color.GREEN);
         // For-loop hierom heen om te printen

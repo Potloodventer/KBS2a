@@ -4,7 +4,7 @@ import java.awt.*;
 public class TekenPanelBPPResultaat extends JPanel {
 
     private int tekenPanelBreedte = HoofdschermGUI.getSchermBreedte() - 200;
-    private int tekenPanelHoogte = HoofdschermGUI.getSchermHoogte() - 200;
+    private int tekenPanelHoogte = HoofdschermGUI.getSchermHoogte() - 300;
 
     private BPPResultaatGUI bppResultaatGUI;
 
