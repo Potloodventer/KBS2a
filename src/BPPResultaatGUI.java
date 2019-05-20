@@ -14,7 +14,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
 
     private JLabel jlRood, jlGroen, jlGeel;
     private JLabel jlDoos1, jlDoos2, jlDoos3, jlDoos4, jlDoos5, jlDoos6, jlDoos7;
-    private JButton jbPakbon;
+    private JButton jbPakbon, jpInhoud;
     private JTabbedPane jTabbedPane;
     private JPanel jPanel;
 
@@ -56,7 +56,8 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         setLayout(new FlowLayout());
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         setTitle("BPP Resultaat");
-
+        jpInhoud = new JButton("inhoud");
+        jpInhoud.addActionListener(this);
         jlRood  = new JLabel("Rood: ");
         jlGroen = new JLabel("Groen: ");
         jlGeel  = new JLabel("Geel: ");
@@ -71,37 +72,16 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         tekenPanelBPPResultaat.add(Box.createRigidArea(new Dimension(810, 200)));
 
         jbPakbon = new JButton("Pakbon");
+
         jbPakbon.addActionListener(this);
 
         // voeg dit allemaal toe op het scherm
         add(jbPakbon);
         add(tekenPanelBPPResultaat);
+        add(jpInhoud);
         ///////////////////////////////////////////////////
         jTabbedPane = new JTabbedPane();
-        for (int i = 0; i < aantalOrders; i++) {
 
-
-            jPanel = new JPanel();
-
-            jlDoos1 = new JLabel();
-            jlDoos2 = new JLabel();
-            jlDoos3 = new JLabel();
-            jlDoos4 = new JLabel();
-            jlDoos5 = new JLabel();
-            jlDoos6 = new JLabel();
-            jlDoos7 = new JLabel();
-
-            jPanel.add(jlDoos1);
-            jPanel.add(jlDoos2);
-            jPanel.add(jlDoos3);
-            jPanel.add(jlDoos4);
-            jPanel.add(jlDoos5);
-            jPanel.add(jlDoos6);
-            jPanel.add(jlDoos7);
-            weergaveProductGrootte(orderKleuren.get(i));
-            jTabbedPane.add(orderKleuren.get(i), jPanel);
-
-        }
         jTabbedPane.setPreferredSize(new Dimension(300, 200));
         add(jTabbedPane);
         setVisible(false);
@@ -110,23 +90,24 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     // functie met setText voor de dozen per kleur (String kleur meegeven)
     public void weergaveProductGrootte(String kleur) {
         if (kleur.equals("rood") ) {
+            System.out.println("true");
             jlDoos1.setText(productWaardesRood[0]);
             if (!productWaardesRood[1].equals("Doos 2: ")) {
                 jlDoos2.setText(productWaardesRood[1]);
             }
-            if (!productWaardesRood[2].equals("Doos 3: ")) {
+            else if (!productWaardesRood[2].equals("Doos 3: ")) {
                 jlDoos3.setText(productWaardesRood[2]);
             }
-            if (!productWaardesRood[3].equals("Doos 4: ")) {
+            else if (!productWaardesRood[3].equals("Doos 4: ")) {
                 jlDoos4.setText(productWaardesRood[3]);
             }
-            if (!productWaardesRood[4].equals("Doos 5: ")) {
+            else if (!productWaardesRood[4].equals("Doos 5: ")) {
                 jlDoos5.setText(productWaardesRood[4]);
             }
-            if (!productWaardesRood[5].equals("Doos 6: ")) {
+            else if (!productWaardesRood[5].equals("Doos 6: ")) {
                 jlDoos6.setText(productWaardesRood[5]);
             }
-            if (!productWaardesRood[6].equals("Doos 7: ")) {
+            else if (!productWaardesRood[6].equals("Doos 7: ")) {
                 jlDoos7.setText(productWaardesRood[6]);
             }
         } else if (kleur.equals("groen") ) {
@@ -134,39 +115,40 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
             if (!productWaardesGroen[1].equals("Doos 2: ")) {
                 jlDoos2.setText(productWaardesGroen[1]);
             }
-            if (!productWaardesGroen[2].equals("Doos 3: ")) {
+            else if (!productWaardesGroen[2].equals("Doos 3: ")) {
                 jlDoos3.setText(productWaardesGroen[2]);
             }
-            if (!productWaardesGroen[3].equals("Doos 4: ")) {
+            else if (!productWaardesGroen[3].equals("Doos 4: ")) {
                 jlDoos4.setText(productWaardesGroen[3]);
             }
-            if (!productWaardesGroen[4].equals("Doos 5: ")) {
+            else if (!productWaardesGroen[4].equals("Doos 5: ")) {
                 jlDoos5.setText(productWaardesGroen[4]);
             }
-            if (!productWaardesGroen[5].equals("Doos 6: ")) {
+            else if (!productWaardesGroen[5].equals("Doos 6: ")) {
                 jlDoos6.setText(productWaardesGroen[5]);
             }
-            if (!productWaardesGroen[6].equals("Doos 7: ")) {
+            else if (!productWaardesGroen[6].equals("Doos 7: ")) {
                 jlDoos7.setText(productWaardesGroen[6]);
             }
         } else if (kleur.equals("geel") ) {
+            System.out.println("geel");
             jlDoos1.setText(productWaardesGeel[0]);
             if (!productWaardesGeel[1].equals("Doos 2: ")) {
                 jlDoos2.setText(productWaardesGeel[1]);
             }
-            if (!productWaardesGeel[2].equals("Doos 3: ")) {
+            else if (!productWaardesGeel[2].equals("Doos 3: ")) {
                 jlDoos3.setText(productWaardesGeel[2]);
             }
-            if (!productWaardesGeel[3].equals("Doos 4: ")) {
+            else if (!productWaardesGeel[3].equals("Doos 4: ")) {
                 jlDoos4.setText(productWaardesGeel[3]);
             }
-            if (!productWaardesGeel[4].equals("Doos 5: ")) {
+            else if (!productWaardesGeel[4].equals("Doos 5: ")) {
                 jlDoos5.setText(productWaardesGeel[4]);
             }
-            if (!productWaardesGeel[5].equals("Doos 6: ")) {
+            else if (!productWaardesGeel[5].equals("Doos 6: ")) {
                 jlDoos6.setText(productWaardesGeel[5]);
             }
-            if (!productWaardesGeel[6].equals("Doos 7: ")) {
+            else if (!productWaardesGeel[6].equals("Doos 7: ")) {
                 jlDoos7.setText(productWaardesGeel[6]);
             }
         }
@@ -298,6 +280,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                 if (c == highestNumberGeel) {//Pak de nummers die het hoogst zijn en zet die voor in de array
                     gesorteerdGeel.add(c);
                 }
+                
             }
             for (Integer c : productenGeel) {
                 if (c == highestNumberGeel - 1) {//Pak alle getallen die 1 lager zijn dan het hoogste getal.
@@ -469,7 +452,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                         xYHeightGeel[2][xYHeightIndexGeel] = geDoos * 10;
                         xYHeightGeel[3][xYHeightIndexGeel] = geDoos;
 
-                        productWaardesGroen[xYHeightIndexGeel] += " " + a;
+                        productWaardesGeel[xYHeightIndexGeel] += " " + a;
                         a = 0;
                     } else {
                         geDoos += a;
@@ -481,7 +464,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                         xYHeightGeel[2][xYHeightIndexGeel] = geDoos * 10;
                         xYHeightGeel[3][xYHeightIndexGeel] = geDoos;
 
-                        productWaardesGroen[xYHeightIndexGeel] += " - " + a;
+                        productWaardesGeel[xYHeightIndexGeel] += " - " + a;
                         a = 0;
                     }
                 }
@@ -627,7 +610,6 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         decideBestFit("groen");
         decideBestFit("geel");
         printArrays();
-        weergaveProductGrootte("rood");
 
         g.setColor(Color.RED);
         // For-loop hierom heen om te printen
@@ -651,6 +633,43 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
         if (e.getSource() == jbPakbon) {
             this.dispose();
             new PakbonGUI().setVisible(true);
+        }
+        if(e.getSource() == jpInhoud){
+            for (String a : orderKleuren) {
+                jPanel = new JPanel();
+
+                jlDoos1 = new JLabel();
+                jlDoos2 = new JLabel();
+                jlDoos3 = new JLabel();
+                jlDoos4 = new JLabel();
+                jlDoos5 = new JLabel();
+                jlDoos6 = new JLabel();
+                jlDoos7 = new JLabel();
+
+                jPanel.add(jlDoos1);
+                jPanel.add(jlDoos2);
+                jPanel.add(jlDoos3);
+                jPanel.add(jlDoos4);
+                jPanel.add(jlDoos5);
+                jPanel.add(jlDoos6);
+                jPanel.add(jlDoos7);
+
+                if(a.equals("groen")){
+                    weergaveProductGrootte("groen");
+                    jTabbedPane.add("groen", jPanel);
+
+                } else if(a.equals("rood")){
+                    weergaveProductGrootte("rood");
+                    jTabbedPane.add("rood", jPanel);
+
+                } else if(a.equals("geel")){
+                    weergaveProductGrootte("geel");
+                    jTabbedPane.add("geel", jPanel);
+
+                }
+
+            }
+
         }
     }
 }

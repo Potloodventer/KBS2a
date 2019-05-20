@@ -313,6 +313,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
 
 
     public void sendOrderToArduino(int i) { // Functie om een order naar de arduino te sturen van de ingeladen orders uit de database.
+
         try {
             String SQL2 = String.format("SELECT orderkleur, aantalblokjes FROM temporders WHERE orderid = %S", orderNummers.get(i));
             ResultSet rs2 = databaseHelper.selectQuery(SQL2);
