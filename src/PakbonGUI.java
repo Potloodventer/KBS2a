@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,11 +9,12 @@ import java.util.ArrayList;
 public class PakbonGUI extends JFrame implements ActionListener {
 
     private DatabaseHelper databaseHelper;
-
+    // ArrayList voor ordernummers en orderkleuren
     private ArrayList<String> orderNummers;
     private ArrayList<String> orderKleuren;
 
-    private int aantalOrders;
+    private int aantalOrders; // aantalRows uit ingeladen orders.
+    // Elementen voor het frame.
     private JTabbedPane tabbedPane;
     private JTable jTable;
     private JPanel jPanel;
@@ -28,13 +28,17 @@ public class PakbonGUI extends JFrame implements ActionListener {
 
     public PakbonGUI() {
 
+        // Layout opties.
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         setTitle("Pakbon");
+        // Initialiseer arraylists.
         orderNummers = new ArrayList<>();
         orderKleuren = new ArrayList<>();
+        // Initialiseer tabbedpane voor verschillende order ids.
         tabbedPane = new JTabbedPane();
+        // Open connectie met de database.
         databaseHelper = new DatabaseHelper();
         databaseHelper.openConnection();
 
@@ -61,6 +65,7 @@ public class PakbonGUI extends JFrame implements ActionListener {
         }
 
         for(int i = 0; i < aantalOrders; i++) // Loop die ervoor zorgt dat er tabs worden toegevoegd aan het panel gelijk aan het aantal orders
+                                                // En alle elementen van de pakbon dynamisch toevoegt per order.
         {
 
             try{
@@ -120,7 +125,7 @@ public class PakbonGUI extends JFrame implements ActionListener {
 
 
                 int rowcount = jTable.getRowCount();
-                for(int x=0;x<rowcount; x++) {
+                for(int x=0;x<rowcount; x++) { // for loop om het totale prijs per order op te tellen.
                     BigDecimal unitPrice = (BigDecimal) jTable.getValueAt(x, jTable.getColumn("UnitPrice").getModelIndex());
                     int unitPriceInt = unitPrice.intValueExact();
                     totaalunitprice += unitPriceInt;

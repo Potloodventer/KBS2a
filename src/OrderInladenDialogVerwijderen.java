@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-public class OrderInladenDialogVerwijderen extends JDialog implements ActionListener {
+public class OrderInladenDialogVerwijderen extends JDialog implements ActionListener { // Dialoog om een ingeladen order te verwijderen vanuit OrderInladenGui
 
     private JTable jTable;
     private JScrollPane jScrollPane;
@@ -18,11 +18,13 @@ public class OrderInladenDialogVerwijderen extends JDialog implements ActionList
 
     public OrderInladenDialogVerwijderen()
     {
+        // Layout opties
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(500, 300);
         setTitle("Ingeladen orders");
 
+        // Open de database connectie.
         databaseHelper = new DatabaseHelper();
         databaseHelper.openConnection();
 
@@ -45,6 +47,7 @@ public class OrderInladenDialogVerwijderen extends JDialog implements ActionList
         jButton.addActionListener(this);
         add(jButton);
 
+        // Selecteer de ingeladen orders uit de database en laat dit zien in een table.
         String SQL = "SELECT orderid, orderkleur, aantalblokjes FROM temporders";
         ResultSet rs = databaseHelper.selectQuery(SQL);
 
@@ -84,7 +87,7 @@ public class OrderInladenDialogVerwijderen extends JDialog implements ActionList
 
 
     }
-    protected static void resultSetToTableModel(ResultSet rs, JTable table) throws SQLException { // Functie om resultset uit de database makkelijk in een JTable te verwerken
+    protected static void resultSetToTableModel(ResultSet rs, JTable table) throws SQLException { // Statische functie om resultset uit de database makkelijk in een JTable te verwerken
         // Maak nieuw tabel model aan
         DefaultTableModel tableModel = new DefaultTableModel();
 

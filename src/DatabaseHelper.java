@@ -59,7 +59,7 @@ public class DatabaseHelper {
         return rows;
     }
 
-    public int executeUpdateQuery(String sql) // Functie om de rest van de query's uit te voeren
+    public int executeUpdateQuery(String sql) // Functie om de rest van de query's (alles behalve een select query) uit te voeren
     {
         int rowsAffected = 0;
 
