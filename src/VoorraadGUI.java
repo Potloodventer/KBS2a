@@ -60,7 +60,6 @@ public class VoorraadGUI extends JFrame implements ActionListener {
         // Als op de homeknop gedrukt wordt sluit het scherm en opent het homescherm
         if (e.getSource() == jbHome) {
             this.dispose();
-            new HoofdschermGUI().setVisible(true);
         }
 
         // Als op de wijzigknop gedrukt wordt opent het product wijzigen scherm

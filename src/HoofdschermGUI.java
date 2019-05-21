@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
     private VoorraadGUI voorraadGUI;
     private OrderInladenGUI orderInladenGUI;
     private BPPResultaatGUI bppResultaatGUI;
-
+    private HoofdschermGUI hoofdschermGUI;
     // Database connectie en Arduino connecties.
     private DatabaseHelper databaseHelper;
     private ArduinoConnectie arduinoConnectie;
@@ -68,10 +69,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
         orderInladenJB = new JButton("Order inladen");
         alleProductenJB = new JButton("Pas voorraad aan");
         startRobotJB = new JButton("Start robots");
-        statusRobotJB = new JButton("Status robots");
 
         // Button opties.
-        statusRobotJB.setPreferredSize(new Dimension(160, 30));
         orderInladenJB.setPreferredSize(new Dimension(160, 30));
         alleProductenJB.setPreferredSize(new Dimension(160, 30));
         startRobotJB.setPreferredSize(new Dimension(160, 30));
@@ -81,22 +80,19 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
         arduinoConnectie2 = new ArduinoConnectie(9600, 0);
 
 
-
         // Actionlisteners voor de buttons.
         orderInladenJB.addActionListener(this);
         alleProductenJB.addActionListener(this);
         startRobotJB.addActionListener(this);
-        statusRobotJB.addActionListener(this);
 
 
-        add(Box.createRigidArea(new Dimension(schermBreedte / 2, 35)));  // lege Box voor de indeling
+        add(Box.createRigidArea(new Dimension(schermBreedte / 2, 80)));  // lege Box voor de indeling
         add(orderInladenJB);
         add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
         add(alleProductenJB);
         add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
         add(startRobotJB);
-        add(Box.createRigidArea(new Dimension(schermBreedte / 2, 20)));
-        add(statusRobotJB);
+
 
 
         String SQL = "SELECT * FROM temporders"; // Query om de rows te tellen van temporders.
@@ -137,10 +133,10 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
 
         if (e.getSource() == orderInladenJB) {
             // laad de order?
-            this.setVisible(false);
+            databaseHelper.closeConnection();
             orderInladenGUI = new OrderInladenGUI();
             orderInladenGUI.setVisible(true);
-            databaseHelper.closeConnection();
+
         }
 
         // laat de visuele weergave van de robot zien
@@ -149,23 +145,27 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
 
         // Laat pagina met alle producten zien
         if (e.getSource() == alleProductenJB) {
-            this.setVisible(false);
             voorraadGUI = new VoorraadGUI();
             voorraadGUI.setVisible(true);
-        }
-        if(e.getSource() == statusRobotJB){
-            hmiStatusGUI = new HMIStatusGUI(arduinoConnectie, arduinoConnectie2);
-            hmiStatusGUI.setVisible(true);
         }
 
         // Start de robots
         if (e.getSource() == startRobotJB) {
             databaseHelper.openConnection();
-
+            String SQL = "SELECT * FROM temporders"; // Query om de rows te tellen van temporders.
+            ResultSet rs6 = databaseHelper.selectQuery(SQL);
+            try {
+                rs6.last();
+                aantalRows = rs6.getRow(); // Aantal wordt opgeslagen in aantalRows variable.
+                rs6.beforeFirst();
+            } catch (Exception c) {
+                c.printStackTrace();
+            }
             if (aantalRows < 1) {
                 JOptionPane.showMessageDialog(this, "Je moet eerst 1 of meer orders inladen.");
                 return;
             } else {
+
                 arduinoConnectie.writeString("start");
                 try{
                     Thread.sleep(1000);
@@ -216,17 +216,6 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
                             } else {
                                 hmiStatusGUI.setTelSensorKleur(null);
                             }
-                        } else if (msg.startsWith("j")) { // rood
-                            hmiStatusGUI.setNummer1(2);
-                            hmiStatusGUI.setNummer2(3);
-                        } else if (msg.startsWith("b")) { // geel
-                            hmiStatusGUI.setNummer1(2);
-                            hmiStatusGUI.setNummer2(2);
-                        } else if (msg.startsWith("f")) { // groen
-                            hmiStatusGUI.setNummer1(2);
-                            hmiStatusGUI.setNummer2(1);
-                        } else if (msg.startsWith("a")) { // fout
-                            hmiStatusGUI.setNummer1(1);
                         }
 
                         if (msg.startsWith("m")) { // Als m gestuurd wordt dan is er een rood blokje geteld en wordt een label geupdate in de live status.

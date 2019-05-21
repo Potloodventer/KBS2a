@@ -3,14 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="cc498e77-49a1-4f05-a2d5-cf791ceff1bf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BPPResultaatGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BPPResultaatGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DatabaseHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KBS2a/hoofdSchermGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KBS2a/hoofdSchermGUI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HMIStatusGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HMIStatusGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HoofdschermGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HoofdschermGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OrderInladenDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OrderInladenDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OrderInladenDialogVerwijderen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OrderInladenDialogVerwijderen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/OrderInladenGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OrderInladenGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TekenPanelHMIStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TekenPanelHMIStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VoorraadGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VoorraadGUI.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -40,82 +36,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/OrderInladenDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="109" column="36" selection-start-line="109" selection-start-column="36" selection-end-line="109" selection-end-column="36" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/OrderInladenGUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="112" column="37" selection-start-line="112" selection-start-column="23" selection-end-line="112" selection-end-column="37" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TekenPanelHMIStatus.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-34">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/VoorraadGUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="16" column="53" selection-start-line="16" selection-start-column="53" selection-end-line="16" selection-end-column="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PakbonGUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/OrderInladenDialogVerwijderen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="79" column="53" selection-start-line="79" selection-start-column="53" selection-end-line="79" selection-end-column="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/HoofdschermGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="142" column="45" selection-start-line="142" selection-start-column="45" selection-end-line="142" selection-end-column="45" />
+            <state relative-caret-position="-1308">
+              <caret line="166" column="20" selection-start-line="166" selection-start-column="20" selection-end-line="166" selection-end-column="20" />
               <folding>
                 <element signature="e#4441#4442#0" expanded="true" />
                 <element signature="e#4510#4511#0" expanded="true" />
@@ -135,34 +59,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/VoorraadGUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="62" selection-start-line="62" selection-end-line="62" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/OrderInladenGUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="81" selection-start-line="81" selection-end-line="81" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/HMIStatusGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2128">
-              <caret line="173" column="28" selection-start-line="173" selection-start-column="16" selection-end-line="173" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ProductWijzigenDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="45" column="27" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TekenPanelBPPResultaat.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="598">
+              <caret line="323" column="39" selection-start-line="323" selection-start-column="39" selection-end-line="323" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -178,7 +102,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>print</find>
       <find>pijl</find>
       <find>y</find>
       <find>y =</find>
@@ -206,6 +129,9 @@
       <find>querySucces</find>
       <find>databaseHelper</find>
       <find>databasehelper</find>
+      <find>resultset</find>
+      <find>jb</find>
+      <find>status</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -226,12 +152,12 @@
         <option value="$PROJECT_DIR$/src/BPPResultaatGUI.java" />
         <option value="$PROJECT_DIR$/src/PakbonGUI.java" />
         <option value="$PROJECT_DIR$/src/TekenPanelHMIStatus.java" />
-        <option value="$PROJECT_DIR$/src/VoorraadGUI.java" />
-        <option value="$PROJECT_DIR$/src/HMIStatusGUI.java" />
         <option value="$PROJECT_DIR$/src/OrderInladenDialog.java" />
-        <option value="$PROJECT_DIR$/src/OrderInladenGUI.java" />
         <option value="$PROJECT_DIR$/src/OrderInladenDialogVerwijderen.java" />
+        <option value="$PROJECT_DIR$/src/HMIStatusGUI.java" />
+        <option value="$PROJECT_DIR$/src/VoorraadGUI.java" />
         <option value="$PROJECT_DIR$/src/HoofdschermGUI.java" />
+        <option value="$PROJECT_DIR$/src/OrderInladenGUI.java" />
       </list>
     </option>
   </component>
@@ -271,7 +197,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557913992589" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558436101859" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/mysql-connector-java-5.1.47.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -503,17 +429,24 @@
       <option name="project" value="LOCAL" />
       <updated>1558009935362</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="BPP dozen">
+      <created>1558428582666</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1558428582666</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="116340000" />
+    <option name="totallyTimeSpent" value="123845000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21208054" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21208054" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -523,7 +456,7 @@
       <window_info id="Learn" order="7" weight="0.32967034" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986577" visible="true" weight="0.27620396" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4986577" visible="true" weight="0.27620396" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39660057" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -533,7 +466,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5013423" side_tool="true" weight="0.55382437" />
-      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.4996573" weight="0.09112426" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.4996573" weight="0.09065156" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -608,16 +541,6 @@
     <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/java/lang/Class.java" />
     <entry file="jar://$USER_HOME$/Desktop/mysql-connector-java-5.1.47.jar!/com/mysql/jdbc/MysqlIO.class" />
     <entry file="file://$USER_HOME$/Windesheim Office365/Thijmen Boerland (student) - KBS 2/PakbonGUIbackup.java" />
-    <entry file="file://$PROJECT_DIR$/src/ArduinoConnectie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ConnectieTest.java" />
     <entry file="jar://D:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/util/ArrayList.java" />
     <entry file="jar://C:/Program Files/Java/jdk-11.0.3/lib/src.zip!/java.base/java/util/Objects.java">
@@ -631,34 +554,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BPPResultaatGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="37" column="55" selection-start-line="37" selection-start-column="55" selection-end-line="37" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DatabaseHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/HMIStatusGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2128">
-          <caret line="173" column="28" selection-start-line="173" selection-start-column="16" selection-end-line="173" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -692,16 +591,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/VoorraadGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="53" selection-start-line="16" selection-start-column="53" selection-end-line="16" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PakbonGUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -712,19 +601,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/DatabaseHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-851">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/OrderInladenDialogVerwijderen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="79" column="53" selection-start-line="79" selection-start-column="53" selection-end-line="79" selection-end-column="53" />
+        <state relative-caret-position="145">
+          <caret line="71" selection-start-line="71" selection-end-line="71" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ArduinoConnectie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/OrderInladenDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
+        <state relative-caret-position="359">
           <caret line="109" column="36" selection-start-line="109" selection-start-column="36" selection-end-line="109" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -732,10 +635,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/OrderInladenGUI.java">
+    <entry file="file://$PROJECT_DIR$/src/BPPResultaatGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="112" column="37" selection-start-line="112" selection-start-column="23" selection-end-line="112" selection-end-column="37" />
+        <state relative-caret-position="-1349">
+          <caret line="37" column="55" selection-start-line="37" selection-start-column="55" selection-end-line="37" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HMIStatusGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="323" column="39" selection-start-line="323" selection-start-column="39" selection-end-line="323" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/VoorraadGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -744,8 +664,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/HoofdschermGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="142" column="45" selection-start-line="142" selection-start-column="45" selection-end-line="142" selection-end-column="45" />
+        <state relative-caret-position="-1308">
+          <caret line="166" column="20" selection-start-line="166" selection-start-column="20" selection-end-line="166" selection-end-column="20" />
           <folding>
             <element signature="e#4441#4442#0" expanded="true" />
             <element signature="e#4510#4511#0" expanded="true" />
@@ -759,6 +679,16 @@
             <element signature="e#10969#10970#0" expanded="true" />
             <element signature="e#11027#11028#0" expanded="true" />
             <element signature="e#11101#11102#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OrderInladenGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="81" selection-start-line="81" selection-end-line="81" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

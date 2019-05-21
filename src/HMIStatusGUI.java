@@ -322,7 +322,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
             x.printStackTrace();
         }
         arduinoConnectie1.writeString("stop");
-
         JOptionPane.showMessageDialog(this, "Robots worden gestopt");
 
         // testen van arm(en)

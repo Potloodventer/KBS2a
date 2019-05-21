@@ -24,7 +24,6 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
         setLayout(new FlowLayout());
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         setTitle("Voorraad");
-
         // Buttons
         jbHome = new JButton("HOME");
         jbHome.addActionListener(this);
@@ -80,11 +79,9 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
         // Als op de homeknop gedrukt wordt sluit het scherm en opent het homescherm
         if (e.getSource() == jbHome) {
             this.dispose();
-            new HoofdschermGUI().setVisible(true);
         }
         if(e.getSource() == jbInladen)
         {
-
             int selectedOrder = jTable.getSelectedRow() + 1; // Pak geselecteerde order in jTable en tel er 1 bij op
             int aantalProducten = jTable2.getRowCount(); // Aantal producten in geselecteerde order
 
