@@ -14,7 +14,7 @@ public class VoorraadGUI extends JFrame implements ActionListener {
 
     public VoorraadGUI() {
         // Layout opties.
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         setTitle("Voorraad");

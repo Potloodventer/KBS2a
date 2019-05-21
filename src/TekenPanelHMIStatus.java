@@ -4,13 +4,11 @@ import java.awt.*;
 public class TekenPanelHMIStatus extends JPanel {
 
     private HMIStatusGUI hmiStatusGUI;
-
     private int tekenPanelBreedte = HoofdschermGUI.getSchermBreedte() - 200;
     private int tekenPanelHoogte = HoofdschermGUI.getSchermHoogte() - 200;
 
     public TekenPanelHMIStatus(HMIStatusGUI hmiStatusGUI) {
         this.hmiStatusGUI = hmiStatusGUI;
-
         setLayout(new FlowLayout());
         setPreferredSize(new Dimension(tekenPanelBreedte, tekenPanelHoogte));
         setBackground(Color.white);

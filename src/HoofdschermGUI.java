@@ -140,6 +140,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
             this.setVisible(false);
             orderInladenGUI = new OrderInladenGUI();
             orderInladenGUI.setVisible(true);
+            databaseHelper.closeConnection();
         }
 
         // laat de visuele weergave van de robot zien
@@ -298,17 +299,8 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
                     }
                 });
                 this.dispose();
-
-
-
-
             }
-
         }
-
-
-        // Stop de robots
-
     }
 
 
@@ -328,5 +320,4 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
             System.out.println("geen orders meer te bekennen");
         }
     }
-
 }

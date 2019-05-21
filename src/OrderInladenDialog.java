@@ -84,8 +84,6 @@ public class OrderInladenDialog extends JDialog implements ActionListener { // D
                     String kleurDatabase = rs1.getString("orderkleur");
                     String orderIDDatabase = rs1.getString("orderid");
                     orderIDDatabaseInt = Integer.parseInt(orderIDDatabase);
-                    System.out.println("ordernummer: " + orderNummer);
-                    System.out.println("orderIDDatabase: " + orderIDDatabase);
                     if(selectedKleur.equals(kleurDatabase)){
                         JOptionPane.showMessageDialog(this, "Je kan niet twee dezelfde kleuren toevoegen!");
                         return;
@@ -94,7 +92,6 @@ public class OrderInladenDialog extends JDialog implements ActionListener { // D
                         JOptionPane.showMessageDialog(this, "Je kan niet twee dezelfde orderid's toevoegen!");
                         return;
                     }
-                    orderIDDatabase = "";
                 }
             }catch (Exception x){
                 x.printStackTrace();

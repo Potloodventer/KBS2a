@@ -20,7 +20,7 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
 
     public OrderInladenGUI() {
         // Frame opties
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         setTitle("Voorraad");
@@ -72,11 +72,6 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
 
         add(jScrollPane);
         add(jScrollPane2);
-
-
-
-
-
     }
 
     @Override
@@ -109,14 +104,13 @@ public class OrderInladenGUI extends JFrame implements ActionListener {
 
 
     protected void handleSelectionEvent(ListSelectionEvent e) { // Functie om de producten van de geselecteerde order
-                                                                // te laten zien in de 2de jtable
+        // te laten zien in de 2de jtable
         if (e.getValueIsAdjusting())
             return;
         int selectedRow = jTable.getSelectedRow() + 1; //  Pak geselecteerde orderid
         // Gebruik order id om producten op te halen uit de database
         String SQL = String.format("SELECT X.StockItemID, X.Description, X.UnitPrice, X.Quantity FROM orders AS Z JOIN orderlines AS X ON Z.OrderID = X.OrderID WHERE X.OrderID = %S", selectedRow);
         ResultSet rs = databaseHelper.selectQuery(SQL);
-
 
         // Zet de data van de database om in een jtable
         try {

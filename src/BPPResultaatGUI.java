@@ -35,7 +35,7 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
 
     public BPPResultaatGUI(HMIStatusGUI hmiStatusGUI) {
         this.hmiStatusGUI = hmiStatusGUI;
-
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         orderKleuren = new ArrayList<>();
 
         getAantalRows();

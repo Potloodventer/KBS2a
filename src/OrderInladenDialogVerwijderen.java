@@ -57,7 +57,6 @@ public class OrderInladenDialogVerwijderen extends JDialog implements ActionList
         {
             e.printStackTrace();
         }
-
     }
 
 
@@ -78,14 +77,14 @@ public class OrderInladenDialogVerwijderen extends JDialog implements ActionList
                     JOptionPane.showMessageDialog(this, "Ingeladen order " + selectedValue + " succesvol verwijderd.");
                     this.dispose();
                     new OrderInladenDialogVerwijderen().setVisible(true);
+                    databaseHelper.closeConnection();
                 }
             } catch (Exception x) {
                 x.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Je kan niks verwijderen als er niks ingeladen is.");
             }
+
         }
-
-
     }
     protected static void resultSetToTableModel(ResultSet rs, JTable table) throws SQLException { // Statische functie om resultset uit de database makkelijk in een JTable te verwerken
         // Maak nieuw tabel model aan

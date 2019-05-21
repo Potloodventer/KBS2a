@@ -62,7 +62,7 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
         this.arduinoConnectie2 = arduinoConnectie2;
 
         // Layout opties.
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setSize(HoofdschermGUI.getSchermBreedte(), HoofdschermGUI.getSchermHoogte());
         setTitle("Status robots");
