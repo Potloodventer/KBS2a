@@ -38,6 +38,10 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     private ArrayList<Integer> gesorteerdGroen = new ArrayList<>();
     private ArrayList<Integer> gesorteerdGeel = new ArrayList<>();
 
+    private ArrayList<Integer> dozenRood = new ArrayList<>();
+    private ArrayList<Integer> dozenGroen = new ArrayList<>();
+    private ArrayList<Integer> dozenGeel = new ArrayList<>();
+
     public BPPResultaatGUI(HMIStatusGUI hmiStatusGUI) {
         this.hmiStatusGUI = hmiStatusGUI;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,7 +99,6 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     // functie met setText voor de dozen per kleur (String kleur meegeven)
     public void weergaveProductGrootte(String kleur) {
         if (kleur.equals("rood") ) {
-            System.out.println("true");
             jlDoos1.setText(productWaardesRood[0]);
             if (!productWaardesRood[1].equals("Doos 2: ")) {
                 jlDoos2.setText(productWaardesRood[1]);
@@ -136,7 +139,6 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                 jlDoos7.setText(productWaardesGroen[6]);
             }
         } else if (kleur.equals("geel") ) {
-            System.out.println("geel");
             jlDoos1.setText(productWaardesGeel[0]);
             if (!productWaardesGeel[1].equals("Doos 2: ")) {
                 jlDoos2.setText(productWaardesGeel[1]);
@@ -427,7 +429,6 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                         xYHeightRood[3][xYHeightIndexRood] = rDoos;
 
                         productWaardesRood[xYHeightIndexRood] += " - " + a;
-                        System.out.println(productWaardesRood[xYHeightIndexRood]);
                     }
                 }
             }
@@ -659,9 +660,21 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbPakbon) {
-            setAantalDozenGeelPakBon(xYHeightGeel[3].length);
-            setAantalDozenGroenPakBon(xYHeightGroen[3].length);
-            setAantalDozenRoodPakBon(xYHeightRood[3].length);
+            for(int x= 0; x<7; x++) {
+                if(xYHeightRood[3][x] != 0){
+                    aantalDozenRoodPakBon++;
+                }
+                if(xYHeightGroen[3][x] != 0){
+                    aantalDozenGroenPakBon++;
+                }
+                if(xYHeightGeel[3][x] != 0){
+                    aantalDozenGeelPakBon++;
+                }
+            }
+            setAantalDozenGroenPakBon(aantalDozenGroenPakBon);
+            setAantalDozenRoodPakBon(aantalDozenRoodPakBon);
+            setAantalDozenGeelPakBon(aantalDozenGeelPakBon);
+
             this.dispose();
             new PakbonGUI(getAantalDozenRoodPakBon(), getAantalDozenGeelPakBon(), getAantalDozenGroenPakBon()).setVisible(true);
         }

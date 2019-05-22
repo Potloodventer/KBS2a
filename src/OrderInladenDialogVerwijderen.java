@@ -70,7 +70,6 @@ public class OrderInladenDialogVerwijderen extends JDialog implements ActionList
                 int column = 0;
                 int row = jTable.getSelectedRow();
                 String selectedValue = jTable.getModel().getValueAt(row, 0).toString();
-                System.out.println("Geselecteerde order " + selectedValue);
                 String SQL = String.format("DELETE FROM temporders WHERE orderid = %S", selectedValue);
                 int querySucces = databaseHelper.executeUpdateQuery(SQL);
                 if (querySucces == 1) {

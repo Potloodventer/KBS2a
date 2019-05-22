@@ -88,12 +88,6 @@ public class HMIStatusGUI extends JFrame implements ActionListener {
 
 
         tekenPanelHMIStatus = new TekenPanelHMIStatus(this);
-        tekenPanelHMIStatus.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                System.out.println(e.getX() + "," + e.getY());
-            }
-        });
         tekenPanelHMIStatus.add(Box.createRigidArea(new Dimension(900, 100)));
         tekenPanelHMIStatus.add(jlAantallen);
         tekenPanelHMIStatus.add(Box.createRigidArea(new Dimension(630, 5)));

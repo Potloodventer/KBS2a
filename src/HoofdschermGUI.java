@@ -197,7 +197,6 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
 
                         // ifs om te lezen uit de arduino.
                         if (msg.startsWith("k")) { // Als k wordt gestuurd, stuurt de applicatie de volgende order.
-                            System.out.println("Ik kom in k");
                             tellen = true; // Tellen gaat op true.
                             hmiStatusGUI.setTelSensorKleur(null); // Telsensor kleur wordt zwart
 
@@ -214,7 +213,6 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
                             aantalRood = hmiStatusGUI.getAantalRood();
                             hmiStatusGUI.setAantalRood(aantalRood + 1);
                             hmiStatusGUI.setTelSensorKleur(null);
-                            System.out.println(hmiStatusGUI.getAantalRood());
                         } else if (msg.startsWith("p")) { // Als p gestuurd wordt dan is er een geel blokje geteld en wordt een label geupdate in de live status.
                             aantalGeel = hmiStatusGUI.getAantalGeel();
                             hmiStatusGUI.setAantalGeel(aantalGeel + 1);
@@ -228,7 +226,6 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
 
                         if (tellen) { // Als dit true is wordt er een nieuwe order gestuurd naar de arduino.
                             for (int x = 0; x < aantalRows; x++) {
-                                System.out.println("geteld: " + geteld + "rows: " + aantalRows);
                                 sendOrderToArduino(geteld);
                                 geteld++;
                                 tellen = false;
@@ -293,7 +290,6 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
             ResultSet rs2 = db2.selectQuery(SQL2);
 
             while (rs2.next()) {
-                System.out.println("Ik kom in next");
                 String orderKleur = rs2.getString("orderkleur");
                 String orderAantal = rs2.getString("aantalblokjes");
                 if(!orderKleur.equals("")) {
