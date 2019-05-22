@@ -23,6 +23,11 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     private int roodX1 = 102, groenX1 = 102, geelX1 = 102; // helemaal links in 1e doos
     private int aantalOrders;
 
+    private int aantalDozenRoodPakBon;
+    private int aantalDozenGroenPakBon;
+    private int aantalDozenGeelPakBon;
+
+
     private ArrayList<String> orderKleuren;
 
     private ArrayList<Integer> productenRood = new ArrayList<>();
@@ -95,19 +100,19 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
             if (!productWaardesRood[1].equals("Doos 2: ")) {
                 jlDoos2.setText(productWaardesRood[1]);
             }
-            else if (!productWaardesRood[2].equals("Doos 3: ")) {
+             if (!productWaardesRood[2].equals("Doos 3: ")) {
                 jlDoos3.setText(productWaardesRood[2]);
             }
-            else if (!productWaardesRood[3].equals("Doos 4: ")) {
+             if (!productWaardesRood[3].equals("Doos 4: ")) {
                 jlDoos4.setText(productWaardesRood[3]);
             }
-            else if (!productWaardesRood[4].equals("Doos 5: ")) {
+             if (!productWaardesRood[4].equals("Doos 5: ")) {
                 jlDoos5.setText(productWaardesRood[4]);
             }
-            else if (!productWaardesRood[5].equals("Doos 6: ")) {
+             if (!productWaardesRood[5].equals("Doos 6: ")) {
                 jlDoos6.setText(productWaardesRood[5]);
             }
-            else if (!productWaardesRood[6].equals("Doos 7: ")) {
+             if (!productWaardesRood[6].equals("Doos 7: ")) {
                 jlDoos7.setText(productWaardesRood[6]);
             }
         } else if (kleur.equals("groen") ) {
@@ -115,19 +120,19 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
             if (!productWaardesGroen[1].equals("Doos 2: ")) {
                 jlDoos2.setText(productWaardesGroen[1]);
             }
-            else if (!productWaardesGroen[2].equals("Doos 3: ")) {
+             if (!productWaardesGroen[2].equals("Doos 3: ")) {
                 jlDoos3.setText(productWaardesGroen[2]);
             }
-            else if (!productWaardesGroen[3].equals("Doos 4: ")) {
+             if (!productWaardesGroen[3].equals("Doos 4: ")) {
                 jlDoos4.setText(productWaardesGroen[3]);
             }
-            else if (!productWaardesGroen[4].equals("Doos 5: ")) {
+             if (!productWaardesGroen[4].equals("Doos 5: ")) {
                 jlDoos5.setText(productWaardesGroen[4]);
             }
-            else if (!productWaardesGroen[5].equals("Doos 6: ")) {
+             if (!productWaardesGroen[5].equals("Doos 6: ")) {
                 jlDoos6.setText(productWaardesGroen[5]);
             }
-            else if (!productWaardesGroen[6].equals("Doos 7: ")) {
+             if (!productWaardesGroen[6].equals("Doos 7: ")) {
                 jlDoos7.setText(productWaardesGroen[6]);
             }
         } else if (kleur.equals("geel") ) {
@@ -136,19 +141,19 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
             if (!productWaardesGeel[1].equals("Doos 2: ")) {
                 jlDoos2.setText(productWaardesGeel[1]);
             }
-            else if (!productWaardesGeel[2].equals("Doos 3: ")) {
+            if (!productWaardesGeel[2].equals("Doos 3: ")) {
                 jlDoos3.setText(productWaardesGeel[2]);
             }
-            else if (!productWaardesGeel[3].equals("Doos 4: ")) {
+             if (!productWaardesGeel[3].equals("Doos 4: ")) {
                 jlDoos4.setText(productWaardesGeel[3]);
             }
-            else if (!productWaardesGeel[4].equals("Doos 5: ")) {
+             if (!productWaardesGeel[4].equals("Doos 5: ")) {
                 jlDoos5.setText(productWaardesGeel[4]);
             }
-            else if (!productWaardesGeel[5].equals("Doos 6: ")) {
+             if (!productWaardesGeel[5].equals("Doos 6: ")) {
                 jlDoos6.setText(productWaardesGeel[5]);
             }
-            else if (!productWaardesGeel[6].equals("Doos 7: ")) {
+             if (!productWaardesGeel[6].equals("Doos 7: ")) {
                 jlDoos7.setText(productWaardesGeel[6]);
             }
         }
@@ -199,17 +204,17 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     public void haalAantalProducten(String kleur) {
 
         if (kleur.equals("rood")) {
-            int aantalRood = getaantallen("rood"); // Haal het aantal blokjes per kleur op uit de database
+            int aantalRood = 14; //getaantallen("rood"); // Haal het aantal blokjes per kleur op uit de database
             for (int i = 0; i < aantalRood; i++) {
                 productenRood.add(generateNumber());
             }
         } else if (kleur.equals("groen")) {
-            int aantalGroen = getaantallen("groen");
+            int aantalGroen = 8; //getaantallen("groen");
             for (int i = 0; i < aantalGroen; i++) {
                 productenGroen.add(generateNumber());
             }
         } else if (kleur.equals("geel")) {
-            int aantalGeel = getaantallen("geel");
+            int aantalGeel = 10; //getaantallen("geel");
             for (int i = 0; i < aantalGeel; i++) {
                 productenGeel.add(generateNumber());
             }
@@ -293,6 +298,29 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
                 }
             }
         }
+    }
+    public int getAantalDozenRoodPakBon() {
+        return aantalDozenRoodPakBon;
+    }
+
+    public void setAantalDozenRoodPakBon(int aantalDozenRoodPakBon) {
+        this.aantalDozenRoodPakBon = aantalDozenRoodPakBon;
+    }
+
+    public int getAantalDozenGroenPakBon() {
+        return aantalDozenGroenPakBon;
+    }
+
+    public void setAantalDozenGroenPakBon(int aantalDozenGroenPakBon) {
+        this.aantalDozenGroenPakBon = aantalDozenGroenPakBon;
+    }
+
+    public int getAantalDozenGeelPakBon() {
+        return aantalDozenGeelPakBon;
+    }
+
+    public void setAantalDozenGeelPakBon(int aantalDozenGeelPakBon) {
+        this.aantalDozenGeelPakBon = aantalDozenGeelPakBon;
     }
 
     //Testen van arraywaardes
@@ -631,8 +659,11 @@ public class BPPResultaatGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbPakbon) {
+            setAantalDozenGeelPakBon(xYHeightGeel[3].length);
+            setAantalDozenGroenPakBon(xYHeightGroen[3].length);
+            setAantalDozenRoodPakBon(xYHeightRood[3].length);
             this.dispose();
-            new PakbonGUI().setVisible(true);
+            new PakbonGUI(getAantalDozenRoodPakBon(), getAantalDozenGeelPakBon(), getAantalDozenGroenPakBon()).setVisible(true);
         }
         if(e.getSource() == jpInhoud){
             for (String a : orderKleuren) {

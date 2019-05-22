@@ -24,9 +24,12 @@ public class PakbonGUI extends JFrame implements ActionListener {
     private JLabel orderKleur, aantalDozen, doosVolume;
     private JLabel orderInfo, klantInfo, productInfo, totaalPrijs;
     private int totaalunitprice;
+    private int aantalDozenGroen;
+    private int aantalDozenRood;
+    private int aantalDozenGeel;
 
 
-    public PakbonGUI() {
+    public PakbonGUI(int aantalDozenRood, int aantalDozenGeel, int aantalDozenGroen) {
 
         // Layout opties.
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -41,7 +44,9 @@ public class PakbonGUI extends JFrame implements ActionListener {
         // Open connectie met de database.
         databaseHelper = new DatabaseHelper();
         databaseHelper.openConnection();
-
+        this.aantalDozenGroen = aantalDozenGroen;
+        this.aantalDozenRood = aantalDozenRood;
+        this.aantalDozenGeel = aantalDozenGeel;
         ResultSet rs = databaseHelper.selectQuery("SELECT * FROM temporders"); // Query om rijen te tellen
         try { // Tel de rijen en sla op in aantalOrders
             rs.last();
@@ -79,7 +84,7 @@ public class PakbonGUI extends JFrame implements ActionListener {
                 productInfo = new JLabel("Product info:");
                 orderKleur = new JLabel("");
                 aantalDozen = new JLabel("Aantal dozen: 0");
-                doosVolume = new JLabel("Volume doos: 10");
+                doosVolume = new JLabel("Volume doos: 8");
                 totaalPrijs = new JLabel("");
 
                 klantNaam = new JLabel("");
@@ -132,6 +137,7 @@ public class PakbonGUI extends JFrame implements ActionListener {
 
                 }
                 totaalPrijs.setText("Totale orderprijs: " + totaalunitprice + "€");
+
                 jPanel.add(jScrollPane);
                 jPanel.add(totaalPrijs);
 
@@ -150,6 +156,14 @@ public class PakbonGUI extends JFrame implements ActionListener {
 
                 }
                 orderKleur.setText("Kleur: " + orderKleuren.get(i));
+                if(orderKleuren.get(i).equals("rood")){
+                    aantalDozen.setText("Aantal dozen: " + aantalDozenRood);
+                } else if (orderKleuren.get(i).equals("groen")){
+                    aantalDozen.setText("Aantal dozen: " + aantalDozenGroen);
+                }else if (orderKleuren.get(i).equals("geel")){
+                    aantalDozen.setText("Aantal dozen: " + aantalDozenGeel);
+                }
+
 
 
             }catch (Exception e){
