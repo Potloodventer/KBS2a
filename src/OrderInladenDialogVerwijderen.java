@@ -77,7 +77,6 @@ public class OrderInladenDialogVerwijderen extends JDialog implements ActionList
                     JOptionPane.showMessageDialog(this, "Ingeladen order " + selectedValue + " succesvol verwijderd.");
                     this.dispose();
                     new OrderInladenDialogVerwijderen().setVisible(true);
-                    databaseHelper.closeConnection();
                 }
             } catch (Exception x) {
                 x.printStackTrace();

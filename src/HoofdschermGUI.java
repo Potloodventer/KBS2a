@@ -30,6 +30,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
     private HoofdschermGUI hoofdschermGUI;
     // Database connectie en Arduino connecties.
     private DatabaseHelper databaseHelper;
+    private DatabaseHelper db2;
     private ArduinoConnectie arduinoConnectie;
     private ArduinoConnectie arduinoConnectie2;
 
@@ -94,29 +95,6 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
         add(startRobotJB);
 
 
-
-        String SQL = "SELECT * FROM temporders"; // Query om de rows te tellen van temporders.
-        ResultSet rs = databaseHelper.selectQuery(SQL);
-        try {
-            rs.last();
-            aantalRows = rs.getRow(); // Aantal wordt opgeslagen in aantalRows variable.
-            rs.beforeFirst();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        ResultSet rs3 = databaseHelper.selectQuery("SELECT orderid, orderkleur FROM temporders"); // Query om alle order ids te pakken van temporders tabel
-        for (int i = 0; i < aantalRows; i++) // Loop die ervoor zorgt dat alle order ids in een arraylist komen
-        {
-            try {
-                if (rs3.next()) {
-                    orderNummers.add(rs3.getString("orderid"));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
         setVisible(true);
     }
 
@@ -151,9 +129,11 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
 
         // Start de robots
         if (e.getSource() == startRobotJB) {
-            databaseHelper.openConnection();
+            databaseHelper.closeConnection();
+            db2 = new DatabaseHelper();
+            db2.openConnection();
             String SQL = "SELECT * FROM temporders"; // Query om de rows te tellen van temporders.
-            ResultSet rs6 = databaseHelper.selectQuery(SQL);
+            ResultSet rs6 = db2.selectQuery(SQL);
             try {
                 rs6.last();
                 aantalRows = rs6.getRow(); // Aantal wordt opgeslagen in aantalRows variable.
@@ -165,6 +145,17 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
                 JOptionPane.showMessageDialog(this, "Je moet eerst 1 of meer orders inladen.");
                 return;
             } else {
+                ResultSet rs3 = db2.selectQuery("SELECT orderid, orderkleur FROM temporders"); // Query om alle order ids te pakken van temporders tabel
+                for (int i = 0; i < aantalRows; i++) // Loop die ervoor zorgt dat alle order ids in een arraylist komen
+                {
+                    try {
+                        if (rs3.next()) {
+                            orderNummers.add(rs3.getString("orderid"));
+                        }
+                    } catch (Exception c) {
+                        c.printStackTrace();
+                    }
+                }
 
                 arduinoConnectie.writeString("start");
                 try{
@@ -206,6 +197,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
 
                         // ifs om te lezen uit de arduino.
                         if (msg.startsWith("k")) { // Als k wordt gestuurd, stuurt de applicatie de volgende order.
+                            System.out.println("Ik kom in k");
                             tellen = true; // Tellen gaat op true.
                             hmiStatusGUI.setTelSensorKleur(null); // Telsensor kleur wordt zwart
 
@@ -236,6 +228,7 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
 
                         if (tellen) { // Als dit true is wordt er een nieuwe order gestuurd naar de arduino.
                             for (int x = 0; x < aantalRows; x++) {
+                                System.out.println("geteld: " + geteld + "rows: " + aantalRows);
                                 sendOrderToArduino(geteld);
                                 geteld++;
                                 tellen = false;
@@ -297,12 +290,16 @@ public class HoofdschermGUI extends JFrame implements ActionListener { // Klasse
 
         try {
             String SQL2 = String.format("SELECT orderkleur, aantalblokjes FROM temporders WHERE orderid = %S", orderNummers.get(i));
-            ResultSet rs2 = databaseHelper.selectQuery(SQL2);
+            ResultSet rs2 = db2.selectQuery(SQL2);
 
-            if (rs2.next()) {
+            while (rs2.next()) {
+                System.out.println("Ik kom in next");
                 String orderKleur = rs2.getString("orderkleur");
                 String orderAantal = rs2.getString("aantalblokjes");
-                arduinoConnectie.writeString(orderKleur + ":" + orderAantal);
+                if(!orderKleur.equals("")) {
+                    arduinoConnectie.writeString(orderKleur + ":" + orderAantal);
+                    break;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
